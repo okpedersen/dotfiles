@@ -1,7 +1,10 @@
 # Ignore everything...
-*
+/*
+/*/
 
 # Except:
 !.gitignore
 !README.md
 !.zshrc
+!.oh-my-zsh/
+!.oh-my-zsh/*
