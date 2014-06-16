@@ -5,6 +5,9 @@
 # Except:
 !.gitignore
 !README.md
+
+!.vimrc
+
 !.zshrc
 !.oh-my-zsh/
 !.oh-my-zsh/*
