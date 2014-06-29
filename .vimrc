@@ -1,61 +1,73 @@
-"====================================================
+" =================================
 " General
-"====================================================
+" ================================
 
-" syntax highlighting
-syntax on
-
-" Enable fileype detection, load filtype settings, load indent files
-filetype plugin indent on
-
-" disable compatibility with vi
-set nocompatible
-
-" sane text files
+" basic settings
+set nocompatible                "use Vim settings, not Vi
+filetype plugin indent on       "load plugins and indent files
+syntax on                       "enable syntax highlightning
+set encoding=utf8               "utf8-encoding
 set fileformat=unix
-set encoding=utf-8
+set hidden                      "hide buffers when not displayed
+set backspace=indent,eol,start  "allow backspacing in insert mode
 
-" change backspace behavior
-set backspace=indent,eol,start
+" search commands
+set ignorecase                  "case-insensitive search
+set smartcase                   "unless using uppercase letters in query
 
-" correct tabs 
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+" layout
+set showcmd                     "show incomplete commands at the bottom
+set showmode                    "show current mode at the bottom
 
-" convert all typed tabs to spaces
-set expandtab
+set showbreak=....              "show .... to show linebreak
+set wrap                        "wrap lines
+set linebreak                   " 
+set nolist                      " 
 
-" show cursor position all the time
-set ruler
+set number                      "show line numbers
 
-" colorcolumn
-set colorcolumn=80
+set laststatus=2                "show statusline
+set cmdheight=2                 "two lines for cmds
+set ruler                       "show line/column and relative position
+set wildmenu                    "enable <CTRL>-n and <CTRL>-p to scroll matches
+set wildmode=list:longest       "cmdline tab completion similar to bash
 
-" splits open to the right and below
-set splitbelow
-set splitright
-
-" display incomplete commands
-set showcmd
-
-" show line numbers
-set number
+set colorcolumn=80              "column 80 is marked
 
 " search
-set hlsearch
-set incsearch
+set hlsearch                    "highlight
+set ignorecase                  "ignore case
+set smartcase                   "don't ignore case when using uppercase letters
+set incsearch                   "find the next match while typing
 
-" confirm save before exit
+" confirm quit, and prompt to save, when exiting unsaved file
 set confirm
 
-"====================================================
-" custom keyboard remaps
-"====================================================
+" tab settings
+set expandtab                   "tabs to spaces
+set smarttab 
+set shiftwidth=4
+set tabstop=4
+set autoindent
 
-" reselect visual block after indent/outdent
-vnoremap < <gv
+" natural splits
+set splitright
+set splitbelow
+
+"============================================
+" custom keyboard remaps
+"============================================
+
+" Change leader to ','	
+let mapleader = ","
+
+" set jk as escape button in insert mode
+inoremap jk <ESC>
+inoremap kj <ESC>
+
+" reselect visualblock after indent/outdent
 vnoremap > >gv
+vnoremap < <gv
 
 " easy split navigation
 nnoremap <C-h> <C-w>h
@@ -63,20 +75,12 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-" remap <leader> to ,
-let mapleader = ","
+" fast save
+nnoremap <leader>w :w<CR>
 
 " remove hlsearch until next search
 nnoremap <Leader>/ :nohls<CR>
 
-" fast save
-nmap <leader>w :w<ESC>
-
-" map <ESC> to jk
-inoremap jk <ESC>
-inoremap kj <ESC>
-
-" autobraces by typing {}<CR>
-inoremap {}<CR> {<CR>}<ESC>O
-
-
+" automatic right and left braces
+inoremap {<CR> {<CR>}<ESC>O
+inoremap {{ {}<ESC>i
