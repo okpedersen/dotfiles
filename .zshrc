@@ -78,3 +78,13 @@ export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Projects
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 source /usr/local/bin/virtualenvwrapper.sh
+
+# Virtualenv aliases
+alias v="workon"
+alias v.deactivate="deactivate"
+alias v.mk="mkvirtualenv"
+alias v.rm="rmvirtualenv"
+alias v.switch="workon"
+alias v.add2virtualenv="add2virtualenv"
+alias v.cdsitepackages="cdsitepackages"
+alias v.lssitepackages="lssitepackages"
