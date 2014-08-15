@@ -8,7 +8,7 @@ export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="robbyrussell"
 
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
+alias zshconfig="vim ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Set this to use case-sensitive completion
@@ -54,11 +54,15 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+# Aliases
+alias code="cd ~/Dropbox/Code/"
+alias pbooks="cd ~/Dropbox/Docs/Books/Programming\ Books/"
+
 export PATH="/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -88,3 +92,4 @@ alias v.switch="workon"
 alias v.add2virtualenv="add2virtualenv"
 alias v.cdsitepackages="cdsitepackages"
 alias v.lssitepackages="lssitepackages"
+
