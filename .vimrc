@@ -54,6 +54,12 @@ set autoindent
 set splitright
 set splitbelow
 
+
+"============================================
+" pathogen configuration
+"============================================
+execute pathogen#infect()
+
 "============================================
 " custom keyboard remaps
 "============================================
@@ -82,5 +88,5 @@ nnoremap <leader>w :w<CR>
 nnoremap <Leader>/ :nohls<CR>
 
 " automatic right and left braces
-inoremap {<CR> {<CR>}<ESC>O
-inoremap {{ {}<ESC>i
+inoremap {{<CR> {<CR>}<ESC>O
+inoremap {{<Space> {}<ESC>i

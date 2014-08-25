@@ -93,3 +93,5 @@ alias v.add2virtualenv="add2virtualenv"
 alias v.cdsitepackages="cdsitepackages"
 alias v.lssitepackages="lssitepackages"
 
+# Add Anaconda3 to path
+export PATH="/home/okpedersen/anaconda3/bin:$PATH"
