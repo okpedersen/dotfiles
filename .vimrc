@@ -69,7 +69,6 @@ let mapleader = ","
 
 " set jk as escape button in insert mode
 inoremap jk <ESC>
-inoremap kj <ESC>
 
 " reselect visualblock after indent/outdent
 vnoremap > >gv
