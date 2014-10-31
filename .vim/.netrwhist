@@ -1,11 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =9
-let g:netrw_dirhist_1='/etc/cron.daily'
-let g:netrw_dirhist_2='/home/okpedersen/.oh-my-zsh/plugins/python'
-let g:netrw_dirhist_3='/home/okpedersen/.vim/autoload/vim-pathogen'
-let g:netrw_dirhist_4='/home/okpedersen/Dropbox/Delt med Ole K'
-let g:netrw_dirhist_5='/home/okpedersen/Dropbox/Docs/Books/Programming Books/Algorithms/cp3'
-let g:netrw_dirhist_6='/home/okpedersen/.vim/bundle'
-let g:netrw_dirhist_7='/home/okpedersen/Dropbox/Study/ITGK/oving8'
-let g:netrw_dirhist_8='/home/okpedersen/Dropbox/Study/ITGK/oving7'
-let g:netrw_dirhist_9='/home/okpedersen/.vim'
+let g:netrw_dirhist_cnt =0
