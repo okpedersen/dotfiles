@@ -55,8 +55,6 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 # Aliases
-alias code="cd ~/Dropbox/Code/"
-alias pbooks="cd ~/Dropbox/Docs/Books/Programming\ Books/"
 
 export PATH="/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games"
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -77,21 +75,16 @@ export LANG=en_US.UTF-8
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-# Virtualenvwrapper python3
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Projects
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-source /usr/local/bin/virtualenvwrapper.sh
-
-# Virtualenv aliases
-alias v="workon"
-alias v.deactivate="deactivate"
-alias v.mk="mkvirtualenv"
-alias v.rm="rmvirtualenv"
-alias v.switch="workon"
-alias v.add2virtualenv="add2virtualenv"
-alias v.cdsitepackages="cdsitepackages"
-alias v.lssitepackages="lssitepackages"
-
-# Add Anaconda3 to path
-export PATH="/home/okpedersen/anaconda3/bin:$PATH"
+if [[ -a $HOME/.zsh_virtualenv_settings ]]; then
+    source $HOME/.zsh_virtualenv_settings
+fi
+if [[ -a $HOME/.zsh_local_settings ]]; then
+    source $HOME/.zsh_local_settings
+else
+    echo "No local settings!";
+fi
+if [[ -a $HOME/.zsh_common_settings ]]; then
+    source $HOME/.zsh_common_settings
+else
+    echo "No common settings!";
+fi
