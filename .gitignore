@@ -13,5 +13,4 @@
 !.zshrc
 !.oh-my-zsh/
 !.oh-my-zsh/*
-!.zsh_virtualenv_settings
 !.zsh_common_settings
