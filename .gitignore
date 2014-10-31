@@ -1,13 +1,14 @@
 # Ignore everything...
-/*
-/*/
+*
+*/
 
 # Except:
 !.gitignore
 !README.md
 
 !.vimrc
-!.vim
+!.vim/
+.vim/.netrwhist
 
 !.zshrc
 !.oh-my-zsh/
