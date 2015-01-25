@@ -10,6 +10,8 @@
 !.vim/
 .vim/.netrwhist
 
+!.ycm_extra_conf.py
+
 !.zshrc
 !.oh-my-zsh/
 !.oh-my-zsh/*
