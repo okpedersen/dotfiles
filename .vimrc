@@ -5,7 +5,7 @@
 " basic settings
 set nocompatible                "use Vim settings, not Vi
 filetype plugin indent on       "load plugins and indent files
-set t_Co=256                    "256 colors
+"set t_Co=256                    "256 colors
 syntax on                       "enable syntax highlightning
 set encoding=utf8               "utf8-encoding
 set fileformat=unix
@@ -13,7 +13,7 @@ set hidden                      "hide buffers when not displayed
 set backspace=indent,eol,start  "allow backspacing in insert mode
 
 "set background=dark
-colorscheme distinguished
+"colorscheme distinguished
 
 
 " search commands
@@ -89,11 +89,17 @@ nnoremap <C-l> <C-w>l
 nnoremap <leader>w :w<CR>
 
 " remove hlsearch until next search
-nnoremap <Leader>/ :nohls<CR>
+nnoremap <silent> <Leader>/ :nohls<CR>
 
 " automatic right and left braces
-inoremap {{<CR> {<CR>}<ESC>O
-inoremap {{<Space> {}<ESC>i
+inoremap {<CR> {<CR>}<ESC>O
+inoremap {<Space> {}<ESC>i
+
+inoremap (<CR> (<CR>)<ESC>O
+inoremap (<Space> ()<ESC>i
+
+inoremap [<CR> [<CR>]<ESC>O
+inoremap [<Space> []<ESC>i
 
 
 "===========================================
