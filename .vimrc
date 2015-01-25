@@ -5,11 +5,16 @@
 " basic settings
 set nocompatible                "use Vim settings, not Vi
 filetype plugin indent on       "load plugins and indent files
+set t_Co=256                    "256 colors
 syntax on                       "enable syntax highlightning
 set encoding=utf8               "utf8-encoding
 set fileformat=unix
 set hidden                      "hide buffers when not displayed
 set backspace=indent,eol,start  "allow backspacing in insert mode
+
+"set background=dark
+colorscheme distinguished
+
 
 " search commands
 set ignorecase                  "case-insensitive search
@@ -89,3 +94,22 @@ nnoremap <Leader>/ :nohls<CR>
 " automatic right and left braces
 inoremap {{<CR> {<CR>}<ESC>O
 inoremap {{<Space> {}<ESC>i
+
+
+"===========================================
+" plugin configuration
+"===========================================
+
+" syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" YouCompleteMe
+let g:ycm_global_ycm_extra_conf = '/home/okpedersen/.ycm_extra_conf.py'
+
