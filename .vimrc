@@ -119,3 +119,8 @@ let g:syntastic_check_on_wq = 0
 " YouCompleteMe
 let g:ycm_global_ycm_extra_conf = '/home/okpedersen/.ycm_extra_conf.py'
 
+" NERDTree
+nmap <leader>nt :NERDTreeToggle <CR> 
+let NERDTreeShowHidden=1
+
+
