@@ -5,7 +5,7 @@
 " basic settings
 set nocompatible                "use Vim settings, not Vi
 filetype plugin indent on       "load plugins and indent files
-"set t_Co=256                    "256 colors
+set t_Co=256                    "256 colors
 syntax on                       "enable syntax highlightning
 set encoding=utf8               "utf8-encoding
 set fileformat=unix
