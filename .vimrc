@@ -1,6 +1,6 @@
 " =================================
 " General
-" ================================
+" =================================
 
 " basic settings
 set nocompatible                "use Vim settings, not Vi
@@ -12,18 +12,13 @@ set fileformat=unix
 set hidden                      "hide buffers when not displayed
 set backspace=indent,eol,start  "allow backspacing in insert mode
 
-" search commands
-set ignorecase                  "case-insensitive search
-set smartcase                   "unless using uppercase letters in query
-
 " layout
 set showcmd                     "show incomplete commands at the bottom
 set showmode                    "show current mode at the bottom
 
 set showbreak=....              "show .... to show linebreak
-set wrap                        "wrap lines
-set linebreak                   " 
-set nolist                      " 
+set nowrap                        "wrap lines
+set linebreak                   "
 
 set number                      "show line numbers
 
@@ -46,7 +41,7 @@ set confirm
 
 " tab settings
 set expandtab                   "tabs to spaces
-set smarttab 
+set smarttab
 set shiftwidth=4
 set tabstop=4
 set autoindent
@@ -59,7 +54,7 @@ set splitbelow
 " custom keyboard remaps
 "============================================
 
-" Change leader to ','	
+" Change leader to ','
 let mapleader = ","
 
 " set jk as escape button in insert mode
@@ -90,7 +85,6 @@ inoremap (<Space> ()<ESC>i
 
 inoremap [<CR> [<CR>]<ESC>O
 inoremap [<Space> []<ESC>i
-
 
 "===========================================
 " plugin configuration
