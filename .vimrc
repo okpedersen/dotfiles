@@ -1,9 +1,3 @@
-"==================================
-" pathogen
-"==================================
-
-execute pathogen#infect()
-
 " =================================
 " General
 " =================================
@@ -92,6 +86,34 @@ inoremap (<Space> ()<ESC>i
 inoremap [<CR> [<CR>]<ESC>O
 inoremap [<Space> []<ESC>i
 
+"==================================
+" pathogen
+"==================================
+
+execute pathogen#infect()
+
 "===========================================
 " plugin configuration
 "===========================================
+
+set statusline=%f\                                  "filename
+set statusline+=[%{strlen(&fenc)?&fenc:'none'}]     "file encoding
+set statusline+=%y                                  "filetype
+set statusline+=%m                                  "modified flag
+set statusline+=%r                                  "read only flag
+
+" syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+set statusline+=\ %=                                "align left
+set statusline+=Line:%l/%L[%p%%]                    "line X of Y [percent of file]
+set statusline+=\ Col:%c                            "current column
+set statusline+=\ Buf:%n                            "buffer number
+
+" syntastic
+let g:syntastic_always_populate_loc_list = 1
+let g:sysntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
