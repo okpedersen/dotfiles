@@ -8,14 +8,16 @@ git pull origin master;
 git submodule update;
 
 function syncFiles () {
-    rsync                     \
-        --exclude ".git/"     \
-        --exclude "setup.sh"  \
-        --exclude "README.md" \
-        -avh --no-perms       \
+    rsync                       \
+        --exclude ".git/"       \
+        --exclude ".gitignore"  \
+        --exclude ".gitmodules" \
+        --exclude "setup.sh"    \
+        --exclude "README.md"   \
+        -avh --no-perms         \
         . ~;
     source ~/.zshrc;
 }
 
 syncFiles;
-unset synFiles;
+unset syncFiles;
