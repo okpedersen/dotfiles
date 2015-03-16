@@ -97,7 +97,8 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 set statusline+=\ %=                                "align left
-set statusline+=Line:%l/%L[%p%%]                    "line X of Y [percent of file]
+set statusline+=%{fugitive#statusline()}            "git branchname
+set statusline+=\ Line:%l/%L[%p%%]                  "line X of Y [percent of file]
 set statusline+=\ Col:%c                            "current column
 set statusline+=\ Buf:%n                            "buffer number
 
@@ -111,11 +112,19 @@ let g:syntastic_warning_symbol = '⚠'                "Also applies to YCM
 
 " YCM
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+"whitelist only given languages
 let g:ycm_filetype_whitelist = {
     \ 'python'  : 1,
     \ 'cpp'     : 1,
     \ 'hpp'     : 1,
     \ 'c'       : 1,
     \ 'h'       : 1
-    \}                  " whitelist only given languages
+    \}
+"jump to definition
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
+
+" delimitMate - fix no <S-BS> in terminal
+imap <leader>s <S-BS>
+
+" vim-better-whitespace
+autocmd BufWritePre <buffer> StripWhitespace "Strip trailing whitespace on save
