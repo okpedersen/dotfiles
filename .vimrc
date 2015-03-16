@@ -116,6 +116,16 @@ let g:syntastic_always_populate_loc_list = 1
 let g:sysntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_error_symbol = '✗'                  "Also applies to YCM
+let g:syntastic_warning_symbol = '⚠'                "Also applies to YCM
 
 " YCM
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:ycm_filetype_whitelist = {
+    \ 'python'  : 1,
+    \ 'cpp'     : 1,
+    \ 'hpp'     : 1,
+    \ 'c'       : 1,
+    \ 'h'       : 1
+    \}                  " whitelist only given languages
+nnoremap <leader>jd :YcmCompleter GoTo<CR>
