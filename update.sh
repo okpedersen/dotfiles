@@ -17,6 +17,7 @@ function syncFiles () {
         --exclude ".gitmodules" \
         --exclude "update.sh"   \
         --exclude "README.md"   \
+        --exclude "LICENSE"     \
         -avh --no-perms         \
         . ~;
     source ~/.zshrc;
