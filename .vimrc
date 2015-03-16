@@ -24,7 +24,6 @@ set number                      "show line numbers
 
 set laststatus=2                "show statusline
 set cmdheight=2                 "two lines for cmds
-set ruler                       "show line/column and relative position
 set wildmenu                    "enable <CTRL>-n and <CTRL>-p to scroll matches
 set wildmode=list:longest       "cmdline tab completion similar to bash
 
