@@ -75,16 +75,6 @@ nnoremap <leader>w :w<CR>
 " remove hlsearch until next search
 nnoremap <silent> <Leader>/ :nohls<CR>
 
-" automatic right and left braces
-inoremap {<CR> {<CR>}<ESC>O
-inoremap {<Space> {}<ESC>i
-
-inoremap (<CR> (<CR>)<ESC>O
-inoremap (<Space> ()<ESC>i
-
-inoremap [<CR> [<CR>]<ESC>O
-inoremap [<Space> []<ESC>i
-
 "==================================
 " pathogen
 "==================================
