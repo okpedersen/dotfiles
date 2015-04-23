@@ -102,6 +102,8 @@ set statusline+=\ Line:%l/%L[%p%%]                  "line X of Y [percent of fil
 set statusline+=\ Col:%c                            "current column
 set statusline+=\ Buf:%n                            "buffer number
 
+colorscheme jellybeans
+
 " syntastic
 let g:syntastic_always_populate_loc_list = 1
 let g:sysntastic_auto_loc_list = 1
