@@ -85,22 +85,12 @@ execute pathogen#infect()
 " plugin configuration
 "===========================================
 
-set statusline=%f\                                  "filename
-set statusline+=[%{strlen(&fenc)?&fenc:'none'}]     "file encoding
-set statusline+=%y                                  "filetype
-set statusline+=%m                                  "modified flag
-set statusline+=%r                                  "read only flag
-
-" syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-set statusline+=\ %=                                "align left
-set statusline+=%{fugitive#statusline()}            "git branchname
-set statusline+=\ Line:%l/%L[%p%%]                  "line X of Y [percent of file]
-set statusline+=\ Col:%c                            "current column
-set statusline+=\ Buf:%n                            "buffer number
+" pencil config
+augroup pencil
+    autocmd!
+    autocmd FileType Markdown,mkd call pencil#init()
+    autocmd FileType text call pencil#init()
+augroup END
 
 colorscheme jellybeans
 
