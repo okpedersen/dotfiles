@@ -41,3 +41,6 @@
 [submodule ".vim/bundle/vim-nerdtree-tabs"]
 	path = .vim/bundle/vim-nerdtree-tabs
 	url = https://github.com/jistr/vim-nerdtree-tabs.git
+[submodule ".vim/bundle/vim-pencil"]
+	path = .vim/bundle/vim-pencil
+	url = https://github.com/reedes/vim-pencil.git
