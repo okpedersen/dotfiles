@@ -17,7 +17,7 @@ set showcmd                     "show incomplete commands at the bottom
 set showmode                    "show current mode at the bottom
 
 set showbreak=....              "show .... to show linebreak
-set nowrap                        "wrap lines
+set nowrap                      "wrap lines
 set linebreak                   "
 
 set number                      "show line numbers
@@ -85,13 +85,6 @@ execute pathogen#infect()
 " plugin configuration
 "===========================================
 
-" pencil config
-augroup pencil
-    autocmd!
-    autocmd FileType Markdown,mkd call pencil#init()
-    autocmd FileType text call pencil#init()
-augroup END
-
 colorscheme jellybeans
 
 " syntastic
@@ -115,8 +108,15 @@ let g:ycm_filetype_whitelist = {
 "jump to definition
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
 
-" delimitMate - fix no <S-BS> in terminal
+" CtrlP
+let g:ctrlp_show_hidden = 1
+
+" delimitMate
+"fix no <S-BS> in terminal
 imap <leader>s <S-BS>
+"correct expansion
+let g:delimitMate_expand_cr = 2
+let g:delimitMate_expand_space = 1
 
 " vim-better-whitespace
 autocmd BufWritePre <buffer> StripWhitespace "Strip trailing whitespace on save
