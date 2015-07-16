@@ -1,6 +1,4 @@
-" =================================
-" General
-" =================================
+" General configuration {{{
 
 " basic settings
 set nocompatible                "use Vim settings, not Vi
@@ -15,19 +13,17 @@ set backspace=indent,eol,start  "allow backspacing in insert mode
 " layout
 set showcmd                     "show incomplete commands at the bottom
 set showmode                    "show current mode at the bottom
+set laststatus=2
 
-set showbreak=....              "show .... to show linebreak
-set nowrap                      "wrap lines
-set linebreak                   "
+set nowrap                      "disable automatic wrapping
+set linebreak                   "more natural linebreaking
+set formatoptions=cq          "wrap comments (but not text), allow gq
 
-set number                      "show line numbers
+set foldlevelstart=0            "fold everything when opening file
 
-set laststatus=2                "show statusline
-set cmdheight=2                 "two lines for cmds
-set wildmenu                    "enable <CTRL>-n and <CTRL>-p to scroll matches
-set wildmode=list:longest       "cmdline tab completion similar to bash
-
-set colorcolumn=80              "column 80 is marked
+" show line number of current line, but use relative elsewhere
+set number
+set relativenumber
 
 " search
 set hlsearch                    "highlight
@@ -38,26 +34,35 @@ set incsearch                   "find the next match while typing
 " confirm quit, and prompt to save, when exiting unsaved file
 set confirm
 
-" tab settings
-set expandtab                   "tabs to spaces
+" indent settings
+set expandtab
 set smarttab
 set shiftwidth=4
 set tabstop=4
 set autoindent
+set smartindent
 
 " natural splits
 set splitright
 set splitbelow
+" }}}
 
-"============================================
-" custom keyboard remaps
-"============================================
+" Custom keyboard remaps {{{
 
-" Change leader to ','
-let mapleader = ","
+" change leaders
+let mapleader=" "
+let maplocalleader="\\"
 
 " set jk as escape button in insert mode
 inoremap jk <ESC>
+
+"enable fast .vimrc editing
+nnoremap <leader>sv :source $MYVIMRC<cr>
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+
+" easer movement to begining/end of line
+nnoremap H ^
+nnoremap L $
 
 " reselect visualblock after indent/outdent
 vnoremap > >gv
@@ -72,18 +77,55 @@ nnoremap <C-l> <C-w>l
 " fast save
 nnoremap <leader>w :w<CR>
 
+" use very magic as default
+nnoremap / /\v
+nnoremap ? ?\v
+
 " remove hlsearch until next search
 nnoremap <silent> <Leader>/ :nohls<CR>
 
-"==================================
-" pathogen
-"==================================
+" folds
+nnoremap <leader>z za
+
+" bind <leader>g to grep
+nnoremap <leader>g :silent execute 'grep! -R ' .
+    \ shellescape(expand("<cWORD>")) . ' .'<cr>:copen 10<cr>
+" TODO: Add :cnext, :cprevious mappings
+
+" }}}
+
+" miscanellous utilities {{{
+augroup reload_vimrc " {{{
+    autocmd!
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup end " }}}
+
+augroup trailing_whitespace " {{{
+    autocmd!
+    autocmd InsertLeave,BufEnter * match Error /\v\s+$/
+    autocmd InsertEnter,BufLeave * match
+    autocmd BufWritePre * :call <SID>StripTrailingWhitespace()
+augroup end
+
+function! s:StripTrailingWhitespace()
+    %s/\v\s+$//e
+endfunction " }}}
+
+" spellcheck {{{
+function! s:SpellCheckToggle(...)
+    set spell!
+    echom a:1
+    let &spelllang = a:1
+endfunction
+
+nnoremap <F5> :call <SID>SpellCheckToggle("nb")<CR>
+
+" }}}
+" }}}
+
+" pathogen {{{
 
 execute pathogen#infect()
-
-"===========================================
-" plugin configuration
-"===========================================
 
 colorscheme jellybeans
 
@@ -108,15 +150,39 @@ let g:ycm_filetype_whitelist = {
 "jump to definition
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
 
-" CtrlP
-let g:ctrlp_show_hidden = 1
-
 " delimitMate
-"fix no <S-BS> in terminal
-imap <leader>s <S-BS>
 "correct expansion
 let g:delimitMate_expand_cr = 2
 let g:delimitMate_expand_space = 1
+let g:delimitMate_expand_inside_quotes = 1
+" }}}
 
-" vim-better-whitespace
-autocmd BufWritePre <buffer> StripWhitespace "Strip trailing whitespace on save
+" filetype settings {{{
+augroup filetype_vim " {{{
+    autocmd!
+    autocmd FileType vim setlocal foldmethod=marker
+    autocmd FileType vim nnoremap <buffer> <localleader>c I"<esc>
+augroup end " }}}
+
+augroup filetype_html " {{{
+    autocmd!
+    autocmd BufNewFile,BufRead *.html setlocal nowrap
+augroup end " }}}
+
+augroup filetype_javascript " {{{
+    autocmd!
+    autocmd FileType javascript nnoremap <buffer> <localleader>c I//<esc>
+augroup end " }}}
+
+augroup filetype_python " {{{
+    autocmd!
+    autocmd FileType python nnoremap <buffer> <localleader>c I#<esc>
+augroup end " }}}
+
+augroup filetype_markdown " {{{
+    autocmd!
+    onoremap ih :<c-u>execute "normal! ?^\\(==\\+\\\\|--\\+\\)$\r:nohlsearch\rkvg_"<cr>
+    onoremap ah :<c-u>execute "normal! ?^\\(==\\+\\\\|--\\+\\)$\r:nohlsearch\rg_vk0"<cr>
+    autocmd Filetype markdown let b:delimitMate_nesting_quotes = ['`']
+augroup end " }}}
+" }}}

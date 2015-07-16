@@ -44,3 +44,6 @@
 [submodule ".vim/bundle/vim-pencil"]
 	path = .vim/bundle/vim-pencil
 	url = https://github.com/reedes/vim-pencil.git
+[submodule "sshuttle"]
+	path = sshuttle
+	url = https://github.com/apenwarr/sshuttle.git
