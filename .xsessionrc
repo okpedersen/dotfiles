@@ -1,0 +1,5 @@
+syndaemon \ # monitors keyboard activity and disables touchpad when keyboard in use
+  -t \      # disable tapping and scrolling
+  -k \      # ignore modifier keys
+  -i 2 \    # idle time = 2 sec
+  -d        # start as daemon
