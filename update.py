@@ -29,6 +29,16 @@ collisions = set(os.listdir(HOME_DIR)) & files
 if collisions:
     print("Got the following collisions:")
     print("\n".join(collisions))
+    answer = input("Link non-colliding files? (y/[n]) ")
+    if answer.lower().startswith('y'):
+        files -= collisions
+    else:
+        sys.exit(1)
+
+print("Linking the following files:")
+print("\n".join(files))
+answer = input("Continue? (y/[n]) ")
+if not answer.lower().startswith('y'):
     sys.exit(1)
 
 # assumes unix (windows requries target_is_directory=True for directories)
