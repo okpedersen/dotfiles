@@ -32,3 +32,6 @@
 [submodule "sshuttle"]
 	path = sshuttle
 	url = https://github.com/apenwarr/sshuttle.git
+[submodule ".vim/bundle/SimpylFold"]
+	path = .vim/bundle/SimpylFold
+	url = https://github.com/tmhedberg/SimpylFold.git

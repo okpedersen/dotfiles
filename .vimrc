@@ -81,11 +81,11 @@ nnoremap <leader>w :w<CR>
 nnoremap / /\v
 nnoremap ? ?\v
 
+" paste toggle with F2
+nnoremap <silent> <F2> :set paste!<cr>
+
 " remove hlsearch until next search
 nnoremap <silent> <Leader>/ :nohls<CR>
-
-" folds
-nnoremap <leader>z za
 
 " bind <leader>g to grep
 nnoremap <leader>g :silent execute 'grep! -R ' .
@@ -139,6 +139,7 @@ let g:syntastic_warning_symbol = '⚠'                "Also applies to YCM
 
 " YCM
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:ycm_extra_conf_globlist = ['~/Projects/*']
 "whitelist only given languages
 let g:ycm_filetype_whitelist = {
     \ 'python'  : 1,
@@ -152,9 +153,15 @@ nnoremap <leader>jd :YcmCompleter GoTo<CR>
 
 " delimitMate
 "correct expansion
-let g:delimitMate_expand_cr = 2
+let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
 let g:delimitMate_expand_inside_quotes = 1
+
+" SimpylFold
+let g:SimpylFold_docstring_preview = 1
+let g:SimpylFold_fold_docstring = 0
+autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
+autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 " }}}
 
 " filetype settings {{{
@@ -172,6 +179,7 @@ augroup end " }}}
 augroup filetype_javascript " {{{
     autocmd!
     autocmd FileType javascript nnoremap <buffer> <localleader>c I//<esc>
+    autocmd FileType javascript set shiftwidth=2 tabstop=2
 augroup end " }}}
 
 augroup filetype_python " {{{
@@ -184,5 +192,10 @@ augroup filetype_markdown " {{{
     onoremap ih :<c-u>execute "normal! ?^\\(==\\+\\\\|--\\+\\)$\r:nohlsearch\rkvg_"<cr>
     onoremap ah :<c-u>execute "normal! ?^\\(==\\+\\\\|--\\+\\)$\r:nohlsearch\rg_vk0"<cr>
     autocmd Filetype markdown let b:delimitMate_nesting_quotes = ['`']
+augroup end " }}}
+
+augroup filetype_lisp " {{{
+    autocmd!
+    autocmd FileType lisp let g:delimitMate_expand_cr = 2
 augroup end " }}}
 " }}}
