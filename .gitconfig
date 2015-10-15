@@ -3,3 +3,6 @@
 	email = okpedersen@gmail.com
 [push]
 	default = simple
+[core]
+	editor = vim
+	excludesfile = /home/okpedersen/.gitignore_global
