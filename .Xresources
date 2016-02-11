@@ -1,0 +1,128 @@
+urxvt*termName: urxvt
+! urxvt*geometry:                       geometry
+! urxvt*chdir:                          string
+! urxvt*reverseVideo:                   boolean
+! urxvt*loginShell:                     boolean
+! urxvt*multiClickTime:                 number
+! urxvt*jumpScroll:                     boolean
+! urxvt*skipScroll:                     boolean
+! urxvt*pastableTabs:                   boolean
+urxvt*scrollBar: false
+! urxvt*thickness:                      number
+! urxvt*scrollTtyOutput:                boolean
+! urxvt*scrollTtyKeypress:              boolean
+! urxvt*scrollWithBuffer:               boolean
+! urxvt*inheritPixmap:                  boolean
+! urxvt*transparent:                    boolean
+! urxvt*tintColor:                      color
+! urxvt*shading:                        number
+! urxvt*blurRadius:                     HxV
+! urxvt*fading:                         number
+! urxvt*fadeColor:                      color
+! urxvt*utmpInhibit:                    boolean
+! urxvt*urgentOnBell:                   boolean
+! urxvt*visualBell:                     boolean
+! urxvt*mapAlert:                       boolean
+! urxvt*meta8:                          boolean
+! urxvt*mouseWheelScrollPage:           boolean
+! urxvt*tripleclickwords:               boolean
+! urxvt*insecure:                       boolean
+! urxvt*cursorUnderline:                boolean
+! urxvt*cursorBlink:                    boolean
+! urxvt*pointerBlank:                   boolean
+urxvt*background: #000000
+urxvt*foreground: #FFFFFF
+urxvt*color0: #3b3b3b
+urxvt*color1: #cf6a4c
+urxvt*color2: #99ad6a
+urxvt*color3: #d8ad4c
+urxvt*color4: #597bc5
+urxvt*color5: #a037b0
+urxvt*color6: #71b9f8
+urxvt*color7: #adadad
+urxvt*color8: #3b3b3b
+urxvt*color9: #cf6a4c
+urxvt*color10: #99ad6a
+urxvt*color11: #d8ad4c
+urxvt*color12: #597bc5
+urxvt*color13: #a037b0
+urxvt*color14: #71b9f8
+urxvt*color15: #adadad
+! urxvt*colorBD:                        color
+! urxvt*colorIT:                        color
+! urxvt*colorUL:                        color
+! urxvt*colorRV:                        color
+! urxvt*underlineColor:                 color
+! urxvt*scrollColor:                    color
+! urxvt*troughColor:                    color
+! urxvt*highlightColor:                 color
+! urxvt*highlightTextColor:             color
+! urxvt*cursorColor:                    color
+! urxvt*cursorColor2:                   color
+! urxvt*pointerColor:                   color
+! urxvt*pointerColor2:                  color
+! urxvt*borderColor:                    color
+! urxvt*iconFile:                       file
+urxvt*font: xft:DejaVu Sans Mono:size=8
+! urxvt*boldFont:                       fontname
+! urxvt*italicFont:                     fontname
+! urxvt*boldItalicFont:                 fontname
+! urxvt*intensityStyles:                boolean
+! urxvt*inputMethod:                    name
+! urxvt*preeditType:                    style
+! urxvt*imLocale:                       string
+! urxvt*imFont:                         fontname
+! urxvt*title:                          string
+! urxvt*iconName:                       string
+! urxvt*saveLines:                      number
+! urxvt*buffered:                       boolean
+! urxvt*depth:                          number
+! urxvt*visual:                         number
+! urxvt*transient-for:                  windowid
+! urxvt*override-redirect:              boolean
+! urxvt*hold:                           boolean
+! urxvt*externalBorder:                 number
+! urxvt*internalBorder:                 number
+! urxvt*borderLess:                     boolean
+! urxvt*lineSpace:                      number
+! urxvt*letterSpace:                    number
+! urxvt*skipBuiltinGlyphs:              boolean
+! urxvt*pointerBlankDelay:              number
+! urxvt*backspacekey:                   string
+! urxvt*deletekey:                      string
+! urxvt*print-pipe:                     string
+! urxvt*modifier:                       modifier
+! urxvt*cutchars:                       string
+! urxvt*answerbackString:               string
+! urxvt*secondaryScreen:                boolean
+! urxvt*secondaryScroll:                boolean
+! urxvt*perl-lib:                       string
+! urxvt*perl-eval:                      perl-eval
+! urxvt*perl-ext-common:                string
+urxvt*perl-ext: default,matcher
+! urxvt*iso14755:                       boolean
+! urxvt*iso14755_52:                    boolean
+! urxvt*xrm:                            string
+! urxvt*keysym.sym:                     keysym
+! urxvt*background.border:              boolean
+! urxvt*background.expr:                string
+! urxvt*background.interval:            seconds
+! urxvt*bell-command:                   string
+! urxvt*kuake.hotkey:                   string
+! urxvt*matcher.button:                 string
+! urxvt*matcher.launcher:               string
+! urxvt*matcher.launcher.*:             string
+! urxvt*matcher.pattern.*:              string
+! urxvt*matcher.rend.*:                 string
+! urxvt*remote-clipboard.fetch:         string
+! urxvt*remote-clipboard.store:         string
+! urxvt*searchable-scrollback:          string
+! urxvt*selection-autotransform.*:      string
+! urxvt*selection-pastebin.cmd:         string
+! urxvt*selection-pastebin.url:         string
+! urxvt*selection.pattern-0:            string
+! urxvt*tab-bg:                         colour
+! urxvt*tab-fg:                         colour
+! urxvt*tabbar-bg:                      colour
+! urxvt*tabbar-fg:                      colour
+urxvt*url-launcher: /usr/bin/firefox
