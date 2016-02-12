@@ -40,7 +40,6 @@ set smarttab
 set shiftwidth=4
 set tabstop=4
 set autoindent
-set smartindent
 
 " natural splits
 set splitright
@@ -199,5 +198,10 @@ augroup filetype_markdown " {{{
     onoremap ih :<c-u>execute "normal! ?^\\(==\\+\\\\|--\\+\\)$\r:nohlsearch\rkvg_"<cr>
     onoremap ah :<c-u>execute "normal! ?^\\(==\\+\\\\|--\\+\\)$\r:nohlsearch\rg_vk0"<cr>
     autocmd Filetype markdown let b:delimitMate_nesting_quotes = ['`']
+augroup END " }}}
+
+augroup filetype_c_langs " {{{
+    autocmd!
+    set smartindent
 augroup END " }}}
 " }}}
