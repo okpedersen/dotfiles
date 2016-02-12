@@ -17,7 +17,7 @@ set laststatus=2
 
 set nowrap                      "disable automatic wrapping
 set linebreak                   "more natural linebreaking
-set formatoptions=cq          "wrap comments (but not text), allow gq
+set formatoptions=cq            "wrap comments (but not text), allow gq
 
 set foldlevelstart=0            "fold everything when opening file
 
@@ -34,7 +34,7 @@ set incsearch                   "find the next match while typing
 " confirm quit, and prompt to save, when exiting unsaved file
 set confirm
 
-" indent settings
+" default indent settings
 set expandtab
 set smarttab
 set shiftwidth=4
@@ -89,23 +89,23 @@ nnoremap <silent> <Leader>/ :nohls<CR>
 
 " bind <leader>g to grep
 nnoremap <leader>g :silent execute 'grep! -R ' .
-    \ shellescape(expand("<cWORD>")) . ' .'<cr>:copen 10<cr>
+            \ shellescape(expand("<cWORD>")) . ' .'<cr>:copen 10<cr>
 " TODO: Add :cnext, :cprevious mappings
 
 " }}}
 
-" miscanellous utilities {{{
+" miscellaneous utilities {{{
 augroup reload_vimrc " {{{
     autocmd!
-    autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup end " }}}
+    autocmd BufWritePost .vimrc source %
+augroup END " }}}
 
-augroup trailing_whitespace " {{{
+augroup strip_trailing_whitespace " {{{
     autocmd!
     autocmd InsertLeave,BufEnter * match Error /\v\s+$/
     autocmd InsertEnter,BufLeave * match
     autocmd BufWritePre * :call <SID>StripTrailingWhitespace()
-augroup end
+augroup END
 
 function! s:StripTrailingWhitespace()
     %s/\v\s+$//e
@@ -114,14 +114,12 @@ endfunction " }}}
 " spellcheck {{{
 function! s:SpellCheckToggle(...)
     set spell!
-    echom a:1
+    echomsg a:1
     let &spelllang = a:1
 endfunction
 
-nnoremap <F5> :call <SID>SpellCheckToggle("nb")<CR>
-
-" }}}
-" }}}
+nnoremap <F5> :call <SID>SpellCheckToggle("en")<CR>
+" }}}  }}}
 
 " pathogen {{{
 
@@ -142,29 +140,30 @@ let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_extra_conf_globlist = ['~/Projects/*']
 "whitelist only given languages
 let g:ycm_filetype_whitelist = {
-    \ 'python'  : 1,
-    \ 'cpp'     : 1,
-    \ 'hpp'     : 1,
-    \ 'c'       : 1,
-    \ 'h'       : 1,
-    \ 'java'    : 1
-    \}
+            \ 'python'  : 1,
+            \ 'cpp'     : 1,
+            \ 'hpp'     : 1,
+            \ 'c'       : 1,
+            \ 'h'       : 1,
+            \ 'java'    : 1
+            \}
 
 let g:EclimCompletionMethod = 'omnifunc'
+let g:ycm_python_binary_path = '/usr/bin/python3'
 "jump to definition
-nnoremap <leader>jd :YcmCompleter GoTo<CR>
+nnoremap <leader>d :YcmCompleter GoTo<CR>
 
 " delimitMate
 "correct expansion
 let g:delimitMate_expand_cr = 1
-let g:delimitMate_expand_space = 1
+let g:delimitMate_expand_space = 0
+let g:delimitMate_smart_matchpairs = 1
+let g:delimitMate_balance_matchpairs = 1
 let g:delimitMate_expand_inside_quotes = 1
 
 " SimpylFold
 let g:SimpylFold_docstring_preview = 1
 let g:SimpylFold_fold_docstring = 0
-autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
-autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 " }}}
 
 " filetype settings {{{
@@ -172,33 +171,33 @@ augroup filetype_vim " {{{
     autocmd!
     autocmd FileType vim setlocal foldmethod=marker
     autocmd FileType vim nnoremap <buffer> <localleader>c I"<esc>
-augroup end " }}}
+augroup END " }}}
 
 augroup filetype_html " {{{
     autocmd!
     autocmd BufNewFile,BufRead *.html setlocal nowrap
-augroup end " }}}
+    autocmd FileType html setlocal shiftwidth=2 tabstop=2
+augroup END " }}}
 
 augroup filetype_javascript " {{{
     autocmd!
     autocmd FileType javascript nnoremap <buffer> <localleader>c I//<esc>
-    autocmd FileType javascript set shiftwidth=2 tabstop=2
-augroup end " }}}
+    autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+augroup END " }}}
 
 augroup filetype_python " {{{
     autocmd!
     autocmd FileType python nnoremap <buffer> <localleader>c I#<esc>
-augroup end " }}}
+
+    " SimpylFold
+    autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
+    autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
+augroup END " }}}
 
 augroup filetype_markdown " {{{
     autocmd!
     onoremap ih :<c-u>execute "normal! ?^\\(==\\+\\\\|--\\+\\)$\r:nohlsearch\rkvg_"<cr>
     onoremap ah :<c-u>execute "normal! ?^\\(==\\+\\\\|--\\+\\)$\r:nohlsearch\rg_vk0"<cr>
     autocmd Filetype markdown let b:delimitMate_nesting_quotes = ['`']
-augroup end " }}}
-
-augroup filetype_lisp " {{{
-    autocmd!
-    autocmd FileType lisp let g:delimitMate_expand_cr = 2
-augroup end " }}}
+augroup END " }}}
 " }}}
