@@ -10,7 +10,7 @@ My configuration files for vim and zsh.
 * To use the [YCM-plugin](https://github.com/Valloric/YouCompleteMe)
   * `apt-get install build-essentials python-dev`
   * With support for the C-family languages:
-    * `apt-get install clang`
+    * Debian/Ubuntu: `apt-get install clang`
 
 ## Installation
 
@@ -18,11 +18,11 @@ My configuration files for vim and zsh.
 
   `git clone --recursive https://github.com/okpedersen/dotfiles.git`
 
-* Copy the needed files to the home directory:
+* Make symbolic links in the home directory:
 
   ```zsh
   cd dotfiles
-  zsh update.sh
+  python3 update.py
   ```
 * To use the [YCM-plugin](https://github.com/Valloric/YouCompleteMe)
 
