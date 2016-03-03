@@ -128,9 +128,10 @@ colorscheme jellybeans
 
 " syntastic
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_auto_loc_list = 2                   "Automatically close, but not open
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_loc_list_height=5
 let g:syntastic_error_symbol = '✗'                  "Also applies to YCM
 let g:syntastic_warning_symbol = '⚠'                "Also applies to YCM
 
@@ -184,6 +185,8 @@ augroup filetype_javascript " {{{
     autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 augroup END " }}}
 
+let g:syntastic_python_checkers=['flake8']
+let g:syntastic_python_flake8_args='--ignore=E501'
 augroup filetype_python " {{{
     autocmd!
     autocmd FileType python nnoremap <buffer> <localleader>c I#<esc>
