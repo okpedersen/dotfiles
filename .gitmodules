@@ -32,3 +32,15 @@
 [submodule ".vim/bundle/ctrlp.vim"]
 	path = .vim/bundle/ctrlp.vim
 	url = http://github.com/ctrlpvim/ctrlp.vim.git
+[submodule "nvim/bundle/delimitMate"]
+	path = nvim/bundle/delimitMate
+	url = git@github.com:Raimondi/delimitMate.git
+[submodule "nvim/bundle/syntastic"]
+	path = nvim/bundle/syntastic
+	url = https://github.com/scrooloose/syntastic.git
+[submodule "nvim/bundle/youcompleteme"]
+	path = nvim/bundle/youcompleteme
+	url = https://github.com/valloric/youcompleteme.git
+[submodule "nvim/bundle/jellybeans.vim"]
+	path = nvim/bundle/jellybeans.vim
+	url = https://github.com/nanotech/jellybeans.vim.git

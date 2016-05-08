@@ -1,14 +1,11 @@
 " General configuration {{{
 
 " basic settings
-set nocompatible                "use Vim settings, not Vi
 filetype plugin indent on       "load plugins and indent files
-set t_Co=256                    "256 colors
 syntax on                       "enable syntax highlightning
 set encoding=utf8               "utf8-encoding
 set fileformat=unix
 set hidden                      "hide buffers when not displayed
-set backspace=indent,eol,start  "allow backspacing in insert mode
 
 " layout
 set showcmd                     "show incomplete commands at the bottom
@@ -57,7 +54,8 @@ let mapleader=" "
 let maplocalleader="\\"
 
 " set jk as escape button in insert mode
-inoremap jk <ESC>
+inoremap jj <ESC>
+tnoremap <ESC> <C-\><C-n>
 
 "enable fast .vimrc editing
 nnoremap <leader>sv :source $MYVIMRC<cr>
@@ -72,10 +70,14 @@ vnoremap > >gv
 vnoremap < <gv
 
 " easy split navigation
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-l> <C-\><C-n><C-w>l
 
 " fast save
 nnoremap <leader>w :w<CR>
@@ -92,7 +94,7 @@ nnoremap <silent> <Leader>/ :nohls<CR>
 
 " bind <leader>g to grep
 nnoremap <leader>g :silent execute 'grep! -R ' .
-            \ shellescape(expand("<cWORD>")) . ' .'<cr>:copen 10<cr>
+        \ shellescape(expand("<cWORD>")) . ' .'<cr>:copen 10<cr>
 " TODO: Add :cnext, :cprevious mappings
 
 " }}}
@@ -128,7 +130,6 @@ nnoremap <F5> :call <SID>SpellCheckToggle("en")<CR>
 
 execute pathogen#infect()
 
-colorscheme jellybeans
 
 " syntastic
 let g:syntastic_always_populate_loc_list = 1
@@ -139,6 +140,9 @@ let g:syntastic_loc_list_height=5
 let g:syntastic_error_symbol = '✗'                  "Also applies to YCM
 let g:syntastic_warning_symbol = '⚠'                "Also applies to YCM
 
+"
+"
+"
 " YCM
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_extra_conf_globlist = ['~/Projects/*', '~/Dropbox/*']
@@ -165,10 +169,12 @@ let g:delimitMate_smart_matchpairs = 1
 let g:delimitMate_balance_matchpairs = 1
 let g:delimitMate_expand_inside_quotes = 1
 
-" SimpylFold
-let g:SimpylFold_docstring_preview = 1
-let g:SimpylFold_fold_docstring = 0
-" }}}
+colorscheme jellybeans
+"
+"" SimpylFold
+"let g:SimpylFold_docstring_preview = 1
+"let g:SimpylFold_fold_docstring = 0
+"" }}}
 
 " filetype settings {{{
 augroup filetype_vim " {{{
@@ -207,6 +213,8 @@ augroup filetype_markdown " {{{
     autocmd Filetype markdown let b:delimitMate_nesting_quotes = ['`']
 augroup END " }}}
 
+let g:syntastic_cpp_checkers=['clang_tidy']
+"let g:syntastic_cpp_clang_tidy_args='-std=c++11'
 augroup filetype_c_langs " {{{
     autocmd!
     set smartindent

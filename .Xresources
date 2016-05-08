@@ -98,7 +98,7 @@ urxvt*font: xft:DejaVu Sans Mono:size=8
 ! urxvt*secondaryScroll:                boolean
 ! urxvt*perl-lib:                       string
 ! urxvt*perl-eval:                      perl-eval
-! urxvt*perl-ext-common:                string
+urxvt*perl-ext-common: font-size
 urxvt*perl-ext: default,matcher
 ! urxvt*iso14755:                       boolean
 ! urxvt*iso14755_52:                    boolean
@@ -126,3 +126,6 @@ urxvt*perl-ext: default,matcher
 ! urxvt*tabbar-bg:                      colour
 ! urxvt*tabbar-fg:                      colour
 urxvt*url-launcher: /usr/bin/firefox
+
+URxvt.keysym.C-Up:   perl:font-size:incglobal
+URxvt.keysym.C-Down: perl:font-size:decglobal

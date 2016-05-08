@@ -2,3 +2,6 @@
 *.sw?
 
 .vim/.netrwhist
+
+nvim/.netrwhist
+nvim/spell/
