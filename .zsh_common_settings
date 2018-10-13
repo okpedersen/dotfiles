@@ -17,10 +17,13 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 # Aliases
-export EDITOR=/usr/bin/vim
+export EDITOR=/usr/bin/nvim
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
+
+# set 256 color term for tmux
+export TERM=xterm-256color
