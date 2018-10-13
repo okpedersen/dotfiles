@@ -40,7 +40,6 @@ setxkbmap -option compose:caps
 export GTK_IM_MODULE=xim
 
 xbindkeys --file .xbindkeysrc
-
-
+xmodmap .Xmodmap
 
 exec awesome
