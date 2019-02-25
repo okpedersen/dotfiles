@@ -117,7 +117,12 @@ Plug 'w0rp/ale'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
+" tmux
+Plug 'christoomey/vim-tmux-navigator'
+
+" colorscheme
 Plug 'chriskempson/base16-vim'
+
 
 call plug#end()
 "}}}
