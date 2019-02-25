@@ -30,8 +30,8 @@ set tabstop=2    " width of <TAB>
 set shiftwidth=2 " length of a shift
 
 " python host progs
-let g:python_host_prog="/home/okpedersen/virtualenvs/nvimpy2/bin/python2.7"
-let g:python3_host_prog="/home/okpedersen/virtualenvs/nvimpy3/bin/python3.7"
+let g:python_host_prog="/home/okpedersen/virtualenvs/nvimpy2/bin/python2"
+let g:python3_host_prog="/home/okpedersen/virtualenvs/nvimpy3/bin/python3"
 
 "}}}
 
@@ -173,7 +173,7 @@ let g:deoplete#auto_completion_start_length = 1
 
 " deoplete-clang
 "let g:deoplete#sources#clang#executable = '/usr/bin/clang'
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang.so'
 let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
 
 call deoplete#custom#var('omni', 'input_patterns', {
