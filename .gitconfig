@@ -1,8 +1,8 @@
-[user]
-	name = Ole Kristian Pedersen
-	email = okpedersen@gmail.com
-[push]
-	default = simple
-[core]
-	editor = vim
-	excludesfile = /home/okpedersen/.gitignore_global
+[diff]
+    tool = vimdiff
+[merge]
+    tool = vimdiff
+    conflictstyle = diff3
+[mergetool "vimdiff"]
+    cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
