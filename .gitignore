@@ -5,3 +5,5 @@
 
 nvim/.netrwhist
 nvim/spell/
+nvim/autoload/plug.vim.old
+nvim/plugged/

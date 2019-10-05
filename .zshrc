@@ -11,3 +11,4 @@ if [[ -a $HOME/.zsh_local_settings ]]; then
 else
     echo "No local settings!";
 fi
+export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"

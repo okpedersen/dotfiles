@@ -30,8 +30,8 @@ set tabstop=2    " width of <TAB>
 set shiftwidth=2 " length of a shift
 
 " python host progs
-let g:python_host_prog="/home/okpedersen/virtualenvs/nvimpy2/bin/python2"
-let g:python3_host_prog="/home/okpedersen/virtualenvs/nvimpy3/bin/python3"
+let g:python_host_prog="/usr/local/bin/python2.7"
+let g:python3_host_prog="/usr/local/bin/python3.7"
 
 "}}}
 
@@ -123,13 +123,15 @@ Plug 'christoomey/vim-tmux-navigator'
 " colorscheme
 Plug 'chriskempson/base16-vim'
 
-
 call plug#end()
 "}}}
 
 " colorscheme
-let g:base16colorspace=256
-colorscheme base16-classic-dark
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
+
 " Plugin configuration {{{
 
 " vim-airline

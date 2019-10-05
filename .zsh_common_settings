@@ -17,7 +17,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 # Aliases
-export EDITOR=/usr/bin/nvim
+export EDITOR=/usr/local/bin/nvim
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games"
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -26,4 +26,13 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/g
 export LANG=en_US.UTF-8
 
 # set 256 color term for tmux
-export TERM=xterm-256color
+TERM="screen-256color"
+
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+        eval "$("$BASE16_SHELL/profile_helper.sh")"
+
+# Use vi mode
+set -o vi
