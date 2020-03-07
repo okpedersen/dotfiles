@@ -182,6 +182,11 @@ install_git() {
   # TODO: git aliases
 }
 
+upgrade_packages() {
+  /usr/local/bin/brew upgrade
+  /usr/local/bin/brew cask upgrade
+}
+
 
 main() {
   install_xcode_command_line_tools
@@ -197,6 +202,11 @@ main() {
   install_bash
   install_zsh
   install_git
+
+  upgrade_packages
+
+  brew cask install "${brew_casks[@]}"
+  brew install "${brew_formulas[@]}"
   # install language runtimes: python2,3, js, npm, node, bash?
   # other tools:
   # - shellcheck
