@@ -6,6 +6,9 @@ set -eou pipefail
 . lib/util.sh
 
 
+install_xcode_command_line_tools() {
+  xcode-select --install || true
+}
 
 
 install_brew() {
@@ -181,6 +184,7 @@ install_git() {
 
 
 main() {
+  install_xcode_command_line_tools
   install_brew
   install_basic_tools
   install_kitty
