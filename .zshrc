@@ -11,4 +11,8 @@ if [[ -a $HOME/.zsh_local_settings ]]; then
 else
     echo "No local settings!";
 fi
-export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"
+
+export PATH="/usr/local/bin:$PATH"
+for prog in coreutils ed grep gnu-sed make; do
+  export PATH="$(brew --prefix $prog)/libexec/gnubin:$PATH"
+done
