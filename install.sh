@@ -30,8 +30,8 @@ install_brew() {
 install_basic_tools() {
   brew_formulas+=(
     coreutils binutils diffutils ed findutils gawk gnu-indent gnu-sed gnu-tar
-    gnu-which gnutls grep gzip screen watch wdiff wget bash emacs gpatch less
-    m4 make cmake nano file-formula openssh perl rsync unzip
+    gnu-which gnutls grep gzip screen watch wdiff wget bash gpatch less
+    m4 make cmake file-formula openssh perl rsync unzip
   )
 }
 
