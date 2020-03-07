@@ -5,6 +5,8 @@ set -eou pipefail
 
 . lib/util.sh
 
+declare -a brew_formulas=()
+declare -a brew_casks=()
 
 install_xcode_command_line_tools() {
   xcode-select --install || true
@@ -26,66 +28,31 @@ install_brew() {
 }
 
 install_basic_tools() {
-  local -a tools
-  tools=(
+  brew_formulas+=(
     coreutils binutils diffutils ed findutils gawk gnu-indent gnu-sed gnu-tar
     gnu-which gnutls grep gzip screen watch wdiff wget bash emacs gpatch less
     m4 make cmake nano file-formula openssh perl rsync unzip
   )
-
-  local installed
-  installed=$(brew list)
-
-  for tool in "${tools[@]}"; do
-    if ! [[ "$installed" =~ $tool ]]; then
-      /usr/local/bin/brew install "$tool"
-    fi
-  done
 }
 
 install_kitty() {
-  if utility_exists kitty; then
-    info "Kitty already exists."
-    return 0
-  fi
-
-  /usr/local/bin/brew cask install kitty
+  brew_casks+=(kitty)
 }
 
 install_spotify() {
-  if utility_exists spotify; then
-    info "Spotify already installed."
-    return 0
-  fi
-
-  /usr/local/bin/brew cask install spotify
+  brew_casks+=(spotify)
 }
 
 install_python2() {
-  if utility_exists python2; then
-    info "Python2 already exists."
-    return 0
-  fi
-
-  /usr/local/bin/brew install python@2
-
+  brew_formulas+=(python@2)
 }
 
 install_python3() {
-  if utility_exists python3; then
-    info "Python3 already exists."
-    return 0
-  fi
-
-  /usr/local/bin/brew install python
+  brew_formulas+=(python)
 }
 
 install_tmux() {
-  if utility_exists tmux; then
-    info "tmux already installed"
-  else
-    /usr/local/bin/brew install tmux
-  fi
+  brew_formulas+=(tmux)
 
   local target_file="$HOME/.tmux.conf" 
   if [[ ! -f "$target_file" ]]; then
@@ -140,6 +107,7 @@ install_bash() {
 }
 
 install_zsh() {
+  brew_formulas+=(zsh)
   local -a files
   files=(.zshrc .zsh_common_settings)
   for file in "${files[@]}"; do
@@ -162,11 +130,7 @@ install_zsh() {
 }
 
 install_git() {
-  if utility_exists nvim; then
-    info "Git already exsists."
-  else
-    /usr/local/bin/brew install git
-  fi
+  brew_formulas+=(git)
 
   info "Put local configurations in XDG_CONFIG_HOME/git/config"
 
