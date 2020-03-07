@@ -147,6 +147,18 @@ install_git() {
   # TODO: git aliases
 }
 
+install_bat() {
+  brew_formulas+=(bat)
+}
+
+install_jq() {
+  brew_formulas+=(jq)
+}
+
+install_shellcheck() {
+  brew_formulas+=(shellcheck)
+}
+
 upgrade_packages() {
   /usr/local/bin/brew upgrade
   /usr/local/bin/brew cask upgrade
@@ -167,6 +179,9 @@ main() {
   install_bash
   install_zsh
   install_git
+  install_bat
+  install_jq
+  install_shellcheck
 
   upgrade_packages
 
@@ -174,9 +189,6 @@ main() {
   brew install "${brew_formulas[@]}"
   # install language runtimes: python2,3, js, npm, node, bash?
   # other tools:
-  # - shellcheck
-  # - bat
-  # - jq
   # - aliases
   # - custom scripts
 }
