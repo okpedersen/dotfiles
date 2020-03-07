@@ -84,6 +84,7 @@ install_neovim() {
 
   # TODO: Look into and clean init.vim
   # TODO: Use language-specific files
+  # TODO: Handle plug vim - not in source control
 }
 
 install_common_shell_utils() {
