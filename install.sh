@@ -159,6 +159,10 @@ install_shellcheck() {
   brew_formulas+=(shellcheck)
 }
 
+install_diff_so_fancy() {
+  brew_formulas+=(diff-so-fancy)
+}
+
 upgrade_packages() {
   /usr/local/bin/brew upgrade
   /usr/local/bin/brew cask upgrade
@@ -182,6 +186,7 @@ main() {
   install_bat
   install_jq
   install_shellcheck
+  install_diff_so_fancy
 
   upgrade_packages
 
