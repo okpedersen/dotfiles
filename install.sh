@@ -167,6 +167,10 @@ install_ripgrep() {
   brew_formulas+=(ripgrep)
 }
 
+install_exa() {
+  brew_formulas+=(exa)
+}
+
 upgrade_packages() {
   /usr/local/bin/brew upgrade
   /usr/local/bin/brew cask upgrade
@@ -192,6 +196,7 @@ main() {
   install_shellcheck
   install_diff_so_fancy
   install_ripgrep
+  install_exa
 
   upgrade_packages
 

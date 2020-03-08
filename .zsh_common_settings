@@ -43,3 +43,5 @@ compinit
 
 # aliases
 alias cat='bat'
+alias ls='exa'
+alias l='exa -lahF'
