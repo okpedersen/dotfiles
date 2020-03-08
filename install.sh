@@ -216,8 +216,21 @@ main() {
 
   upgrade_packages
 
-  brew cask install "${brew_casks[@]}"
-  brew install "${brew_formulas[@]}"
+  local installed_casks
+  installed_casks="$(brew cask list)"
+  for prog in "${brew_casks[@]}"; do
+    if ! [[ "$installed_casks" =~ $prog ]]; then
+      /usr/local/bin/brew cask install "$prog"
+    fi
+  done
+
+  local installed_formulas
+  installed_formulas="$(brew list)"
+  for prog in "${brew_formulas[@]}"; do
+    if ! [[ "$installed_formulas" =~ $prog ]]; then
+      /usr/local/bin/brew install "$prog"
+    fi
+  done
   # install language runtimes: python2,3, js, npm, node, bash?
   # other tools:
   # - aliases
