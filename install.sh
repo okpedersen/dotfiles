@@ -163,6 +163,10 @@ install_diff_so_fancy() {
   brew_formulas+=(diff-so-fancy)
 }
 
+install_ripgrep() {
+  brew_formulas+=(ripgrep)
+}
+
 upgrade_packages() {
   /usr/local/bin/brew upgrade
   /usr/local/bin/brew cask upgrade
@@ -187,6 +191,7 @@ main() {
   install_jq
   install_shellcheck
   install_diff_so_fancy
+  install_ripgrep
 
   upgrade_packages
 
