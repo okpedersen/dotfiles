@@ -51,6 +51,10 @@ install_python3() {
   brew_formulas+=(python)
 }
 
+install_rust(){
+  brew_formulas+=(rust)
+}
+
 install_tmux() {
   brew_formulas+=(tmux)
 
@@ -185,6 +189,7 @@ main() {
   install_spotify
   install_python2
   install_python3
+  install_rust
   install_tmux
   install_neovim
   install_common_shell_utils
