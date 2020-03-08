@@ -18,3 +18,7 @@ for prog in coreutils ed grep gnu-sed make; do
 done
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

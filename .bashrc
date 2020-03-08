@@ -10,3 +10,5 @@ export PATH="/usr/local/bin:$PATH"
 for prog in coreutils ed grep gnu-sed make; do
   export PATH="$(brew --prefix $prog)/libexec/gnubin:$PATH"
 done
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

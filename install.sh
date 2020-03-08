@@ -179,6 +179,11 @@ install_fd() {
   brew_formulas+=(fd)
 }
 
+install_fzf() {
+  brew install fzf
+  "$(brew --prefix)"/opt/fzf/install
+}
+
 upgrade_packages() {
   /usr/local/bin/brew upgrade
   /usr/local/bin/brew cask upgrade
@@ -207,6 +212,7 @@ main() {
   install_ripgrep
   install_exa
   install_fd
+  install_fzf
 
   upgrade_packages
 
