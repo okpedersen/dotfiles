@@ -16,3 +16,5 @@ export PATH="/usr/local/bin:$PATH"
 for prog in coreutils ed grep gnu-sed make; do
   export PATH="/usr/local/opt/$prog/libexec/gnubin:$PATH"
 done
+
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"

@@ -40,3 +40,6 @@ set -o vi
 # Configure autocompletion
 autoload -Uz compinit
 compinit
+
+# aliases
+alias cat='bat'
