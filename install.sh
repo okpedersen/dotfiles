@@ -175,6 +175,10 @@ install_exa() {
   brew_formulas+=(exa)
 }
 
+install_fd() {
+  brew_formulas+=(fd)
+}
+
 upgrade_packages() {
   /usr/local/bin/brew upgrade
   /usr/local/bin/brew cask upgrade
@@ -202,6 +206,7 @@ main() {
   install_diff_so_fancy
   install_ripgrep
   install_exa
+  install_fd
 
   upgrade_packages
 
