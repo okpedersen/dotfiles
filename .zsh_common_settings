@@ -36,3 +36,7 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 
 # Use vi mode
 set -o vi
+
+# Configure autocompletion
+autoload -Uz compinit
+compinit
