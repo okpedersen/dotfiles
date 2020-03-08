@@ -1,6 +1,5 @@
 " General configuration {{{
 
-
 set hidden " hide buffers when not displayed
 
 set nowrap " disable automatic wrapping
@@ -65,7 +64,7 @@ let mapleader=" "
 let maplocalleader="\\"
 
 " use jj as escape button in insert mode
-inoremap jj <ESC>
+inoremap jk <ESC>
 
 " use <ESC> to escape insertion in terminal
 tnoremap <ESC> <C-\><C-n>
@@ -90,32 +89,8 @@ Plug 'tpope/vim-fugitive'
 
 Plug 'raimondi/delimitMate'
 
-Plug 'sheerun/vim-polyglot'
-
-Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-
-" cpp
-" use superbo fork, due to no fix for clang >= 6.0.0 in zchee
-"Plug 'zchee/deoplete-clang'
-Plug 'superbo/deoplete-clang'
-Plug 'Shougo/neoinclude.vim'
-
-" python
-Plug 'zchee/deoplete-jedi'
-
-" julia
-Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do' : 'bash install.sh'}
-Plug 'JuliaEditorSupport/julia-vim'
-
-" latex
-Plug 'lervag/vimtex', {'for' : 'tex'}
-
 " Ale
 Plug 'w0rp/ale'
-
-" UltiSnips
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 
 " tmux
 Plug 'christoomey/vim-tmux-navigator'
@@ -171,71 +146,8 @@ let g:delimitMate_expand_space = 0
 let g:delimitMate_smart_matchpairs = 1
 let g:delimitMate_balance_matchpairs = 1
 
-" deoplete.nvim
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_debug = 1
-let g:deoplete#auto_completion_start_length = 1
-
-" deoplete-clangx
-
-" deoplete-clang
-"let g:deoplete#sources#clang#executable = '/usr/bin/clang'
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang.so'
-let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
-
-call deoplete#custom#var('omni', 'input_patterns', {
-  \ 'tex': g:vimtex#re#deoplete
-  \})
-
-
-"vimtex
-let g:vimtex_syntax_minted = [
-      \ { 
-      \   'lang' : 'c',
-      \ },
-      \ {
-      \   'lang' : 'cpp',
-      \   'environments' : ['cppcode', 'cppcode_test'],
-      \ }
-      \]
-let g:vimtex_compiler_progname = 'nvr'
-"let g:vimtex_view_general_viewer = 'okular'
-"let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
-"let g:vimtex_view_general_options_latexmk = '--unique'
-
-let g:polyglot_disabled=['latex']
-
 " ale
 let g:ale_echo_msg_format = '%code: %%linter% [%severity%] %s'
-let g:ale_linters_ignore = {
-      \   'tex' : ['lacheck']
-      \ }
-
-" julia
-let g:default_julia_version = '1.0'
-
-" julia-vim (from polyglot)
-let g:latex_to_unicode_auto = 1
-let g:tex_flavor = 'latex'
-
-" language server
-"let g:LanguageClient_autoStart = 1
-let g:LanguageClient_serverCommands = {
-\ 'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
-\   using LanguageServer;
-\   server = LanguageServer.LanguageServerInstance(stdin, stdout, false);
-\   server.runlinter = true;
-\   run(server);
-\ ']
-\ }
-
-"autocmd FileType julia setlocal omnifunc=LanguageClient#complete
-
-" UltiSnips
-let g:UltiSnipsSnippetDir="~/.config/nvim/UltiSnips"
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " }}}
 
@@ -259,9 +171,4 @@ augroup lang_cpp
   autocmd Filetype cpp setlocal tabstop=2|setlocal shiftwidth=2|setlocal expandtab
 augroup END
 
-augroup lang_latex
-  autocmd!
-  autocmd Filetype tex setlocal tabstop=2|setlocal shiftwidth=2|setlocal expandtab
-  autocmd Filetype tex setlocal wrap|setlocal breakindent
-augroup END
 " }}}
