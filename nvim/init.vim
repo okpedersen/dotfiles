@@ -98,6 +98,7 @@ Plug 'christoomey/vim-tmux-navigator'
 " colorscheme
 Plug 'chriskempson/base16-vim'
 
+Plug 'scrooloose/nerdtree'
 call plug#end()
 "}}}
 
@@ -148,6 +149,11 @@ let g:delimitMate_balance_matchpairs = 1
 
 " ale
 let g:ale_echo_msg_format = '%code: %%linter% [%severity%] %s'
+
+" NERDTree
+let NERDTreeShowHidden=1
+let NERDTreeQuitOnOpen=1
+map <Leader>n :NERDTreeFind<CR>
 
 " }}}
 
