@@ -79,6 +79,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 Plug 'junegunn/vim-peekaboo'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-abolish'
