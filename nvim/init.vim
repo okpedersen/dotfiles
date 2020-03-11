@@ -1,5 +1,8 @@
 " General configuration {{{
 
+let g:is_macos = system("uname") =~ "Darwin"
+let g:is_wsl = has("wsl")
+
 set hidden " hide buffers when not displayed
 
 set nowrap " disable automatic wrapping
@@ -29,8 +32,13 @@ set tabstop=2    " width of <TAB>
 set shiftwidth=2 " length of a shift
 
 " python host progs
-let g:python_host_prog="/usr/local/bin/python2.7"
-let g:python3_host_prog="/usr/local/bin/python3.7"
+if g:is_macos
+  let g:python_host_prog="/usr/local/bin/python2.7"
+  let g:python3_host_prog="/usr/local/bin/python3.7"
+elseif is_wsl
+  let g:python_host_prog="TODO"
+  let g:python3_host_prog="TODO"
+endif
 
 "}}}
 
