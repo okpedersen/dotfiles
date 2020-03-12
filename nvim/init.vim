@@ -1,7 +1,8 @@
 " General configuration {{{
 
-let g:is_macos = system("uname") =~ "Darwin"
-let g:is_wsl = has("wsl")
+let g:uname = system("uname -a")
+let g:is_macos = g:uname =~ "Darwin"
+let g:is_wsl = g:uname =~ "Microsoft"
 
 set hidden " hide buffers when not displayed
 
@@ -36,8 +37,8 @@ if g:is_macos
   let g:python_host_prog="/usr/local/bin/python2.7"
   let g:python3_host_prog="/usr/local/bin/python3.7"
 elseif is_wsl
-  let g:python_host_prog="TODO"
-  let g:python3_host_prog="TODO"
+  let g:python_host_prog="/usr/bin/python2.7"
+  let g:python3_host_prog="/usr/bin/python3"
 endif
 
 "}}}
