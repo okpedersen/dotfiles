@@ -65,6 +65,10 @@ install_rust(){
   brew_formulas+=(rust)
 }
 
+install_npm() {
+  brew_formulas+=(node npm)
+}
+
 install_tmux() {
   brew_formulas+=(tmux)
   configuration_files+=(".tmux.conf")
@@ -81,7 +85,8 @@ configure_neovim() {
   pip3 install pynvim
   sudo npm install -g neovim
 
-  # TODO Python3 needs to be installed before this step
+  curl -fLo nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
   nvim -c "PlugUpgrade | PlugUpdate | UpdateRemotePlugins" -c "qall"
 
   # TODO: Look into and clean init.vim
@@ -91,10 +96,15 @@ configure_neovim() {
 
 install_zsh() {
   brew_formulas+=(zsh)
-  # TODO: WSL installation
   configuration_files+=(".zshrc" ".zsh_common_settings" ".oh-my-zsh")
+  configuration_funcs+=("configure_zsh")
   # TODO: shell aliases
   # TODO: more zsh and .oh-my-zsh config
+}
+
+configure_zsh() {
+  git submodule update --init --recursive
+  chsh -s "$(which zsh)"
 }
 
 install_git() {
@@ -140,6 +150,10 @@ install_fzf() {
   fi
 }
 
+install_gitmoji() {
+  brew_formulas+=(gitmoji)
+}
+
 configure_fzf() {
   "$(brew --prefix)"/opt/fzf/install
 }
@@ -162,6 +176,7 @@ main() {
   install_python2
   install_python3
   install_rust
+  install_npm
   install_tmux
   install_neovim
   install_zsh
@@ -174,6 +189,7 @@ main() {
   install_exa
   install_fd
   install_fzf
+  install_gitmoji
 
   upgrade_packages
 
@@ -212,17 +228,12 @@ main() {
     $func
   done
 
-  # install language runtimes: python2,3, js, npm, node, bash?
   # other tools:
   # - aliases
   # - custom scripts
-  # zsh & as default shell
   # fix config files
   # merge common bash and zshrc settings
-  # git submodule update --init --recursive
   # declare aliases
-  # os specific settings
-  # os specific vim settings
 }
 
 main
