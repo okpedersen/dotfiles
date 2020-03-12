@@ -7,11 +7,12 @@ set -eou pipefail
 
 declare -a brew_formulas=()
 declare -a brew_casks=()
+declare -a configuration_funcs=()
+declare -a configuration_files=()
 
 install_xcode_command_line_tools() {
   xcode-select --install || true
 }
-
 
 install_brew() {
   if ! is_macos; then
@@ -33,6 +34,8 @@ install_basic_tools() {
     gnu-which gnutls grep gzip screen watch wdiff wget bash gpatch less
     m4 make cmake file-formula openssh perl rsync unzip
   )
+  configuration_files+=(".inputrc")
+  configuration_files+=(".bashrc")
 }
 
 install_kitty() {
@@ -57,79 +60,31 @@ install_rust(){
 
 install_tmux() {
   brew_formulas+=(tmux)
-
-  local target_file="$HOME/.tmux.conf" 
-  if [[ ! -f "$target_file" ]]; then
-    ln -s "$(pwd)/.tmux.conf" "$target_file"
-  elif [[ ! -h "$target_file" ]]; then
-    warn "$target_file is not a symbolic link"
-  fi
+  configuration_files+=(".tmux.conf")
 }
 
 install_neovim() {
-  if utility_exists nvim; then
-    info "Neovim already exsists."
-  else
-    /usr/local/bin/brew install neovim
-  fi
+  brew_formulas+=(neovim)
+  configuration_files+=(".config/nvim")
+  configuration_funcs+=("configure_neovim")
+}
 
+configure_neovim() {
   pip2 install pynvim neovim
   pip3 install pynvim
   sudo npm install -g neovim
 
-  local target_file="$HOME/.config/nvim" 
-  if [[ ! -d "$target_file" ]]; then
-    ln -s "$(pwd)/nvim" "$target_file"
-  elif [[ ! -h "$target_file" ]]; then
-    warn "$target_file is not a symbolic link"
-  fi
-
-  nvim -c "PlugUpgrade | PlugUpdate | UpdateRemotePlugins | qall"
+  # TODO Python3 needs to be installed before this step
+  nvim -c "PlugUpgrade | PlugUpdate | UpdateRemotePlugins" -c "qall"
 
   # TODO: Look into and clean init.vim
   # TODO: Use language-specific files
   # TODO: Handle plug vim - not in source control
 }
 
-install_common_shell_utils() {
-  local target_file="$HOME/.inputrc" 
-  if [[ ! -f "$target_file" ]]; then
-    ln -s "$(pwd)/.inputrc" "$target_file"
-  elif [[ ! -h "$target_file" ]]; then
-    warn "$target_file is not a symbolic link"
-  fi
-
-}
-
-install_bash() {
-  # latest bash version is installed by install_basic_tools
-  local target_file="$HOME/.bashrc" 
-  if [[ ! -f "$target_file" ]]; then
-    ln -s "$(pwd)/.bashrc" "$target_file"
-  elif [[ ! -h "$target_file" ]]; then
-    warn "$target_file is not a symbolic link"
-  fi
-}
-
 install_zsh() {
   brew_formulas+=(zsh)
-  local -a files
-  files=(.zshrc .zsh_common_settings)
-  for file in "${files[@]}"; do
-    local target_file="$HOME/$file" 
-    if [[ ! -f "$target_file" ]]; then
-      ln -s "$(pwd)/$file" "$target_file"
-    elif [[ ! -h "$target_file" ]]; then
-      warn "$target_file is not a symbolic link"
-    fi
-  done
-
-  local target_file="$HOME/.oh-my-zsh" 
-  if [[ ! -d "$target_file" ]]; then
-    ln -s "$(pwd)/.oh-my-zsh" "$target_file"
-  elif [[ ! -h "$target_file" ]]; then
-    warn "$target_file is not a symbolic link"
-  fi
+  configuration_files+=(".zshrc" ".zsh_common_settings" ".oh-my-zsh")
   # TODO: shell aliases
   # TODO: more zsh and .oh-my-zsh config
 }
@@ -138,16 +93,7 @@ install_git() {
   brew_formulas+=(git)
 
   info "Put local configurations in XDG_CONFIG_HOME/git/config"
-
-  local target_files=(".gitignore_global" ".gitconfig")
-  for file in "${target_files[@]}"; do
-    local target_file="$HOME/$file" 
-    if [[ ! -f "$target_file" ]]; then
-      ln -s "$(pwd)/$file" "$target_file"
-    elif [[ ! -h "$target_file" ]]; then
-      warn "$target_file is not a symbolic link"
-    fi
-  done
+  configuration_files+=(".gitignore_global" ".gitconfig")
   # TODO: git aliases
 }
 
@@ -180,7 +126,13 @@ install_fd() {
 }
 
 install_fzf() {
-  brew install fzf
+  brew_formulas+=(fzf)
+  if ! utility_exists fzf; then
+    configuration_funcs+=("configure_fzf")
+  fi
+}
+
+configure_fzf() {
   "$(brew --prefix)"/opt/fzf/install
 }
 
@@ -201,8 +153,6 @@ main() {
   install_rust
   install_tmux
   install_neovim
-  install_common_shell_utils
-  install_bash
   install_zsh
   install_git
   install_bat
@@ -231,6 +181,24 @@ main() {
       /usr/local/bin/brew install "$prog"
     fi
   done
+
+  # configuration files
+  for file in "${configuration_files[@]}"; do
+    local target_file="$HOME/$file"
+    local source_file
+    source_file="$(pwd)/$(basename "$file")"
+    if [[ ! -f "$target_file" ]] && [[ ! -d "$target_file" ]]; then
+      ln -s "$source_file" "$target_file"
+    elif [[ ! -h "$target_file" ]]; then
+      warn "$target_file is not a symbolic link"
+    fi
+  done
+
+  # configuration funcs
+  for func in "${configuration_funcs[@]}"; do
+    $func
+  done
+
   # install language runtimes: python2,3, js, npm, node, bash?
   # other tools:
   # - aliases
