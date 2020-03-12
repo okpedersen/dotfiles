@@ -8,6 +8,14 @@ is_macos() {
   fi
 }
 
+is_wsl() {
+  if grep -qEi "(microsoft|wsl)" /proc/version &> /dev/null; then
+    return 0
+  else
+    return 1
+  fi
+}
+
 # utility functions
 debug() {
   echo "[DEBUG]: $1" >&2

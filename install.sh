@@ -11,28 +11,35 @@ declare -a configuration_funcs=()
 declare -a configuration_files=()
 
 install_xcode_command_line_tools() {
-  xcode-select --install || true
+  if is_macos; then
+    xcode-select --install || true
+  fi
 }
 
 install_brew() {
-  if ! is_macos; then
-    warn "Cannot install brew on non-macOS system!"
-    return 1
-  fi
-
   if utility_exists brew; then
     info "Brew already exists."
     return 0
   fi
 
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  if is_macos; then
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  else
+    sudo apt-get install build-essential curl file git
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >> "${HOME}"/.profile
+    echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >> "${HOME}"/.zprofile
+    # Only source bash, since we're running a bash script
+    source "${HOME}/.profile"
+  fi
 }
 
 install_basic_tools() {
+  # make standard unix tools available in macOS
   brew_formulas+=(
     coreutils binutils diffutils ed findutils gawk gnu-indent gnu-sed gnu-tar
     gnu-which gnutls grep gzip screen watch wdiff wget bash gpatch less
-    m4 make cmake file-formula openssh perl rsync unzip
+    m4 make cmake file-formula perl rsync unzip
   )
   configuration_files+=(".inputrc")
   configuration_files+=(".bashrc")
@@ -84,6 +91,7 @@ configure_neovim() {
 
 install_zsh() {
   brew_formulas+=(zsh)
+  # TODO: WSL installation
   configuration_files+=(".zshrc" ".zsh_common_settings" ".oh-my-zsh")
   # TODO: shell aliases
   # TODO: more zsh and .oh-my-zsh config
@@ -137,8 +145,11 @@ configure_fzf() {
 }
 
 upgrade_packages() {
-  /usr/local/bin/brew upgrade
-  /usr/local/bin/brew cask upgrade
+  brew upgrade
+
+  if is_macos; then
+    brew cask upgrade
+  fi
 }
 
 
@@ -166,19 +177,21 @@ main() {
 
   upgrade_packages
 
-  local installed_casks
-  installed_casks="$(brew cask list)"
-  for prog in "${brew_casks[@]}"; do
-    if ! [[ "$installed_casks" =~ $prog ]]; then
-      /usr/local/bin/brew cask install "$prog"
-    fi
-  done
+  if is_macos; then
+    local installed_casks
+    installed_casks="$(brew cask list)"
+    for prog in "${brew_casks[@]}"; do
+      if ! [[ "$installed_casks" =~ $prog ]]; then
+        brew cask install "$prog"
+      fi
+    done
+  fi
 
   local installed_formulas
   installed_formulas="$(brew list)"
   for prog in "${brew_formulas[@]}"; do
     if ! [[ "$installed_formulas" =~ $prog ]]; then
-      /usr/local/bin/brew install "$prog"
+      brew install "$prog"
     fi
   done
 
@@ -203,6 +216,13 @@ main() {
   # other tools:
   # - aliases
   # - custom scripts
+  # zsh & as default shell
+  # fix config files
+  # merge common bash and zshrc settings
+  # git submodule update --init --recursive
+  # declare aliases
+  # os specific settings
+  # os specific vim settings
 }
 
 main
