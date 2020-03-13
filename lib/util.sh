@@ -16,6 +16,14 @@ is_wsl() {
   fi
 }
 
+append_line_to_file_if_not_exists() {
+  local txt="$1"
+  local file="$2"
+  if ! grep -q "$txt" "$file"; then
+    echo "$txt" >> "$file"
+  fi
+}
+
 # utility functions
 debug() {
   echo "[DEBUG]: $1" >&2

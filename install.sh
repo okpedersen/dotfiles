@@ -27,8 +27,8 @@ install_brew() {
   else
     sudo apt-get install build-essential curl file git
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-    echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >> "${HOME}"/.profile
-    echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >> "${HOME}"/.zprofile
+    append_line_to_file_if_not_exists 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' "${HOME}"/.profile
+    append_line_to_file_if_not_exists 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' "${HOME}"/.zprofile
     # Only source bash, since we're running a bash script
     source "${HOME}/.profile"
   fi
@@ -104,7 +104,14 @@ install_zsh() {
 
 configure_zsh() {
   git submodule update --init --recursive
-  chsh -s "$(which zsh)"
+
+  local zsh_path
+  zsh_path="$(command -v zsh)"
+  if ! grep -q "$zsh_path" /etc/shells; then
+    echo "$zsh_path" | sudo tee -a /etc/shells
+  fi
+
+  chsh -s "$zsh_path"
 }
 
 install_git() {
