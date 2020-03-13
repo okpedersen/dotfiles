@@ -29,6 +29,12 @@ install_brew() {
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     append_line_to_file_if_not_exists 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' "${HOME}"/.profile
     append_line_to_file_if_not_exists 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' "${HOME}"/.zprofile
+    # sudo should also have access to brew utils
+    local exports
+    exports="$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    if ! sudo grep -q "HOMEBREW" /root/.profile; then
+      echo "$exports" | sudo tee -a /root/.profile
+    fi
     # Only source bash, since we're running a bash script
     source "${HOME}/.profile"
   fi
@@ -83,7 +89,7 @@ install_neovim() {
 configure_neovim() {
   pip2 install pynvim neovim
   pip3 install pynvim
-  sudo npm install -g neovim
+  sudo -i npm install -g neovim
 
   curl -fLo nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
@@ -107,9 +113,8 @@ configure_zsh() {
 
   local zsh_path
   zsh_path="$(command -v zsh)"
-  if ! grep -q "$zsh_path" /etc/shells; then
-    echo "$zsh_path" | sudo tee -a /etc/shells
-  fi
+
+  append_line_to_file_if_not_exists "$zsh_path" /etc/shells "sudo"
 
   chsh -s "$zsh_path"
 }

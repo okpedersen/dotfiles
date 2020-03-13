@@ -19,8 +19,9 @@ is_wsl() {
 append_line_to_file_if_not_exists() {
   local txt="$1"
   local file="$2"
-  if ! grep -q "$txt" "$file"; then
-    echo "$txt" >> "$file"
+  local sudo_if_given="${3:+sudo}"
+  if ! $sudo_if_given grep -q "$txt" "$file"; then
+    echo "$txt" | $sudo_if_given tee -a "$file"
   fi
 }
 
