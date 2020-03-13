@@ -94,18 +94,12 @@ configure_neovim() {
   curl -fLo nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
   nvim -c "PlugUpgrade | PlugUpdate | UpdateRemotePlugins" -c "qall"
-
-  # TODO: Look into and clean init.vim
-  # TODO: Use language-specific files
-  # TODO: Handle plug vim - not in source control
 }
 
 install_zsh() {
   brew_formulas+=(zsh)
   configuration_files+=(".zshrc" ".zsh_common_settings" ".oh-my-zsh")
   configuration_funcs+=("configure_zsh")
-  # TODO: shell aliases
-  # TODO: more zsh and .oh-my-zsh config
 }
 
 configure_zsh() {
@@ -124,7 +118,6 @@ install_git() {
 
   info "Put local configurations in XDG_CONFIG_HOME/git/config"
   configuration_files+=(".gitignore_global" ".gitconfig")
-  # TODO: git aliases
 }
 
 install_bat() {
@@ -239,13 +232,6 @@ main() {
   for func in "${configuration_funcs[@]}"; do
     $func
   done
-
-  # other tools:
-  # - aliases
-  # - custom scripts
-  # fix config files
-  # merge common bash and zshrc settings
-  # declare aliases
 }
 
 main
