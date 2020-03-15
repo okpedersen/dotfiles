@@ -171,6 +171,12 @@ upgrade_packages() {
   fi
 }
 
+install_base16() {
+  if [[ ! -d "${HOME}"/.config/base16-shell ]]; then
+    git clone https://github.com/chriskempson/base16-shell "${HOME}"/.config/base16-shell
+  fi
+  info "Change shell colors with base16_*"
+}
 
 main() {
   install_xcode_command_line_tools
@@ -195,6 +201,7 @@ main() {
   install_fd
   install_fzf
   install_gitmoji
+  install_base16
 
   upgrade_packages
 
