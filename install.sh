@@ -53,6 +53,7 @@ install_basic_tools() {
 
 install_kitty() {
   brew_casks+=(kitty)
+  configuration_files+=(".config/kitty/kitty.conf")
 }
 
 install_spotify() {
@@ -228,6 +229,7 @@ main() {
     local target_file="$HOME/$file"
     local source_file
     source_file="$(pwd)/$(basename "$file")"
+    mkdir -p "$(dirname "$file")"
     if [[ ! -f "$target_file" ]] && [[ ! -d "$target_file" ]]; then
       ln -s "$source_file" "$target_file"
     elif [[ ! -h "$target_file" ]]; then
