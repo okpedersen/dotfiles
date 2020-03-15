@@ -48,7 +48,7 @@ install_basic_tools() {
     m4 make cmake file-formula perl rsync unzip
   )
   configuration_files+=(".inputrc")
-  configuration_files+=(".bashrc")
+  configuration_files+=(".bashrc" ".sh_common_settings")
 }
 
 install_kitty() {
@@ -98,7 +98,7 @@ configure_neovim() {
 
 install_zsh() {
   brew_formulas+=(zsh)
-  configuration_files+=(".zshrc" ".zsh_common_settings" ".oh-my-zsh")
+  configuration_files+=(".zshrc" ".zsh_common_settings" ".oh-my-zsh" ".sh_common_settings")
   configuration_funcs+=("configure_zsh")
 }
 

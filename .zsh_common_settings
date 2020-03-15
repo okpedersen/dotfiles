@@ -14,34 +14,12 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
-
-# Aliases
-export EDITOR=/usr/local/bin/nvim
-
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games"
-# export MANPATH="/usr/local/man:$MANPATH"
+export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
-# set 256 color term for tmux
-TERM="screen-256color"
-
-# Base16 Shell
-BASE16_SHELL="$HOME/.config/base16-shell/"
-[ -n "$PS1" ] && \
-    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-        eval "$("$BASE16_SHELL/profile_helper.sh")"
-
-# Use vi mode
-set -o vi
-
 # Configure autocompletion
 autoload -Uz compinit
 compinit
-
-# aliases
-alias cat='bat'
-alias ls='exa'
-alias l='exa -lahF'
