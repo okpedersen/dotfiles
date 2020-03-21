@@ -1,0 +1,48 @@
+{
+  "title": "Switch § and `",
+    "rules": [
+    {
+      "description": "Switch § and `",
+      "manipulators": [
+      {
+        "from": {
+          "key_code": "non_us_backslash",
+          "modifiers": {
+            "optional": [
+              "any"
+            ]
+          }
+        },
+        "to": [
+        {
+          "key_code": "grave_accent_and_tilde",
+          "modifiers": [
+            "any"
+          ]
+        }
+        ],
+        "type": "basic"
+      },
+      {
+        "from": {
+          "key_code": "grave_accent_and_tilde",
+          "modifiers": {
+            "optional": [
+              "any"
+            ]
+          }
+        },
+        "to": [
+        {
+          "key_code": "non_us_backslash",
+          "modifiers": [
+            "any"
+          ]
+        }
+        ],
+        "type": "basic"
+      }
+      ]
+    }
+  ]
+}

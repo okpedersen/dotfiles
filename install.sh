@@ -179,6 +179,14 @@ install_base16() {
   info "Change shell colors with base16_*"
 }
 
+install_karabiner() {
+  if is_macos; then
+    configuration_files+=(".config/karabiner/karabiner.json")
+    configuration_files+=(".config/karabiner/assets/complex_modifications/karabiner_norwegian_with_caps_lock.json")
+    configuration_files+=(".config/karabiner/assets/complex_modifications/karabiner_switch_paragraph_sign_and_backquote.json")
+  fi
+}
+
 main() {
   install_xcode_command_line_tools
   install_brew
@@ -203,6 +211,7 @@ main() {
   install_fzf
   install_gitmoji
   install_base16
+  install_karabiner
 
   upgrade_packages
 
