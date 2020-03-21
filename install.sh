@@ -228,8 +228,8 @@ main() {
   for file in "${configuration_files[@]}"; do
     local target_file="$HOME/$file"
     local source_file
-    source_file="$(pwd)/$(basename "$file")"
-    mkdir -p "$(dirname "$file")"
+    source_file="$(pwd)/$(basename "$target_file")"
+    mkdir -p "$(dirname "$target_file")"
     if [[ ! -f "$target_file" ]] && [[ ! -d "$target_file" ]]; then
       ln -s "$source_file" "$target_file"
     elif [[ ! -h "$target_file" ]]; then
