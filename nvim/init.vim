@@ -32,6 +32,18 @@ set expandtab    " tabs to spaces
 set tabstop=2    " width of <TAB>
 set shiftwidth=2 " length of a shift
 
+" don't print ins-completion-menu messages
+set shortmess+=c
+
+" avoid jumping when signs appear and disappear
+set signcolumn=yes
+
+" two lines for cmd
+set cmdheight=2
+
+" write swap file after 300ms of inactivity
+set updatetime=300
+
 " python host progs
 if g:is_macos
   let g:python_host_prog="/usr/local/bin/python2.7"
@@ -40,7 +52,6 @@ elseif is_wsl
   let g:python_host_prog="/usr/bin/python2.7"
   let g:python3_host_prog="/usr/bin/python3"
 endif
-
 "}}}
 
 " Miscellaneous utilities {{{
@@ -103,6 +114,9 @@ Plug 'raimondi/delimitMate'
 " Ale
 Plug 'w0rp/ale'
 
+" coc
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 " tmux
 Plug 'christoomey/vim-tmux-navigator'
 
@@ -132,6 +146,89 @@ let g:delimitMate_balance_matchpairs = 1
 
 " ale
 let g:ale_echo_msg_format = '%code: %%linter% [%severity%] %s'
+
+" CoC {{{
+call coc#add_extension('coc-json', 'coc-python')
+
+" Use <c-n> and <c-p> to trigger completion.
+inoremap <silent><expr> <c-n>
+  \ pumvisible() ? "\<C-n>" :
+  \ coc#refresh()
+inoremap <silent><expr> <c-p>
+  \ pumvisible() ? "\<C-p>" :
+  \ coc#refresh()
+
+" All of the diagnostics are put in the location list (:lopen),
+" with unimpaired.vim use ]l and [l to navigate
+"nmap <silent> [g <Plug>(coc-diagnostic-prev)
+"nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current line.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Introduce function text object
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Mappings using CoCList:
+" Show all diagnostics.
+nnoremap <silent> <leader>e  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+"nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent> <leader>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent> <leader>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent> <leader>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+"nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+"nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent> <leader>p  :<C-u>CocListResume<CR>
+" }}}
+
+
 
 " NERDTree
 let NERDTreeShowHidden=1

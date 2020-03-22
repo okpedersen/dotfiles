@@ -1,0 +1,5 @@
+{
+  // coc
+  "coc.preferences.useQuickfixForLocations": true,
+  "python.jediEnabled": false
+}
