@@ -105,6 +105,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
 
 " git
 Plug 'tpope/vim-fugitive'
