@@ -95,8 +95,6 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-surround'
 
-Plug 'easymotion/vim-easymotion'
-
 " git
 Plug 'tpope/vim-fugitive'
 
@@ -125,34 +123,6 @@ endif
 
 " vim-airline
 let g:airline#extensions#tabline#enabled = 1
-
-" vim-easymotion
-let g:EasyMotion_do_mapping = 0 " disable default mapping
-
-map <Leader>f <Plug>(easymotion-f)
-map <Leader>F <Plug>(easymotion-F)
-nmap <Leader>f <Plug>(easymotion-overwin-f)
-nmap <Leader>F <Plug>(easymotion-overwin-f)
-
-map <Leader>t <Plug>(easymotion-t)
-map <Leader>T <Plug>(easymotion-T)
-
-map <Leader>w <Plug>(easymotion-w)
-map <Leader>W <Plug>(easymotion-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
-
-map <Leader>e <Plug>(easymotion-e)
-map <Leader>E <Plug>(easymotion-E)
-map <Leader>ge <Plug>(easymotion-ge)
-map <Leader>gE <Plug>(easymotion-gE)
-
-map <Leader>n <Plug>(easymotion-n)
-map <Leader>N <Plug>(easymotion-N)
-
-map <Leader>j <Plug>(easymotion-sol-j)
-map <Leader>k <Plug>(easymotion-sol-k)
-nmap <Leader>j <Plug>(easymotion-overwin-line)
-nmap <Leader>k <Plug>(easymotion-overwin-line)
 
 " delimitMate
 let g:delimitMate_expand_cr = 1		 
