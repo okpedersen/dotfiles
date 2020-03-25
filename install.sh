@@ -111,7 +111,7 @@ configure_zsh() {
 
   append_line_to_file_if_not_exists "$zsh_path" /etc/shells "sudo"
 
-  if ! finger "$USER" | grep -E "Shell: .*/zsh"; then
+  if ! [[ $SHELL =~ ^/.*/zsh$ ]]; then
     chsh -s "$zsh_path"
   fi
 }
