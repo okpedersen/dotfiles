@@ -111,7 +111,9 @@ configure_zsh() {
 
   append_line_to_file_if_not_exists "$zsh_path" /etc/shells "sudo"
 
-  chsh -s "$zsh_path"
+  if ! finger "$USER" | grep -E "Shell: .*/zsh"; then
+    chsh -s "$zsh_path"
+  fi
 }
 
 install_git() {
