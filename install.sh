@@ -167,7 +167,7 @@ configure_fzf() {
 }
 
 upgrade_packages() {
-  brew upgrade
+  brew upgrade || true
 
   if is_macos; then
     brew cask upgrade
