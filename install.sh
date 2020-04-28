@@ -163,7 +163,7 @@ install_gitmoji() {
 }
 
 configure_fzf() {
-  "$(brew --prefix)"/opt/fzf/install
+  "$(brew --prefix)"/opt/fzf/install --all
 }
 
 upgrade_packages() {
