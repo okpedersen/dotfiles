@@ -13,7 +13,7 @@ fi
 
 # Use vi mode
 set -o vi
-export EDITOR=/usr/local/bin/nvim
+export EDITOR="$(command -v nvim)"
 
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/"
