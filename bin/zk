@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+set -eou pipefail
+
+usage() {
+  cat << EOF
+Usage:
+  zk [-h|--help]
+     [new <name>]
+
+Options:
+  -h, --help    Display help message
+
+Commands:
+  new <name>    Create new Zettelkasten with filename '<prefix> <name>.md'
+EOF
+}
+
+new() {
+  name="$1"
+  if [[ -z "$name" ]]; then
+    echo "Error: new command requires an argument"
+    exit 1
+  fi
+
+  if [[ -z "$ZK_FILES_DIR" ]]; then
+    echo "Error: ZK_FILES_DIR must be available in environment"
+    exit 1
+  fi
+
+  if [[ ! -a "$ZK_FILES_DIR" ]]; then
+    mkdir "$ZK_FILES_DIR"
+  fi
+
+  if [[ ! -d "$ZK_FILES_DIR" ]]; then
+    echo "Error: $ZK_FILES_DIR is not a directory"
+    exit 1
+  fi
+
+  filename="$ZK_FILES_DIR/$(date +"%Y%m%d%H%S") $name.md"
+
+  $EDITOR "$filename"
+}
+
+case "$1" in
+  -h|--help)
+    usage
+    ;;
+  new)
+    new "$2"
+    ;;
+  *)
+    echo "Unrecognized argument: $1"
+    usage
+    exit 1
+    ;;
+esac
+
+
+

@@ -31,6 +31,10 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # Use bat for preview for <C-t> search
 export FZF_CTRL_T_OPTS=" --preview 'bat --color=always --style=numbers {} | head -500'"
 
+# Zettelkasten
+export PATH="${HOME}/dotfiles/bin:$PATH"
+export ZK_FILES_DIR="$HOME/zettelkasten"
+
 # aliases
 alias cat='bat'
 alias ls='exa'
