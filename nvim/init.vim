@@ -112,6 +112,10 @@ Plug 'tpope/vim-fugitive'
 
 Plug 'raimondi/delimitMate'
 
+" vimwiki
+Plug 'vimwiki/vimwiki'
+Plug 'michal-h21/vim-zettel'
+
 " Ale
 Plug 'w0rp/ale'
 
@@ -229,6 +233,17 @@ nnoremap <silent> <leader>s  :<C-u>CocList -I symbols<cr>
 nnoremap <silent> <leader>p  :<C-u>CocListResume<CR>
 " }}}
 
+" vimwiki/zettelkasten
+let g:vimwiki_list = [{
+  \ 'path': $ZK_FILES_DIR,
+  \ 'syntax': 'markdown',
+  \ 'ext': '.md'
+  \ }]
+
+let g:zettel_format = "%Y%m%d%H%M %title"
+
+let g:zettel_fzf_command = "rg --column --line-number --ignore-case \
+                           \--no-heading --color=always "
 
 
 " NERDTree
