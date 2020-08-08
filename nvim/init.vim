@@ -1,3 +1,4 @@
+" vim:ts=2:sw=2:expandtab:foldmethod=marker:
 " General configuration {{{
 
 let g:uname = system("uname -a")
@@ -255,10 +256,9 @@ map <Leader>n :NERDTreeFind<CR>
 
 
 " Language specific commands {{{
-
 augroup lang_viml
   autocmd!
-  autocmd Filetype python setlocal tabstop=4|setlocal shiftwidth=4| set expandtab
+  autocmd Filetype vim setlocal tabstop=2|setlocal shiftwidth=2| set expandtab
 augroup END
 
 augroup lang_python
