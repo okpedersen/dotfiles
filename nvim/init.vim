@@ -48,7 +48,7 @@ set updatetime=300
 " python host progs
 if g:is_macos
   let g:python_host_prog="/usr/local/bin/python2.7"
-  let g:python3_host_prog="/usr/local/bin/python3.7"
+  let g:python3_host_prog="/usr/local/bin/python3"
 elseif is_wsl
   let g:python_host_prog="/usr/bin/python2.7"
   let g:python3_host_prog="/usr/bin/python3"
@@ -99,7 +99,8 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-Plug 'junegunn/vim-peekaboo'
+" https://github.com/junegunn/vim-peekaboo/issues/74
+" Plug 'junegunn/vim-peekaboo'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
