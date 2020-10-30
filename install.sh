@@ -22,9 +22,14 @@ install_brew() {
     return 0
   fi
 
+  if is_wsl; then
+    sudo hwclock --hctosys # sync clock - can cause troubles if not
+  fi
+
   if is_macos; then
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   else
+    sudo apt-get update
     sudo apt-get install build-essential curl file git
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     append_line_to_file_if_not_exists 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' "${HOME}"/.profile
@@ -61,7 +66,9 @@ install_spotify() {
 }
 
 install_python2() {
-  brew_formulas+=(python@2)
+  if is_macos; then
+    brew_formulas+=(python@2)
+  fi
 }
 
 install_python3() {
@@ -88,7 +95,9 @@ install_neovim() {
 }
 
 configure_neovim() {
-  pip2 install pynvim neovim
+  if utility_exists pip2; then
+    pip2 install pynvim neovim
+  fi
   pip3 install pynvim
   sudo -i npm install -g neovim
 
@@ -153,7 +162,7 @@ install_fd() {
 
 install_fzf() {
   brew_formulas+=(fzf)
-  if ! utility_exists fzf; then
+  if ! [ -f ~/.fzf.zsh ]; then
     configuration_funcs+=("configure_fzf")
   fi
 }
@@ -189,6 +198,12 @@ install_karabiner() {
   fi
 }
 
+install_wslconf() {
+  if is_wsl; then
+    sudo cp "$(pwd)/wsl/wsl.conf" /etc/wsl.conf
+  fi
+}
+
 main() {
   install_xcode_command_line_tools
   install_brew
@@ -214,6 +229,7 @@ main() {
   install_gitmoji
   install_base16
   install_karabiner
+  install_wslconf
 
   upgrade_packages
 
@@ -252,6 +268,8 @@ main() {
   for func in "${configuration_funcs[@]}"; do
     $func
   done
+
+  echo "Done!"
 }
 
 main

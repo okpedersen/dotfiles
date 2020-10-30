@@ -1,40 +1,20 @@
 # dotfiles
 
-My configuration files for vim and zsh.
+Tested on WSL2 and macOS.
 
-## Requirements
+## WSL
 
-* `zsh`
-  * Install with `apt-get install zsh` (or a similiar command, depending on your system)
-  * Set as default shell: `chsh -s $(which zsh)`
-* To use the [YCM-plugin](https://github.com/Valloric/YouCompleteMe)
-  * `apt-get install build-essentials python-dev`
-  * With support for the C-family languages:
-    * Debian/Ubuntu: `apt-get install clang`
+Follow instructions to install WSL here: https://docs.microsoft.com/en-us/windows/wsl/install-win10
 
-## Installation
+## All
 
-* Clone the project and all the submodules:
+Clone dotfiles and run `install.sh`:
 
-  `git clone --recursive https://github.com/okpedersen/dotfiles.git`
-
-* Make symbolic links in the home directory:
-
-  ```zsh
-  cd dotfiles
-  python3 update.py
-  ```
-* To use the [YCM-plugin](https://github.com/Valloric/YouCompleteMe)
-
-  ```zsh
-  cd ~/.vim/bundle/YouCompleteMe
-
-  # with support for C-family languages:
-  ./install.sh --clang-completer
-
-  # without support for C-family languages:
-  ./install.sh
-  ```
+```
+git clone https://github.com/okpedersen/dotfiles
+cd dotfiles
+./install.sh
+```
 
 ## License
 
