@@ -89,7 +89,8 @@ install_tmux() {
 }
 
 install_neovim() {
-  brew_formulas+=(neovim)
+  brew_formulas+=(luarocks)
+  brew install --HEAD neovim  # required to get nvim v0.5
   configuration_files+=(".config/nvim")
   configuration_funcs+=("configure_neovim")
 }

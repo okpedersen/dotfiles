@@ -118,11 +118,13 @@ Plug 'raimondi/delimitMate'
 Plug 'vimwiki/vimwiki'
 Plug 'michal-h21/vim-zettel'
 
+" LSP
+Plug 'neovim/nvim-lsp'
+Plug 'nvim-lua/completion-nvim'
+Plug 'nvim-lua/diagnostic-nvim'
+
 " Ale
 Plug 'w0rp/ale'
-
-" coc
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " tmux
 Plug 'christoomey/vim-tmux-navigator'
@@ -133,6 +135,8 @@ Plug 'chriskempson/base16-vim'
 Plug 'scrooloose/nerdtree'
 call plug#end()
 "}}}
+
+lua require("lsp")
 
 " colorscheme
 if filereadable(expand("~/.vimrc_background"))
@@ -162,84 +166,6 @@ tnoremap <C-k> <C-\><C-n><C-w>k
 tnoremap <C-l> <C-\><C-n><C-w>l
 
 " CoC {{{
-call coc#add_extension('coc-json', 'coc-python')
-
-" Use <c-n> and <c-p> to trigger completion.
-inoremap <silent><expr> <c-n>
-  \ pumvisible() ? "\<C-n>" :
-  \ coc#refresh()
-inoremap <silent><expr> <c-p>
-  \ pumvisible() ? "\<C-p>" :
-  \ coc#refresh()
-
-" All of the diagnostics are put in the location list (:lopen),
-" with unimpaired.vim use ]l and [l to navigate
-"nmap <silent> [g <Plug>(coc-diagnostic-prev)
-"nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-
-" Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap keys for applying codeAction to the current line.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Introduce function text object
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap if <Plug>(coc-funcobj-i)
-omap af <Plug>(coc-funcobj-a)
-
-" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
-
-" Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" Mappings using CoCList:
-" Show all diagnostics.
-nnoremap <silent> <leader>e  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-"nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent> <leader>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent> <leader>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent> <leader>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-"nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-"nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent> <leader>p  :<C-u>CocListResume<CR>
 " }}}
 
 " vimwiki/zettelkasten
@@ -259,6 +185,16 @@ let g:zettel_fzf_command = "rg --column --line-number --ignore-case \
 let NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=1
 map <Leader>n :NERDTreeFind<CR>
+
+
+" LSP
+set completeopt=menuone,noinsert,noselect
+let g:completion_matching_strategy_list=['exact', 'substring', 'fuzzy']
+let g:completion_enable_auto_paren = 1
+
+let g:diagnostic_insert_delay = 1
+let g:diagnostic_show_sign = 1
+let g:diagnostic_enable_virtual_text = 1
 
 " }}}
 
