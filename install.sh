@@ -205,6 +205,12 @@ install_wslconf() {
   fi
 }
 
+install_azure_functions() {
+  brew tap azure/functions
+  brew_casks+=('dotnet')
+  brew_formulas+=('azure-cli' 'azure-functions-core-tools@3')
+}
+
 main() {
   install_xcode_command_line_tools
   install_brew
@@ -231,6 +237,7 @@ main() {
   install_base16
   install_karabiner
   install_wslconf
+  install_azure_functions
 
   upgrade_packages
 
