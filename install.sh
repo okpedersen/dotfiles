@@ -211,6 +211,10 @@ install_azure_functions() {
   brew_formulas+=('azure-cli' 'azure-functions-core-tools@3')
 }
 
+install_digital_ocean() {
+  brew_formulas+=('doctl' 'kubectl' 'helm')
+}
+
 main() {
   install_xcode_command_line_tools
   install_brew
@@ -238,6 +242,7 @@ main() {
   install_karabiner
   install_wslconf
   install_azure_functions
+  install_digital_ocean
 
   upgrade_packages
 
