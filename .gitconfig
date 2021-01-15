@@ -4,7 +4,7 @@
     tool = vimdiff
     conflictstyle = diff3
 [mergetool "vimdiff"]
-    cmd = /usr/local/bin/nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+    cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
