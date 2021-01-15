@@ -1,8 +1,8 @@
 local diagnostic = require('diagnostic')
 local completion = require('completion')
-local nvim_lsp = require('nvim_lsp')
-local configs = require('nvim_lsp/configs')
-local util = require('nvim_lsp/util')
+local nvim_lsp = require('lspconfig')
+local configs = require('lspconfig/configs')
+local util = require('lspconfig/util')
 
 local on_attach = function(client, bufnr)
   diagnostic.on_attach(client, bufnr)
