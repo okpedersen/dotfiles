@@ -133,14 +133,6 @@ install_git() {
   configuration_files+=(".gitignore_global" ".gitconfig")
 }
 
-install_bat() {
-  brew_formulas+=(bat)
-}
-
-install_jq() {
-  brew_formulas+=(jq)
-}
-
 install_shellcheck() {
   brew_formulas+=(shellcheck)
 }
@@ -151,14 +143,6 @@ install_diff_so_fancy() {
 
 install_ripgrep() {
   brew_formulas+=(ripgrep)
-}
-
-install_exa() {
-  brew_formulas+=(exa)
-}
-
-install_fd() {
-  brew_formulas+=(fd)
 }
 
 install_fzf() {
@@ -229,13 +213,9 @@ main() {
   install_neovim
   install_zsh
   install_git
-  install_bat
-  install_jq
   install_shellcheck
   install_diff_so_fancy
   install_ripgrep
-  install_exa
-  install_fd
   install_fzf
   install_gitmoji
   install_base16
