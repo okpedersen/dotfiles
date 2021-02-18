@@ -26,6 +26,31 @@
     exa
     bat             # TODO: Install as program w/conf
     fd
+    ripgrep
+
+    # git
+    # TODO: Move to program w/conf
+    git
+    gitAndTools.diff-so-fancy
+
+    # Python
+    python2
+    python3
+
+    # JavaScript
+    nodejs
+    nodePackages.npm
+
+    # Bash
+    shellcheck
+
+    # Cloud and k8s
+    doctl
+    kubectl
+    kubernetes-helm
+
+    # Other development
+    nodePackages.gitmoji-cli
 
     # pandoc with pdf output
     pandoc

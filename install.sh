@@ -65,24 +65,6 @@ install_spotify() {
   brew_casks+=(spotify)
 }
 
-install_python2() {
-  if is_macos; then
-    brew_formulas+=(python@2)
-  fi
-}
-
-install_python3() {
-  brew_formulas+=(python)
-}
-
-install_rust(){
-  brew_formulas+=(rust)
-}
-
-install_npm() {
-  brew_formulas+=(node npm)
-}
-
 install_tmux() {
   brew_formulas+=(tmux)
   configuration_files+=(".tmux.conf")
@@ -127,22 +109,8 @@ configure_zsh() {
 }
 
 install_git() {
-  brew_formulas+=(git)
-
   info "Put local configurations in XDG_CONFIG_HOME/git/config"
   configuration_files+=(".gitignore_global" ".gitconfig")
-}
-
-install_shellcheck() {
-  brew_formulas+=(shellcheck)
-}
-
-install_diff_so_fancy() {
-  brew_formulas+=(diff-so-fancy)
-}
-
-install_ripgrep() {
-  brew_formulas+=(ripgrep)
 }
 
 install_fzf() {
@@ -150,10 +118,6 @@ install_fzf() {
   if ! [ -f ~/.fzf.zsh ]; then
     configuration_funcs+=("configure_fzf")
   fi
-}
-
-install_gitmoji() {
-  brew_formulas+=(gitmoji)
 }
 
 configure_fzf() {
@@ -195,34 +159,20 @@ install_azure_functions() {
   brew_formulas+=('azure-cli' 'azure-functions-core-tools@3')
 }
 
-install_digital_ocean() {
-  brew_formulas+=('doctl' 'kubectl' 'helm')
-}
-
 main() {
   install_xcode_command_line_tools
   install_brew
   install_basic_tools
   install_kitty
   install_spotify
-  install_python2
-  install_python3
-  install_rust
-  install_npm
   install_tmux
   install_neovim
   install_zsh
-  install_git
-  install_shellcheck
-  install_diff_so_fancy
-  install_ripgrep
   install_fzf
-  install_gitmoji
   install_base16
   install_karabiner
   install_wslconf
   install_azure_functions
-  install_digital_ocean
 
   upgrade_packages
 
