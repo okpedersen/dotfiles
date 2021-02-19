@@ -28,11 +28,6 @@
     fd
     ripgrep
 
-    # git
-    # TODO: Move to program w/conf
-    git
-    gitAndTools.diff-so-fancy
-
     # Python
     python2
     python3
@@ -59,4 +54,19 @@
     # Other
     fortune
   ];
+
+  programs.git = {
+    enable = true;
+    userEmail = "okpedersen@gmail.com";
+    userName = "Ole Kristian Pedersen";
+    delta.enable = true;
+    ignores = [
+      "*.sw[op]"
+    ];
+    extraConfig = {
+      diff = { tool = "nvimdiff"; };
+      merge = { tool = "nvimdiff"; conflictstyle = "diff3"; };
+      credential = if pkgs.stdenv.isDarwin then { helper = "osxkeychain"; } else { };
+    };
+  };
 }

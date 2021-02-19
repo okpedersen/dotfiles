@@ -108,11 +108,6 @@ configure_zsh() {
   fi
 }
 
-install_git() {
-  info "Put local configurations in XDG_CONFIG_HOME/git/config"
-  configuration_files+=(".gitignore_global" ".gitconfig")
-}
-
 install_fzf() {
   brew_formulas+=(fzf)
   if ! [ -f ~/.fzf.zsh ]; then
