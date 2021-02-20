@@ -47,12 +47,6 @@ install_brew() {
 
 install_basic_tools() {
   # make standard unix tools available in macOS
-  brew_formulas+=(
-    coreutils binutils diffutils ed findutils gawk gnu-indent gnu-sed gnu-tar
-    gnu-which gnutls grep gzip screen watch wdiff wget bash gpatch less
-    m4 make cmake file-formula perl rsync unzip
-  )
-  configuration_files+=(".inputrc")
   configuration_files+=(".bashrc" ".sh_common_settings")
 }
 

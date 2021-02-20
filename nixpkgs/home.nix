@@ -21,6 +21,27 @@
   home.stateVersion = "21.03";
 
   home.packages = with pkgs; [
+    # standard unix tools
+    coreutils
+    diffutils
+    ed
+    findutils
+    gawk
+    indent
+    gnused
+    gnutar
+    which
+    gnutls
+    gnugrep
+    gzip
+    gnupatch
+    less
+    file
+    perl
+    rsync
+    unzip
+    procps # watch
+
     # CLI tools
     jq              # TODO: Install as program w/conf
     exa
