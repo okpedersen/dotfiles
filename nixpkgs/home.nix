@@ -91,6 +91,19 @@
     ignores = [
       "*.sw[op]"
     ];
+    aliases = {
+      co = "checkout";
+      cob = "checkout -b";
+      ap = "add -p";
+      cm = "commit";
+      cmm = "commit -m";
+      cmane = "commit --amend --no-edit";
+      puo = "!git push -u origin $(git branch --show-current)";
+      ri = "rebase --interactive --autosquash";
+      lp = "log -p";
+      lg = "log --oneline --graph";
+      lga = "log --oneline --graph --all";
+    };
     extraConfig = {
       diff = { tool = "nvimdiff"; };
       merge = { tool = "nvimdiff"; conflictstyle = "diff3"; };
