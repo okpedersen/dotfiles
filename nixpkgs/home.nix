@@ -48,6 +48,10 @@
     bat             # TODO: Install as program w/conf
     fd
     ripgrep
+    tldr
+    htop
+    curl            # TODO: check vs curlFull
+    inetutils
 
     # Python
     python2
@@ -59,6 +63,9 @@
 
     # Bash
     shellcheck
+
+    # Go
+    go
 
     # Cloud and k8s
     doctl
