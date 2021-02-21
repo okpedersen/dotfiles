@@ -144,6 +144,8 @@ install_azure_functions() {
 }
 
 main() {
+  mkdir -p ~/.config/nixpkgs/
+  ln -s "$(pwd)/home.nix" ~/.config/nixpkgs/
   install_xcode_command_line_tools
   install_brew
   install_basic_tools
