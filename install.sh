@@ -45,11 +45,6 @@ install_brew() {
   fi
 }
 
-install_basic_tools() {
-  # make standard unix tools available in macOS
-  configuration_files+=(".bashrc" ".sh_common_settings")
-}
-
 install_kitty() {
   brew_casks+=(kitty)
   configuration_files+=(".config/kitty/kitty.conf")
@@ -76,25 +71,6 @@ configure_neovim() {
   curl -fLo nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
   nvim -c "PlugUpgrade | PlugUpdate | UpdateRemotePlugins" -c "qall"
-}
-
-install_zsh() {
-  brew_formulas+=(zsh)
-  configuration_files+=(".zshrc" ".zsh_common_settings" ".oh-my-zsh" ".sh_common_settings")
-  configuration_funcs+=("configure_zsh")
-}
-
-configure_zsh() {
-  git submodule update --init --recursive
-
-  local zsh_path
-  zsh_path="$(command -v zsh)"
-
-  append_line_to_file_if_not_exists "$zsh_path" /etc/shells "sudo"
-
-  if ! [[ $SHELL =~ ^/.*/zsh$ ]]; then
-    chsh -s "$zsh_path"
-  fi
 }
 
 install_fzf() {
@@ -146,13 +122,15 @@ install_azure_functions() {
 main() {
   mkdir -p ~/.config/nixpkgs/
   ln -s "$(pwd)/home.nix" ~/.config/nixpkgs/
+  # TODO: This part needs to be fixed, home-manager switch needs to be run first
+  append_line_to_file_if_not_exists "${HOME}/.nix-profile/bin/zsh" /etc/shells "sudo"
+  chsh -s "${HOME}/.nix-profile/bin/zsh"
+
   install_xcode_command_line_tools
   install_brew
-  install_basic_tools
   install_kitty
   install_spotify
   install_neovim
-  install_zsh
   install_fzf
   install_base16
   install_karabiner

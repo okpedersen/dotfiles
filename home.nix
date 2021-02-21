@@ -63,6 +63,8 @@
 
     # Bash
     shellcheck
+    bash
+    zsh
 
     # Go
     go
@@ -82,6 +84,26 @@
     # Other
     fortune
   ];
+
+  home.file.".sh_common_settings" = {
+    source = ./.sh_common_settings;
+  };
+
+  home.file.".zshrc" = {
+    source = ./.zshrc;
+  };
+
+  home.file.".zsh_common_settings" = {
+    source = ./.zsh_common_settings;
+  };
+
+  home.file.".bashrc" = {
+    source = ./.bashrc;
+  };
+
+  home.file.".oh-my-zsh" = {
+    source = ./.oh-my-zsh;
+  };
 
   programs.git = {
     enable = true;
