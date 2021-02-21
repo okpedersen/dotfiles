@@ -59,11 +59,6 @@ install_spotify() {
   brew_casks+=(spotify)
 }
 
-install_tmux() {
-  brew_formulas+=(tmux)
-  configuration_files+=(".tmux.conf")
-}
-
 install_neovim() {
   brew_formulas+=(luarocks)
   brew install --HEAD neovim  # required to get nvim v0.5
@@ -154,7 +149,6 @@ main() {
   install_basic_tools
   install_kitty
   install_spotify
-  install_tmux
   install_neovim
   install_zsh
   install_fzf
