@@ -64,6 +64,7 @@
     # Bash
     shellcheck
     bash
+    bashInteractive
     zsh
 
     # Go
@@ -95,10 +96,6 @@
 
   home.file.".zsh_common_settings" = {
     source = ./.zsh_common_settings;
-  };
-
-  home.file.".bashrc" = {
-    source = ./.bashrc;
   };
 
   home.file.".oh-my-zsh" = {
@@ -164,5 +161,52 @@
       bind-key -T copy-mode-vi C-l select-pane -R
       bind-key -T copy-mode-vi C-\\ select-pane -l
     '';
+  };
+
+  programs.bash = {
+    enable = true;
+    sessionVariables = {
+      EDITOR = "$(command -v nvim)";
+
+      # Colorized man pages
+      MANPAGER = "sh -c 'col -bx | ${pkgs.bat}/bin/bat -l man -p'";
+
+      # Fzf conf
+      # Use fd for fzf
+      FZF_DEFAULT_COMMAND = "${pkgs.fd}/bin/fd --type f --hidden --follow --exclude .git";
+      FZF_CTRL_T_COMMAND = "$FZF_DEFAULT_COMMAND";
+      # Use bat for preview for <C-t> search
+      FZF_CTRL_T_OPTS = " --preview '${pkgs.bat}/bin/bat --color=always --style=numbers {} | head -500'";
+
+      # Zettelkasten
+      PATH = "~/dotfiles/bin:$PATH";
+      ZK_FILES_DIR = "~/zettelkasten";
+    };
+    initExtra = ''
+      # don't put duplicate lines or lines starting with space in the history.
+      # See bash(1) for more options
+      HISTCONTROL=ignoreboth
+
+      [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+      # From .sh_common_settings
+      # set 256 color term for tmux
+      TERM="xterm-256color"
+
+      # Use vi mode
+      set -o vi
+
+      # Base16 Shell
+      BASE16_SHELL="$HOME/.config/base16-shell/"
+      [ -n "$PS1" ] && \
+          [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+              eval "$("$BASE16_SHELL/profile_helper.sh")"
+    '';
+
+    shellAliases = {
+      cat = "${pkgs.bat}/bin/bat";
+      ls = "${pkgs.exa}/bin/exa";
+      l = "${pkgs.exa}/bin/exa -lahF";
+    };
   };
 }
