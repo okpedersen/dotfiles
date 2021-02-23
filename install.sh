@@ -73,17 +73,6 @@ configure_neovim() {
   nvim -c "PlugUpgrade | PlugUpdate | UpdateRemotePlugins" -c "qall"
 }
 
-install_fzf() {
-  brew_formulas+=(fzf)
-  if ! [ -f ~/.fzf.zsh ]; then
-    configuration_funcs+=("configure_fzf")
-  fi
-}
-
-configure_fzf() {
-  "$(brew --prefix)"/opt/fzf/install --all
-}
-
 upgrade_packages() {
   brew upgrade || true
 
