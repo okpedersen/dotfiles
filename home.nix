@@ -200,8 +200,6 @@
   programs.zsh = {
     enable = true;
 
-    defaultKeymap = "viins";
-
     oh-my-zsh = {
       enable = true;
       plugins = [ "git" ];
@@ -229,35 +227,6 @@
       [ -n "$PS1" ] && \
           [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
               eval "$("$BASE16_SHELL/profile_helper.sh")"
-
-      # Configure prompt to show vim mode
-      vim_ins_mode="%{$fg[green]%}[INS]%{$reset_color%}"
-      vim_cmd_mode="%{$fg[red]%}[CMD]%{$reset_color%}"
-      vim_vis_mode="%{$fg[cyan]%}[VIS]%{$reset_color%}"
-      vim_mode=$vim_ins_mode
-
-      function zle-keymap-select {
-        case $KEYMAP in
-          vivis|vivli) vim_mode=$vim_vis_mode;;
-          vicmd) vim_mode=$vim_cmd_mode;;
-          main|viins) vim_mode=$vim_ins_mode;;
-          *) vim_mode=$vim_ins_mode;;
-        esac
-        zle reset-prompt
-      }
-      zle -N zle-keymap-select
-
-      function zle-line-finish {
-        vim_mode=$vim_ins_mode
-      }
-      zle -N zle-line-finish
-
-      function TRAPINT() {
-        vim_mode=$vim_ins_mode
-        return $((128 + $1))
-      }
-
-      PROMPT='$vim_mode '$PROMPT
 
       if [[ -a $HOME/.zsh_local_settings ]]; then
           source $HOME/.zsh_local_settings
