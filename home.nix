@@ -105,7 +105,10 @@
       ap = "add -p";
       cm = "commit";
       cmm = "commit -m";
+      cma = "commit --amend";
       cmane = "commit --amend --no-edit";
+      d = "diff";
+      ds = "diff --staged";
       puo = "!git push -u origin $(git branch --show-current)";
       ri = "rebase --interactive --autosquash";
       lp = "log -p";
