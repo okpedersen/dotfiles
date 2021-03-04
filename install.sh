@@ -120,7 +120,6 @@ main() {
   install_kitty
   install_spotify
   install_neovim
-  install_fzf
   install_base16
   install_karabiner
   install_wslconf
