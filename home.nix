@@ -87,10 +87,6 @@
     fortune
   ];
 
-  home.file.".oh-my-zsh" = {
-    source = ./.oh-my-zsh;
-  };
-
   programs.git = {
     enable = true;
     userEmail = "okpedersen@gmail.com";
