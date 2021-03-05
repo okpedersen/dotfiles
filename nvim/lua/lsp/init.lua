@@ -1,11 +1,9 @@
-local diagnostic = require('diagnostic')
 local completion = require('completion')
 local nvim_lsp = require('lspconfig')
 local configs = require('lspconfig/configs')
 local util = require('lspconfig/util')
 
 local on_attach = function(client, bufnr)
-  diagnostic.on_attach(client, bufnr)
   completion.on_attach(client, bufnr)
 
   -- Keybindings for LSPs
@@ -20,17 +18,13 @@ local on_attach = function(client, bufnr)
   vim.fn.nvim_set_keymap("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", {noremap = true, silent = true})
 end
 
-nvim_lsp.pyls_ms.setup{
+nvim_lsp.pyright.setup{
   on_attach=on_attach;
   root_dir = function(fname)
     local filename = nvim_lsp.util.path.is_absolute(fname) and fname or nvim_lsp.util.path.join(vim.loop.cwd(), fname)
     local root_pattern = nvim_lsp.util.root_pattern('setup.py', 'setup.cfg', 'requirements.txt', 'mypy.ini', '.pylintrc', '.flake8rc', '.git', '.gitignore', 'Makefile')
     return root_pattern(filename) or nvim_lsp.util.path.dirname(filename)
   end
-}
-
-nvim_lsp.sumneko_lua.setup{
-  on_attach = on_attach,
 }
 
 nvim_lsp.vimls.setup{

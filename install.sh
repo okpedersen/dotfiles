@@ -55,19 +55,10 @@ install_spotify() {
 }
 
 install_neovim() {
-  brew_formulas+=(luarocks)
-  brew install --HEAD neovim  # required to get nvim v0.5
-  configuration_files+=(".config/nvim")
   configuration_funcs+=("configure_neovim")
 }
 
 configure_neovim() {
-  if utility_exists pip2; then
-    pip2 install pynvim neovim
-  fi
-  pip3 install pynvim
-  sudo -i npm install -g neovim
-
   curl -fLo nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
   nvim -c "PlugUpgrade | PlugUpdate | UpdateRemotePlugins" -c "qall"
