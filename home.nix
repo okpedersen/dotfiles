@@ -288,6 +288,79 @@
     extraPythonPackages = (ps: with ps; []);
     withPython3 = true;
     extraPython3Packages = (ps: with ps; [ ]);
+    plugins = with pkgs.vimPlugins; [
+      # Airline
+      {
+        plugin = vim-airline;
+        config = "let g:airline#extensions#tabline#enabled = 1";
+      }
+      vim-airline-themes # TODO: check config
+      {
+        plugin = base16-vim;
+        config = ''
+          if filereadable(expand("~/.vimrc_background"))
+            let base16colorspace=256
+            source ~/.vimrc_background
+          endif
+        '';
+      }
+
+      # tpope plugins
+      vim-abolish
+      vim-repeat
+      vim-surround
+      vim-unimpaired
+      vim-fugitive
+
+      {
+        plugin = delimitMate;
+        config = ''
+          let g:delimitMate_expand_cr = 1
+          let g:delimitMate_expand_space = 0
+          let g:delimitMate_smart_matchpairs = 1
+          let g:delimitMate_balance_matchpairs = 1
+        '';
+      }
+
+      fzf-vim
+      fzfWrapper
+
+      {
+        plugin = nerdtree;
+        config = ''
+          let NERDTreeShowHidden=1
+          let NERDTreeQuitOnOpen=1
+          map <Leader>n :NERDTreeFind<CR>
+        '';
+      }
+
+      {
+        plugin = tmux-navigator;
+        config = ''
+          " add corresponding settings when using vim terminal
+          tnoremap <C-h> <C-\><C-n><C-w>h
+          tnoremap <C-j> <C-\><C-n><C-w>j
+          tnoremap <C-k> <C-\><C-n><C-w>k
+          tnoremap <C-l> <C-\><C-n><C-w>l
+        '';
+      }
+
+      nvim-lspconfig
+      {
+        plugin = completion-nvim;
+        config = ''
+          let g:completion_matching_strategy_list=['exact', 'substring', 'fuzzy']
+          let g:completion_enable_auto_paren = 1
+        '';
+      }
+
+      {
+        plugin = ale;
+        config = ''
+          let g:ale_echo_msg_format = '%code: %%linter% [%severity%] %s'
+        '';
+      }
+    ];
     extraConfig = ''
       " General configuration {{{
 
@@ -381,76 +454,16 @@
 
       " Plugin installation {{{
       call plug#begin('~/.config/nvim/plugged')
-      Plug 'vim-airline/vim-airline'
-      Plug 'vim-airline/vim-airline-themes'
 
       " https://github.com/junegunn/vim-peekaboo/issues/74
       " Plug 'junegunn/vim-peekaboo'
-      Plug '/usr/local/opt/fzf'
-      Plug 'junegunn/fzf.vim'
 
-      Plug 'tpope/vim-repeat'
-      Plug 'tpope/vim-abolish'
-      Plug 'tpope/vim-surround'
-      Plug 'tpope/vim-unimpaired'
-
-      " git
-      Plug 'tpope/vim-fugitive'
-
-      Plug 'raimondi/delimitMate'
-
-      " vimwiki
-      Plug 'vimwiki/vimwiki'
-      Plug 'michal-h21/vim-zettel'
-
-      " LSP
-      Plug 'neovim/nvim-lsp'
-      Plug 'nvim-lua/completion-nvim'
-
-      " Ale
-      Plug 'w0rp/ale'
-
-      " tmux
-      Plug 'christoomey/vim-tmux-navigator'
-
-      " colorscheme
-      Plug 'chriskempson/base16-vim'
-
-      Plug 'scrooloose/nerdtree'
       call plug#end()
       "}}}
 
       lua require("lsp")
 
-      " colorscheme
-      if filereadable(expand("~/.vimrc_background"))
-        let base16colorspace=256
-        source ~/.vimrc_background
-      endif
-
       " Plugin configuration {{{
-
-      " vim-airline
-      let g:airline#extensions#tabline#enabled = 1
-
-      " delimitMate
-      let g:delimitMate_expand_cr = 1		 
-      let g:delimitMate_expand_space = 0
-      let g:delimitMate_smart_matchpairs = 1
-      let g:delimitMate_balance_matchpairs = 1
-
-      " ale
-      let g:ale_echo_msg_format = '%code: %%linter% [%severity%] %s'
-
-      " tmux navigator
-      " add corresponding settings when using vim terminal
-      tnoremap <C-h> <C-\><C-n><C-w>h
-      tnoremap <C-j> <C-\><C-n><C-w>j
-      tnoremap <C-k> <C-\><C-n><C-w>k
-      tnoremap <C-l> <C-\><C-n><C-w>l
-
-      " CoC {{{
-      " }}}
 
       " vimwiki/zettelkasten
       let g:vimwiki_list = [{
@@ -464,22 +477,8 @@
       let g:zettel_fzf_command = "rg --column --line-number --ignore-case \
                                  \--no-heading --color=always "
 
-
-      " NERDTree
-      let NERDTreeShowHidden=1
-      let NERDTreeQuitOnOpen=1
-      map <Leader>n :NERDTreeFind<CR>
-
-
       " LSP
       set completeopt=menuone,noinsert,noselect
-      let g:completion_matching_strategy_list=['exact', 'substring', 'fuzzy']
-      let g:completion_enable_auto_paren = 1
-
-      let g:diagnostic_insert_delay = 1
-      let g:diagnostic_show_sign = 1
-      let g:diagnostic_enable_virtual_text = 1
-
       " }}}
 
 
