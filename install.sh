@@ -54,16 +54,6 @@ install_spotify() {
   brew_casks+=(spotify)
 }
 
-install_neovim() {
-  configuration_funcs+=("configure_neovim")
-}
-
-configure_neovim() {
-  curl -fLo nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-  nvim -c "PlugUpgrade | PlugUpdate | UpdateRemotePlugins" -c "qall"
-}
-
 upgrade_packages() {
   brew upgrade || true
 
@@ -110,7 +100,6 @@ main() {
   install_brew
   install_kitty
   install_spotify
-  install_neovim
   install_base16
   install_karabiner
   install_wslconf

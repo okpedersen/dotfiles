@@ -452,31 +452,9 @@
       nnoremap <silent> <Leader>/ :nohls<CR>
       "}}}
 
-      " Plugin installation {{{
-      call plug#begin('~/.config/nvim/plugged')
-
-      " https://github.com/junegunn/vim-peekaboo/issues/74
-      " Plug 'junegunn/vim-peekaboo'
-
-      call plug#end()
-      "}}}
-
       lua require("lsp")
 
       " Plugin configuration {{{
-
-      " vimwiki/zettelkasten
-      let g:vimwiki_list = [{
-        \ 'path': $ZK_FILES_DIR,
-        \ 'syntax': 'markdown',
-        \ 'ext': '.md'
-        \ }]
-
-      let g:zettel_format = "%Y%m%d%H%M %title"
-
-      let g:zettel_fzf_command = "rg --column --line-number --ignore-case \
-                                 \--no-heading --color=always "
-
       " LSP
       set completeopt=menuone,noinsert,noselect
       " }}}
@@ -504,6 +482,5 @@
     '';
   };
 
-  xdg.configFile."nvim/autoload".source = ./nvim/autoload;
   xdg.configFile."nvim/lua".source = ./nvim/lua;
 }
