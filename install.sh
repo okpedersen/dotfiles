@@ -82,7 +82,7 @@ install_wslconf() {
 install_azure_functions() {
   brew tap azure/functions
   brew_casks+=('dotnet')
-  brew_formulas+=('azure-cli' 'azure-functions-core-tools@3')
+  brew_formulas+=('azure-functions-core-tools@3')
 }
 
 main() {

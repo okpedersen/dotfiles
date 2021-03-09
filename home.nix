@@ -70,6 +70,7 @@
     doctl
     kubectl
     kubernetes-helm
+    azure-cli
 
     # Other development
     nodePackages.gitmoji-cli
