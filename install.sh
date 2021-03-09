@@ -56,10 +56,6 @@ install_spotify() {
 
 upgrade_packages() {
   brew upgrade || true
-
-  if is_macos; then
-    brew cask upgrade
-  fi
 }
 
 install_base16() {
@@ -109,10 +105,10 @@ main() {
 
   if is_macos; then
     local installed_casks
-    installed_casks="$(brew cask list)"
+    installed_casks="$(brew list --cask)"
     for prog in "${brew_casks[@]}"; do
       if ! [[ "$installed_casks" =~ $prog ]]; then
-        brew cask install "$prog"
+        brew install --cask "$prog"
       fi
     done
   fi
