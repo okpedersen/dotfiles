@@ -86,9 +86,13 @@ install_azure_functions() {
 }
 
 main() {
-  mkdir -p ~/.config/nixpkgs/
+  # Add nix install
+  XDG_NIX_DIR=~/.config/nixpkgs/
+  mkdir -p $XDG_NIX_DIR
+  mv $XDG_NIX_DIR/home.nix $XDG_NIX_DIR/home.nix.bk
   ln -s "$(pwd)/home.nix" ~/.config/nixpkgs/
-  # TODO: This part needs to be fixed, home-manager switch needs to be run first
+  ln -s "$(pwd)/config.nix" ~/.config/nixpkgs/
+  home-manager switch
   append_line_to_file_if_not_exists "${HOME}/.nix-profile/bin/zsh" /etc/shells "sudo"
   chsh -s "${HOME}/.nix-profile/bin/zsh"
 
