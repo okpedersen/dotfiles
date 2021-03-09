@@ -16,6 +16,9 @@
       # Zettelkasten
       PATH = "~/dotfiles/bin:$PATH";
       ZK_FILES_DIR = "~/zettelkasten";
+
+      # Azure CLI Telemetry opt-out
+      FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT=1;
     };
     initExtra = ''
       # don't put duplicate lines or lines starting with space in the history.
@@ -69,6 +72,9 @@
       ZK_FILES_DIR = "~/zettelkasten";
 
       PATH = "~/dotfiles/bin:$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games";
+
+      # Azure CLI Telemetry opt-out
+      FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT=1;
     };
 
     initExtra = ''
