@@ -1,4 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, stdenv, ... }:
+let
+  nodejs = pkgs.nodejs;
+  npmPkgs = import ./npmPkgs { inherit pkgs nodejs stdenv; };
+in
 {
   imports = [
     # system dependent variables (home.{username,homeDirectory}).
@@ -71,6 +75,7 @@
     kubectl
     kubernetes-helm
     azure-cli
+    npmPkgs."azure-functions-core-tools@3"
 
     # Other development
     nodePackages.gitmoji-cli
