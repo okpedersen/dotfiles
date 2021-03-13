@@ -84,6 +84,9 @@ in
     pandoc
     texlive.combined.scheme-small
 
+    # economy/ledger
+    ledger
+
     # Other
     fortune
   ];
