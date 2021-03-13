@@ -79,10 +79,6 @@ install_wslconf() {
   fi
 }
 
-install_azure_functions() {
-  brew_casks+=('dotnet')
-}
-
 main() {
   # Add nix install
   XDG_NIX_DIR=~/.config/nixpkgs/
@@ -101,7 +97,6 @@ main() {
   install_base16
   install_karabiner
   install_wslconf
-  install_azure_functions
 
   upgrade_packages
 
