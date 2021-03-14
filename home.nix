@@ -58,6 +58,7 @@ in
     curl            # TODO: check vs curlFull
     inetutils
     tree            # For fzf
+    entr
 
     # Python
     python2
