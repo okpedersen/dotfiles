@@ -1,6 +1,6 @@
 # dotfiles
 
-Tested on WSL2 and macOS.
+My dotfiles. Setup is not thoroughly tested on non-macOS environments.
 
 ## WSL
 
@@ -8,12 +8,11 @@ Follow instructions to install WSL here: https://docs.microsoft.com/en-us/window
 
 ## All
 
-Clone dotfiles and run `install.sh`:
+Clone dotfiles:
 
 ```
 git clone https://github.com/okpedersen/dotfiles
 cd dotfiles
-./install.sh
 ```
 
 Install nix:
@@ -30,6 +29,34 @@ Follow [https://github.com/nix-community/home-manager#installation](https://gith
 nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
 nix-channel --update
 nix-shell '<home-manager>' -A install
+```
+
+Add system specific variables in `home-config.nix`, e.g.:
+
+```
+{ ... }:
+{
+  homeUsername = "<username>";
+  homeHomeDirectory = "</path/to/home/directory>";
+  gitUserEmail = "default-email-for-git@machine";
+}
+```
+
+Define `home.nix`, typically only import the correct machine config:
+
+```
+{ ... }:
+{
+  imports = [
+    ./machine/belgium
+  ];
+}
+```
+
+Run `install.sh`:
+
+```
+./install.sh
 ```
 
 ## License

@@ -1,49 +1,15 @@
-{ config, pkgs, stdenv, ... }:
+{ pkgs, stdenv, ... }:
 let
   nodejs = pkgs.nodejs;
   npmPkgs = import ./npmPkgs { inherit pkgs nodejs stdenv; };
-
-  # system dependent variables
-  sysConf = import ./home-config.nix {};
 in
 {
   imports = [
-    # programs
     ./neovim.nix
     ./shells.nix
+    ./minimal.nix
   ];
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
-
-  home = {
-    stateVersion = "21.03";
-    username = sysConf.homeUsername;
-    homeDirectory = sysConf.homeHomeDirectory;
-  };
-
   home.packages = with pkgs; [
-    # standard unix tools
-    coreutils
-    diffutils
-    ed
-    findutils
-    gawk
-    indent
-    gnused
-    gnutar
-    which
-    gnutls
-    gnugrep
-    gzip
-    gnupatch
-    less
-    file
-    perl
-    rsync
-    unzip
-    procps # watch
-
     # CLI tools
     jq              # TODO: Install as program w/conf
     exa
@@ -56,6 +22,7 @@ in
     inetutils
     tree            # For fzf
     entr
+    procps # watch
 
     # Python
     python2
@@ -77,48 +44,7 @@ in
 
     # Other development
     nodePackages.gitmoji-cli
-
-    # pandoc with pdf output
-    pandoc
-    texlive.combined.scheme-small
-
-    # economy/ledger
-    ledger
-
-    # Other
-    fortune
   ];
-
-  programs.git = {
-    enable = true;
-    userName = "Ole Kristian Pedersen";
-    userEmail = sysConf.gitUserEmail;
-    delta.enable = true;
-    ignores = [
-      "*.sw[op]"
-    ];
-    aliases = {
-      co = "checkout";
-      cob = "checkout -b";
-      ap = "add -p";
-      cm = "commit";
-      cmm = "commit -m";
-      cma = "commit --amend";
-      cmane = "commit --amend --no-edit";
-      d = "diff";
-      ds = "diff --staged";
-      puo = "!git push -u origin $(git branch --show-current)";
-      ri = "rebase --interactive --autosquash";
-      lp = "log -p";
-      lg = "log --oneline --graph";
-      lga = "log --oneline --graph --all";
-    };
-    extraConfig = {
-      diff = { tool = "nvimdiff"; };
-      merge = { tool = "nvimdiff"; conflictstyle = "diff3"; };
-      credential = if pkgs.stdenv.isDarwin then { helper = "osxkeychain"; } else { };
-    };
-  };
 
   programs.tmux = {
     enable = true;
@@ -155,7 +81,7 @@ in
       bind-key -T copy-mode-vi C-\\ select-pane -l
     '';
   };
-
+  
   programs.fzf = {
     enable = true;
     enableBashIntegration = true;
