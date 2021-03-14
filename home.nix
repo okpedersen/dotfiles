@@ -2,11 +2,12 @@
 let
   nodejs = pkgs.nodejs;
   npmPkgs = import ./npmPkgs { inherit pkgs nodejs stdenv; };
+
+  # system dependent variables
+  sysConf = import ./home-config.nix {};
 in
 {
   imports = [
-    # system dependent variables (home.{username,homeDirectory}).
-    ./home-config.nix
     # programs
     ./neovim.nix
     ./shells.nix
@@ -15,15 +16,11 @@ in
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
-  home.stateVersion = "21.03";
+  home = {
+    stateVersion = "21.03";
+    username = sysConf.homeUsername;
+    homeDirectory = sysConf.homeHomeDirectory;
+  };
 
   home.packages = with pkgs; [
     # standard unix tools
@@ -94,8 +91,8 @@ in
 
   programs.git = {
     enable = true;
-    userEmail = "okpedersen@gmail.com";
     userName = "Ole Kristian Pedersen";
+    userEmail = sysConf.gitUserEmail;
     delta.enable = true;
     ignores = [
       "*.sw[op]"
