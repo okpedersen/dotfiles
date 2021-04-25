@@ -100,4 +100,10 @@ in
       pkgs.vscode-extensions.vscodevim.vim
     ];
   };
+
+  programs.direnv = {
+    enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+  };
 }
