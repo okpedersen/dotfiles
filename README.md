@@ -25,6 +25,10 @@ Install home-manager:
 
 Follow [https://github.com/nix-community/home-manager#installation](https://github.com/nix-community/home-manager#installation). Probably something like:
 
+Install nix-darwin:
+
+Follow: [https://github.com/LnL7/nix-darwin#install](https://github.com/LnL7/nix-darwin#install)
+
 ```
 nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
 nix-channel --update

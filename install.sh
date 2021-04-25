@@ -85,7 +85,9 @@ main() {
   mkdir -p $XDG_NIX_DIR
   mv $XDG_NIX_DIR/home.nix $XDG_NIX_DIR/home.nix.bk
   ln -s "$(pwd)/home.nix" ~/.config/nixpkgs/
-  home-manager switch
+  mv ~/.nixpkgs/darwin-configuration.nix ~/.nixpkgs/darwin-configuration.nix.bk
+  ln -s "$(pwd)/darwin-configuration.nix" ~/.nixpkgs/darwin-configuration.nix
+  darwin-rebuild switch
   append_line_to_file_if_not_exists "${HOME}/.nix-profile/bin/zsh" /etc/shells "sudo"
   chsh -s "${HOME}/.nix-profile/bin/zsh"
 
