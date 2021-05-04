@@ -8,7 +8,7 @@ in
   programs.home-manager.enable = true;
 
   home = {
-    stateVersion = "21.03";
+    stateVersion = "21.05";
     username = sysConf.homeUsername;
     homeDirectory = sysConf.homeHomeDirectory;
   };
