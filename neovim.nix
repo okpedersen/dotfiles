@@ -1,22 +1,9 @@
 { config, pkgs, ... }:
 {
   nixpkgs.overlays = [
-    (
-      self: super:
-      {
-        neovim = super.neovim-unwrapped.overrideAttrs (old: {
-          pname = "neovim";
-          version = "master";
-          src = super.fetchFromGitHub {
-            owner = "neovim";
-            repo = "neovim";
-            rev = "f2fc44d50b511cb3cbffaf9ec4f37d1e7995aac7";
-            sha256 = "1fk3wgs9pfqbcmzq0r8f86ya0idmcss7wiahgqzabcv8fis9gb9l";
-          };
-          buildInputs = old.buildInputs ++ [ pkgs.tree-sitter ];
-        });
-      }
-    )
+    (import (builtins.fetchTarball {
+      url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
+    }))
   ];
 
   home.packages = with pkgs; [
@@ -28,10 +15,8 @@
 
   programs.neovim = {
     enable = true;
-    package = pkgs.neovim;
+    package = pkgs.neovim-nightly;
     withNodeJs = true;
-    withPython = true;
-    extraPythonPackages = (ps: with ps; []);
     withPython3 = true;
     extraPython3Packages = (ps: with ps; [ ]);
     plugins = with pkgs.vimPlugins; [
@@ -155,7 +140,7 @@
       set updatetime=300
 
       " python host progs
-      let g:python_host_prog="~/.nix-profile/bin/nvim-python"
+      let g:loaded_python_provider = 0 " disable Python 2
       let g:python3_host_prog="~/.nix-profile/bin/nvim-python3"
       "}}}
 
