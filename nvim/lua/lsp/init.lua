@@ -49,7 +49,16 @@ local on_attach = function(client, bufnr)
   end
 end
 
-local servers = { "vimls", "bashls", "pyright" }
+nvim_lsp.pyright.setup {
+  on_attach = on_attach;
+  root_dir = function(filename)
+      local filename = util.path.is_absolute(fname) and fname or util.path.join(vim.loop.cwd(), fname)
+      local root_pattern = util.root_pattern('setup.py', 'setup.cfg', 'requirements.txt', 'mypy.ini', '.pylintrc', '.flake8rc', '.git', 'pyproject.toml')
+      return root_pattern(filename) or util.path.dirname(filename)
+    end;
+}
+
+local servers = { "vimls", "bashls" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = on_attach }
 end
