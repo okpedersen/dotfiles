@@ -53,6 +53,7 @@ in
     shell = "${pkgs.zsh}/bin/zsh";
     escapeTime = 10; # Recommended for neovim
     terminal = "tmux-256color"; # Recommended for neovim
+    historyLimit = 20000;
     extraConfig = ''
       setw -g monitor-activity on
       set -g visual-activity on
