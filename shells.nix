@@ -77,6 +77,11 @@
       FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT=1;
     };
 
+    initExtraFirst = ''
+      # /etc/zshrc sets the prompt, revert it before oh-my-zsh configures the shell
+      prompt off
+    '';
+
     initExtra = ''
       # Base16 Shell
       BASE16_SHELL="$HOME/.config/base16-shell/"
