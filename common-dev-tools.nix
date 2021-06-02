@@ -41,6 +41,7 @@ in
     kubernetes-helm
     azure-cli
     npmPkgs."azure-functions-core-tools@3"
+    terraform
 
     # Other development
     nodePackages.gitmoji-cli

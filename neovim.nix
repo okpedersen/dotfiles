@@ -11,6 +11,8 @@
     nodePackages.vim-language-server
     nodePackages.bash-language-server
     nodePackages.pyright
+    nodePackages.yaml-language-server
+    terraform-lsp
   ];
 
   programs.neovim = {

@@ -49,6 +49,23 @@ local on_attach = function(client, bufnr)
   end
 end
 
+nvim_lsp.yamlls.setup {
+  on_attach = on_attach;
+  settings = {
+    yaml = {
+      schemas = {
+        kubernetes = "/**/*.yaml"
+      }
+    }
+  }
+}
+
+nvim_lsp.terraformls.setup {
+  on_attach = on_attach;
+  cmd = { "terraform-lsp" };
+  filetypes = { "tf" };
+}
+
 nvim_lsp.pyright.setup {
   on_attach = on_attach;
   root_dir = function(filename)
