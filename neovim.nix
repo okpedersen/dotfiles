@@ -12,6 +12,8 @@
     nodePackages.bash-language-server
     nodePackages.pyright
     nodePackages.yaml-language-server
+    nodePackages.typescript
+    nodePackages.typescript-language-server
     terraform-lsp
   ];
 
