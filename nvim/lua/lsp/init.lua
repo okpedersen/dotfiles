@@ -75,7 +75,7 @@ nvim_lsp.pyright.setup {
     end;
 }
 
-local servers = { "vimls", "bashls", "tsserver" }
+local servers = { "vimls", "bashls", "tsserver", "rnix" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = on_attach }
 end

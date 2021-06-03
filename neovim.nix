@@ -15,6 +15,7 @@
     nodePackages.typescript
     nodePackages.typescript-language-server
     terraform-lsp
+    rnix-lsp
   ];
 
   programs.neovim = {
@@ -95,6 +96,8 @@
           let g:ale_echo_msg_format = '%code: %%linter% [%severity%] %s'
         '';
       }
+
+      vim-nix
     ];
     extraConfig = ''
       " General configuration {{{
