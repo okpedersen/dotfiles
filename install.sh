@@ -83,10 +83,12 @@ main() {
   # Add nix install
   XDG_NIX_DIR=~/.config/nixpkgs/
   mkdir -p $XDG_NIX_DIR
-  mv $XDG_NIX_DIR/home.nix $XDG_NIX_DIR/home.nix.bk
-  ln -s "$(pwd)/home.nix" ~/.config/nixpkgs/
+  mv $XDG_NIX_DIR/flake.nix $XDG_NIX_DIR/flake.nix.bk
+  ln -s "$(pwd)/flake.nix" ~/.config/nixpkgs/
   mv ~/.nixpkgs/darwin-configuration.nix ~/.nixpkgs/darwin-configuration.nix.bk
   ln -s "$(pwd)/darwin-configuration.nix" ~/.nixpkgs/darwin-configuration.nix
+  mkdir -p ~/.config/nix/
+  ln -s "$(pwd)/nix.conf" ~/.config/nix/
   darwin-rebuild switch
   append_line_to_file_if_not_exists "${HOME}/.nix-profile/bin/zsh" /etc/shells "sudo"
   chsh -s "${HOME}/.nix-profile/bin/zsh"
