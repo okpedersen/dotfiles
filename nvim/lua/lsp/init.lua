@@ -68,7 +68,7 @@ nvim_lsp.terraformls.setup {
 
 nvim_lsp.pyright.setup {
   on_attach = on_attach;
-  root_dir = function(filename)
+  root_dir = function(fname)
       local filename = util.path.is_absolute(fname) and fname or util.path.join(vim.loop.cwd(), fname)
       local root_pattern = util.root_pattern('setup.py', 'setup.cfg', 'requirements.txt', 'mypy.ini', '.pylintrc', '.flake8rc', '.git', 'pyproject.toml')
       return root_pattern(filename) or util.path.dirname(filename)
