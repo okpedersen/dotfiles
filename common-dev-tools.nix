@@ -8,6 +8,7 @@ in
     ./neovim.nix
     ./shells.nix
     ./minimal.nix
+    ./vscode.nix
   ];
   home.packages = with pkgs; [
     # CLI tools
@@ -94,13 +95,6 @@ in
       fileWidgetCommand      = "${pkgs.fd}/bin/fd --type f --hidden --follow --exclude .git";
       changeDirWidgetOptions = [ "--preview 'tree -C {} | head -200'" ];
       fileWidgetOptions = [ "--preview '${pkgs.bat}/bin/bat --color=always --style=numbers {} | head -500'" ];
-  };
-
-  programs.vscode = {
-    enable = true;
-    extensions = [
-      pkgs.vscode-extensions.vscodevim.vim
-    ];
   };
 
   programs.direnv = {
