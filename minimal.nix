@@ -1,7 +1,4 @@
 { pkgs, ... }:
-let
-  sysConf = import ./home-config.nix {};
-in
 {
   imports = [
     ./home-manager.nix
@@ -31,8 +28,9 @@ in
 
   programs.git = {
     enable = true;
-    userName = "Ole Kristian Pedersen";
-    userEmail = sysConf.gitUserEmail;
+    includes = [
+      { path = "~/.gitlocalconfig"; }
+    ];
     delta.enable = true;
     ignores = [
       "*.sw[op]"

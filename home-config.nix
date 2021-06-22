@@ -1,4 +1,0 @@
-{ ... }:
-{
-  gitUserEmail = "okpedersen@gmail.com";
-}
