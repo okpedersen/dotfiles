@@ -14,11 +14,23 @@
 
   outputs = inputs@{ self, nixpkgs , home-manager, ...}: {
 
+    defaultPackage.x86_64-darwin = home-manager.defaultPackage.x86_64-darwin;
+    defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
+
+
     homeConfigurations."ole.pedersen" = home-manager.lib.homeManagerConfiguration {
       configuration = { imports = [ ./machine/belgium { nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay ]; }]; };
       system = "x86_64-darwin";
       username = "ole.pedersen";
       homeDirectory = "/Users/olekristianpedersen";
+      stateVersion = "21.05";
+    };
+
+    homeConfigurations.docker = home-manager.lib.homeManagerConfiguration {
+      configuration = { imports = [ ./minimal.nix ./neovim.nix { nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay ]; }]; };
+      system = "x86_64-linux";
+      username = "docker";
+      homeDirectory = "/home/docker";
       stateVersion = "21.05";
     };
   };

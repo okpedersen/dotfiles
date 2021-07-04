@@ -16,6 +16,14 @@ is_wsl() {
   fi
 }
 
+is_linux() {
+  if [[ "$OSTYPE" == "linux"* ]] && ! is_wsl; then
+    return 0
+  else
+    return 1
+  fi
+}
+
 append_line_to_file_if_not_exists() {
   local txt="$1"
   local file="$2"
