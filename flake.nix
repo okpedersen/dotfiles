@@ -10,11 +10,18 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs , home-manager, ...}: {
+  outputs = inputs@{ self, nixpkgs , home-manager, nix-darwin, ...}: {
 
-    defaultPackage.x86_64-darwin = home-manager.defaultPackage.x86_64-darwin;
+    defaultPackage.x86_64-darwin = (nix-darwin.lib.darwinSystem {
+      inputs = inputs;
+      modules = [ ./darwin-bootstrap.nix ];
+    }).system;
     defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
 
 
@@ -24,6 +31,11 @@
       username = "ole.pedersen";
       homeDirectory = "/Users/olekristianpedersen";
       stateVersion = "21.05";
+    };
+
+    darwinConfigurations.belgium = nix-darwin.lib.darwinSystem {
+      inputs = inputs;
+      modules = [ ./darwin-configuration.nix ];
     };
 
     homeConfigurations.docker = home-manager.lib.homeManagerConfiguration {
