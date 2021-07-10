@@ -1,4 +1,7 @@
 { config, pkgs, ... }:
+let
+  path = "${builtins.toString ./.}/bin:$PATH:/usr/local/sbin";
+in
 {
   home.packages = with pkgs; [
     shellcheck
@@ -14,8 +17,9 @@
       MANPAGER = "sh -c 'col -bx | ${pkgs.bat}/bin/bat -l man -p'";
 
       # Zettelkasten
-      PATH = "~/dotfiles/bin:$PATH";
       ZK_FILES_DIR = "~/zettelkasten";
+
+      PATH = path;
 
       # Azure CLI Telemetry opt-out
       FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT=1;
@@ -37,9 +41,6 @@
       [ -n "$PS1" ] && \
           [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
               eval "$("$BASE16_SHELL/profile_helper.sh")"
-
-      # We have to source this to configure PATH properly
-      . "${pkgs.nix}/etc/profile.d/nix.sh"
     '';
 
     shellAliases = {
@@ -71,7 +72,7 @@
       # Zettelkasten
       ZK_FILES_DIR = "~/zettelkasten";
 
-      PATH = "~/dotfiles/bin:$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games";
+      PATH = path;
 
       # Azure CLI Telemetry opt-out
       FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT=1;
@@ -94,9 +95,6 @@
       else
           echo "No local settings!";
       fi
-
-      # We have to source this to configure PATH correctly
-      . "${pkgs.nix}/etc/profile.d/nix.sh"
     '';
 
     shellAliases = {
