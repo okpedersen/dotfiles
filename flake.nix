@@ -35,7 +35,19 @@
 
     darwinConfigurations.belgium = nix-darwin.lib.darwinSystem {
       inputs = inputs;
-      modules = [ ./darwin-configuration.nix ];
+      modules = [ 
+        home-manager.darwinModules.home-manager
+        ./darwin-configuration.nix 
+        {
+          nixpkgs.config.allowUnfree = true;
+          nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay ]; 
+          home-manager.useGlobalPkgs = true;
+          home-manager.users."ole.pedersen" = {
+            imports = [ ./machine/belgium ];
+          };
+          users.users."ole.pedersen".home = "/Users/olekristianpedersen";
+        }
+      ];
     };
 
     homeConfigurations.docker = home-manager.lib.homeManagerConfiguration {

@@ -1,7 +1,5 @@
 { pkgs, ... }:
 {
-  nixpkgs.config.allowUnfree = true;
-
   imports = [
     ../../common-dev-tools.nix
   ];
