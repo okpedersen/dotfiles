@@ -22,6 +22,7 @@
       inputs = inputs;
       modules = [ ./darwin-bootstrap.nix ];
     }).system;
+
     defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
 
 
@@ -31,6 +32,11 @@
       username = "ole.pedersen";
       homeDirectory = "/Users/olekristianpedersen";
       stateVersion = "21.05";
+    };
+
+    darwinConfigurations.bootstrap = nix-darwin.lib.darwinSystem {
+      inputs = inputs;
+      modules = [ ./darwin-bootstrap.nix ];
     };
 
     darwinConfigurations.belgium = nix-darwin.lib.darwinSystem {
