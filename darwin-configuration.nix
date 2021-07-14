@@ -9,5 +9,14 @@
 
   # Enable lorri, requires direnv
   services.lorri.enable = true;
+
+  system.defaults = {
+    NSGlobalDomain = {
+      AppleShowAllExtensions = true;
+    };
+    dock.autohide = true;
+    dock.expose-group-by-app = false;
+    dock.static-only = true;
+  };
 }
  
