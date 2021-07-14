@@ -9,6 +9,7 @@ in
     ./shells.nix
     ./minimal.nix
     ./vscode.nix
+    ./kitty.nix
   ];
   home.packages = with pkgs; [
     # CLI tools

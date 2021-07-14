@@ -45,11 +45,6 @@ install_brew() {
   fi
 }
 
-install_kitty() {
-  brew_casks+=(kitty)
-  configuration_files+=(".config/kitty/kitty.conf")
-}
-
 install_spotify() {
   brew_casks+=(spotify)
 }
@@ -89,7 +84,6 @@ main() {
 
   install_xcode_command_line_tools
   install_brew
-  install_kitty
   install_spotify
   install_base16
   install_karabiner
