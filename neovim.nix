@@ -1,4 +1,15 @@
 { config, pkgs, ... }:
+let
+  tokyonight = pkgs.vimUtils.buildVimPlugin {
+    name = "tokyonight.nvim";
+    src = pkgs.fetchFromGitHub {
+      owner = "folke";
+      repo = "tokyonight.nvim";
+      rev = "e3ad6032a7e2c54dd7500335b43c7d353a19ede9";
+      sha256 = "1slb67kirb0jfgjsw09dhimmxagsk2aii6w461y1w8nj3fkl6p28";
+    };
+  };
+in
 {
   home.packages = with pkgs; [
     # Language servers for neovim
@@ -26,12 +37,9 @@
       }
       vim-airline-themes # TODO: check config
       {
-        plugin = base16-vim;
+        plugin = tokyonight;
         config = ''
-          if filereadable(expand("~/.vimrc_background"))
-            let base16colorspace=256
-            source ~/.vimrc_background
-          endif
+          colorscheme tokyonight
         '';
       }
 
