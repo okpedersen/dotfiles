@@ -45,10 +45,6 @@ install_brew() {
   fi
 }
 
-install_spotify() {
-  brew_casks+=(spotify)
-}
-
 upgrade_packages() {
   brew upgrade || true
 }
@@ -84,7 +80,6 @@ main() {
 
   install_xcode_command_line_tools
   install_brew
-  install_spotify
   install_base16
   install_karabiner
   install_wslconf

@@ -85,7 +85,7 @@ in
       bind-key -T copy-mode-vi C-\\ select-pane -l
     '';
   };
-  
+
   programs.fzf = {
     enable = true;
     enableBashIntegration = true;

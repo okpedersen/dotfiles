@@ -41,12 +41,12 @@
 
     darwinConfigurations.belgium = nix-darwin.lib.darwinSystem {
       inputs = inputs;
-      modules = [ 
+      modules = [
         home-manager.darwinModules.home-manager
-        ./darwin-configuration.nix 
+        ./darwin-configuration.nix
         {
           nixpkgs.config.allowUnfree = true;
-          nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay ]; 
+          nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay (import ./spotify.nix) ];
           home-manager.useGlobalPkgs = true;
           home-manager.users."ole.pedersen" = {
             imports = [ ./machine/belgium ];

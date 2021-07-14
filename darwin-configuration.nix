@@ -19,4 +19,4 @@
     dock.static-only = true;
   };
 }
- 
+
