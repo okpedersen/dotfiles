@@ -55,7 +55,7 @@ in
     sensibleOnTop = false;
     shell = "${pkgs.zsh}/bin/zsh";
     escapeTime = 10; # Recommended for neovim
-    terminal = "tmux-256color"; # Recommended for neovim
+    terminal = "xterm-256color"; # Gives warnings in neovim, but fixes the 'clear' issue without messing with terminfo & tic
     historyLimit = 20000;
     extraConfig = ''
       setw -g monitor-activity on
