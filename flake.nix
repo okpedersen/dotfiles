@@ -10,51 +10,25 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-darwin = {
-      url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = inputs@{ self, nixpkgs , home-manager, nix-darwin, ...}: {
-
-    defaultPackage.x86_64-darwin = (nix-darwin.lib.darwinSystem {
-      inputs = inputs;
-      modules = [ ./darwin-bootstrap.nix ];
-    }).system;
+  outputs = inputs@{ self, nixpkgs , home-manager, ...}: {
 
     defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
-
+    defaultPackage.x86_64-darwin = home-manager.defaultPackage.x86_64-darwin;
 
     homeConfigurations."ole.pedersen" = home-manager.lib.homeManagerConfiguration {
-      configuration = { imports = [ ./machine/belgium { nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay ]; }]; };
+      configuration = {
+        nixpkgs.config.allowUnfree = true;
+        imports = [ ./machine/belgium { nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay (import ./spotify.nix)]; }];
+      };
       system = "x86_64-darwin";
       username = "ole.pedersen";
       homeDirectory = "/Users/olekristianpedersen";
       stateVersion = "21.05";
     };
 
-    darwinConfigurations.bootstrap = nix-darwin.lib.darwinSystem {
-      inputs = inputs;
-      modules = [ ./darwin-bootstrap.nix ];
-    };
-
-    darwinConfigurations.belgium = nix-darwin.lib.darwinSystem {
-      inputs = inputs;
-      modules = [
-        home-manager.darwinModules.home-manager
-        ./darwin-configuration.nix
-        {
-          nixpkgs.config.allowUnfree = true;
-          nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay (import ./spotify.nix) ];
-          home-manager.useGlobalPkgs = true;
-          home-manager.users."ole.pedersen" = {
-            imports = [ ./machine/belgium ];
-          };
-          users.users."ole.pedersen".home = "/Users/olekristianpedersen";
-        }
-      ];
-    };
+    belgium = self.homeConfigurations."ole.pedersen".activationPackage;
 
     homeConfigurations.docker = home-manager.lib.homeManagerConfiguration {
       configuration = { imports = [ ./minimal.nix ./neovim.nix { nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay ]; }]; };

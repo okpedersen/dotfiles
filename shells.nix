@@ -41,6 +41,9 @@ in
       [ -n "$PS1" ] && \
           [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
               eval "$("$BASE16_SHELL/profile_helper.sh")"
+
+      # We have to source this to configure PATH correctly
+      . ${pkgs.nix}/etc/profile.d/nix.sh
     '';
 
     shellAliases = {
@@ -78,11 +81,6 @@ in
       FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT=1;
     };
 
-    initExtraFirst = ''
-      # /etc/zshrc sets the prompt, revert it before oh-my-zsh configures the shell
-      prompt off
-    '';
-
     initExtra = ''
       # Base16 Shell
       BASE16_SHELL="$HOME/.config/base16-shell/"
@@ -95,6 +93,9 @@ in
       else
           echo "No local settings!";
       fi
+
+      # We have to source this to configure PATH correctly
+      . ${pkgs.nix}/etc/profile.d/nix.sh
     '';
 
     shellAliases = {

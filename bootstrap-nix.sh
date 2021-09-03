@@ -34,12 +34,9 @@ ln -sf "$SCRIPT_DIR/flake.nix" "$HOME/.config/nixpkgs/flake.nix"
 
 cd "$SCRIPT_DIR"
 
-if is_linux; then
+if is_linux || is_macos; then
   # home-manager is default
   nix run . switch
-elif is_macos; then
-  nix build .
-  ./result/sw/bin/darwin-rebuild switch --flake '.#bootstrap'
 else
   echo "Unrecognized system"
   exit 1
