@@ -102,5 +102,9 @@ in
     enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true;
+
+    # TODO: Check nix-direnv docs for disabling garbage collection
+    nix-direnv.enable = true;
+    nix-direnv.enableFlakes = true;
   };
 }
