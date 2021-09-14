@@ -28,6 +28,17 @@
       stateVersion = "21.05";
     };
 
+    homeConfigurations."ole.kristian.eidem.pedersen" = home-manager.lib.homeManagerConfiguration {
+      configuration = {
+        nixpkgs.config.allowUnfree = true;
+        imports = [ ./machine/venezuela { nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay (import ./spotify.nix)]; }];
+      };
+      system = "x86_64-darwin";
+      username = "ole.kristian.eidem.pedersen";
+      homeDirectory = "/Users/ole.kristian.eidem.pedersen";
+      stateVersion = "21.05";
+    };
+
     belgium = self.homeConfigurations."ole.pedersen".activationPackage;
 
     homeConfigurations.docker = home-manager.lib.homeManagerConfiguration {
