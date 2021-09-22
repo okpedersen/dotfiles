@@ -52,6 +52,7 @@
       lga = "log --oneline --graph --all";
     };
     extraConfig = {
+      pull.ff = "only";
       diff = { tool = "nvimdiff"; };
       merge = { tool = "nvimdiff"; conflictstyle = "diff3"; };
       credential = if pkgs.stdenv.isDarwin then { helper = "osxkeychain"; } else { };
