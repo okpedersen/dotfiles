@@ -113,7 +113,6 @@ in
 
         " show line number of current line, but use relative numbers on other lines
         set number
-        set relativenumber
 
         " search options
         set hlsearch   " highlight
