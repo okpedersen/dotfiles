@@ -84,13 +84,9 @@ in
       }
 
       nvim-lspconfig
-      {
-        plugin = completion-nvim;
-        config = ''
-          let g:completion_matching_strategy_list=['exact', 'substring', 'fuzzy']
-          let g:completion_enable_auto_paren = 1
-        '';
-      }
+      cmp-nvim-lsp
+      nvim-cmp
+      cmp-buffer
 
       {
         plugin = ale;
@@ -197,7 +193,7 @@ in
 
         " Plugin configuration {{{
         " LSP
-        set completeopt=menuone,noinsert,noselect
+        set completeopt=menu,menuone,noselect
         " }}}
 
 
