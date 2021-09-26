@@ -22,7 +22,7 @@ in
       PATH = path;
 
       # Azure CLI Telemetry opt-out
-      FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT=1;
+      FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT = 1;
     };
     initExtra = ''
       # don't put duplicate lines or lines starting with space in the history.
@@ -78,7 +78,7 @@ in
       PATH = path;
 
       # Azure CLI Telemetry opt-out
-      FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT=1;
+      FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT = 1;
     };
 
     initExtra = ''

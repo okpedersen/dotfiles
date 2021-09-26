@@ -5,6 +5,7 @@
   ];
 
   home.packages = with pkgs; [
+    nixpkgs-fmt
     # standard unix tools
     coreutils
     diffutils

@@ -2,16 +2,16 @@ final: prev:
 with prev;
 let
   fetchurlHashless = args: lib.overrideDerivation
-  # Use a dummy hash, to appease fetchgit's assertions
-  (fetchurl (args // { sha256 = builtins.hashString "sha256" args.url; }))
+    # Use a dummy hash, to appease fetchgit's assertions
+    (fetchurl (args // { sha256 = builtins.hashString "sha256" args.url; }))
 
-  # Remove the hash-checking
-  (old: {
-    outputHash     = null;
-    outputHashAlgo = null;
-    outputHashMode = null;
-    sha256         = null;
-  });
+    # Remove the hash-checking
+    (old: {
+      outputHash = null;
+      outputHashAlgo = null;
+      outputHashMode = null;
+      sha256 = null;
+    });
 in
 {
   spotify = stdenv.mkDerivation rec {

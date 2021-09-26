@@ -7,4 +7,5 @@ let
   self = super // {
     "azure-functions-core-tools@3" = super."azure-functions-core-tools-3.x.x";
   };
-in self
+in
+self

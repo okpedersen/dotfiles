@@ -25,6 +25,7 @@ The dotfiles needs a nix 2.4 prerelease (nix unstable) to work with nix flakes. 
 
 * Update flake inputs in lock file: `nix flake update`
 * Update a single flake input in lock file (e.g., `home-manager`): `nix flake lock --update-input home-manager`
+* Format all nix files: `nixpkgs-fmt **/*.nix`
 
 ## License
 

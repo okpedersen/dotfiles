@@ -13,16 +13,16 @@ in
   ];
   home.packages = with pkgs; [
     # CLI tools
-    jq              # TODO: Install as program w/conf
+    jq # TODO: Install as program w/conf
     exa
-    bat             # TODO: Install as program w/conf
+    bat # TODO: Install as program w/conf
     fd
     ripgrep
     tldr
     htop
-    curl            # TODO: check vs curlFull
+    curl # TODO: check vs curlFull
     inetutils
-    tree            # For fzf
+    tree # For fzf
     entr
     procps # watch
 
@@ -91,12 +91,12 @@ in
     enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true;
-      # Use fd for fzf
-      defaultCommand         = "${pkgs.fd}/bin/fd --type f --hidden --follow --exclude .git";
-      changeDirWidgetCommand = "${pkgs.fd}/bin/fd --type d --hidden --follow --exclude .git";
-      fileWidgetCommand      = "${pkgs.fd}/bin/fd --type f --hidden --follow --exclude .git";
-      changeDirWidgetOptions = [ "--preview 'tree -C {} | head -200'" ];
-      fileWidgetOptions = [ "--preview '${pkgs.bat}/bin/bat --color=always --style=numbers {} | head -500'" ];
+    # Use fd for fzf
+    defaultCommand = "${pkgs.fd}/bin/fd --type f --hidden --follow --exclude .git";
+    changeDirWidgetCommand = "${pkgs.fd}/bin/fd --type d --hidden --follow --exclude .git";
+    fileWidgetCommand = "${pkgs.fd}/bin/fd --type f --hidden --follow --exclude .git";
+    changeDirWidgetOptions = [ "--preview 'tree -C {} | head -200'" ];
+    fileWidgetOptions = [ "--preview '${pkgs.bat}/bin/bat --color=always --style=numbers {} | head -500'" ];
   };
 
   programs.direnv = {
