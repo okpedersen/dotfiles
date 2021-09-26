@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+NO_SWITCH=false
+if [[ "$1" == "--no-switch" ]]; then
+  NO_SWITCH=true
+fi
+
 set -eou pipefail
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
@@ -33,6 +38,11 @@ mkdir -p "$HOME/.config/nixpkgs"
 ln -sf "$SCRIPT_DIR/flake.nix" "$HOME/.config/nixpkgs/flake.nix"
 
 cd "$SCRIPT_DIR"
+
+
+if [[ $NO_SWITCH == true ]]; then
+  exit 0
+fi
 
 if is_linux || is_macos; then
   # home-manager is default
