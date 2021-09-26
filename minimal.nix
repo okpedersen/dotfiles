@@ -51,6 +51,8 @@
       lp = "log -p";
       lg = "log --oneline --graph";
       lga = "log --oneline --graph --all";
+      rp = "restore -p";
+      rsp = "restore --staged -p";
     };
     extraConfig = {
       pull.ff = "only";
