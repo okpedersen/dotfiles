@@ -12,7 +12,32 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs , home-manager, ...}: {
+  outputs = inputs@{ self, nixpkgs , home-manager, ...}:
+  let
+    # This fix is required while waiting for https://github.com/NixOS/nixpkgs/pull/137870
+    # to be merged and land in nixpkgs-unstable
+    bs4Overlay = self: super:
+      let
+        lib = super.lib;
+      in
+      rec {
+        python39 = super.python39.override {
+          packageOverrides = self: super: {
+            beautifulsoup4 = super.beautifulsoup4.overrideAttrs (old: {
+              propagatedBuildInputs = lib.remove super.lxml old.propagatedBuildInputs;
+            });
+          };
+        };
+        python39Packages = python39.pkgs;
+      };
+    # Dirty hack reversing https://github.com/NixOS/nixpkgs/pull/137912
+    # Needed until https://github.com/NixOS/nixpkgs/pull/139482 reaches nixpkgs-unstable
+    vscodeOverlay = self: super: {
+      vscode = super.vscode.overrideAttrs (oldAttrs: { postPatch = "";});
+    };
+
+  in
+  {
 
     defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
     defaultPackage.x86_64-darwin = home-manager.defaultPackage.x86_64-darwin;
@@ -20,7 +45,7 @@
     homeConfigurations."ole.pedersen" = home-manager.lib.homeManagerConfiguration {
       configuration = {
         nixpkgs.config.allowUnfree = true;
-        imports = [ ./machine/belgium { nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay (import ./spotify.nix)]; }];
+        imports = [ ./machine/belgium { nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay (import ./spotify.nix) bs4Overlay vscodeOverlay ]; }];
       };
       system = "x86_64-darwin";
       username = "ole.pedersen";
@@ -31,7 +56,7 @@
     homeConfigurations."ole.kristian.eidem.pedersen" = home-manager.lib.homeManagerConfiguration {
       configuration = {
         nixpkgs.config.allowUnfree = true;
-        imports = [ ./machine/venezuela { nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay (import ./spotify.nix)]; }];
+        imports = [ ./machine/venezuela { nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay (import ./spotify.nix) bs4Overlay vscodeOverlay ]; }];
       };
       system = "x86_64-darwin";
       username = "ole.kristian.eidem.pedersen";
