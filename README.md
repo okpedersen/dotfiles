@@ -1,67 +1,30 @@
 # dotfiles
 
-My dotfiles. Setup is not thoroughly tested on non-macOS environments.
+Dotfiles using nix, nix flakes and home-manager.
 
-## WSL
+## Setup
 
-Follow instructions to install WSL here: https://docs.microsoft.com/en-us/windows/wsl/install-win10
+### Clone dotfiles
 
-## All
-
-Clone dotfiles:
-
-```
+```bash
 git clone https://github.com/okpedersen/dotfiles
 cd dotfiles
 ```
 
-Install nix:
+### Install nix
 
-Follow the instructions here: [https://nixos.org/manual/nix/stable/#chap-installation](https://nixos.org/manual/nix/stable/#chap-installation).
+The dotfiles needs a nix 2.4 prerelease (nix unstable) to work with nix flakes. Getting it setup can be done by running
 
- * For macOS: `sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume`
-
-Install home-manager:
-
-Follow [https://github.com/nix-community/home-manager#installation](https://github.com/nix-community/home-manager#installation). Probably something like:
-
-Install nix-darwin:
-
-Follow: [https://github.com/LnL7/nix-darwin#install](https://github.com/LnL7/nix-darwin#install)
-
-```
-nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-nix-channel --update
-nix-shell '<home-manager>' -A install
+```bash
+./bootstrap-nix.sh
 ```
 
-Add system specific variables in `home-config.nix`, e.g.:
+**Note**: This setup assumes `flake.nix` is configured correctly for the user running the command.
 
-```
-{ ... }:
-{
-  homeUsername = "<username>";
-  homeHomeDirectory = "</path/to/home/directory>";
-  gitUserEmail = "default-email-for-git@machine";
-}
-```
+## Nice-to-know commands
 
-Define `home.nix`, typically only import the correct machine config:
-
-```
-{ ... }:
-{
-  imports = [
-    ./machine/belgium
-  ];
-}
-```
-
-Run `install.sh`:
-
-```
-./install.sh
-```
+* Update flake inputs in lock file: `nix flake update`
+* Update a single flake input in lock file (e.g., `home-manager`): `nix flake lock --update-input home-manager`
 
 ## License
 
