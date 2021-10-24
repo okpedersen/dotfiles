@@ -35,8 +35,7 @@ if not vim.g.vscode then
 
   nvim_lsp.terraformls.setup {
     capabilities = capabilities;
-    cmd = { "terraform-lsp" };
-    filetypes = { "tf" };
+    filetypes = { "tf", "terraform" };
   }
 
   nvim_lsp.pyright.setup {
