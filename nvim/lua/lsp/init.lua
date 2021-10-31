@@ -21,6 +21,8 @@ if not vim.g.vscode then
 
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities());
   local on_attach = function(_, bufnr)
+    require 'lsp_signature'.on_attach({ extra_trigger_chars = { "(", "," } }, bufnr)
+
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     local opts = { noremap = true, silent = true }
@@ -103,6 +105,13 @@ if not vim.g.vscode then
         },
       },
     },
+  }
+
+  require'lspconfig'.omnisharp.setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    cmd = { "omnisharp-roslyn", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+    root_dir = util.root_pattern("omnisharp.json")
   }
 
   local servers = { "vimls", "bashls", "tsserver", "rnix" }

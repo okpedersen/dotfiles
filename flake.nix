@@ -37,6 +37,7 @@
       };
 
       luaLanguageServerOverlay = import ./overlays/sumneko-lua-language-server.nix;
+      omnisharpOverlay = import ./overlays/omnisharp-roslyn.nix;
     in
     {
 
@@ -46,7 +47,7 @@
       homeConfigurations."ole.pedersen" = home-manager.lib.homeManagerConfiguration {
         configuration = {
           nixpkgs.config.allowUnfree = true;
-          imports = [ ./machine/belgium { nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay (import ./spotify.nix) bs4Overlay vscodeOverlay luaLanguageServerOverlay ]; } ];
+          imports = [ ./machine/belgium { nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay (import ./spotify.nix) bs4Overlay vscodeOverlay luaLanguageServerOverlay omnisharpOverlay ]; } ];
         };
         system = "x86_64-darwin";
         username = "ole.pedersen";
@@ -57,7 +58,7 @@
       homeConfigurations."ole.kristian.eidem.pedersen" = home-manager.lib.homeManagerConfiguration {
         configuration = {
           nixpkgs.config.allowUnfree = true;
-          imports = [ ./machine/venezuela { nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay (import ./spotify.nix) bs4Overlay vscodeOverlay luaLanguageServerOverlay ]; } ];
+          imports = [ ./machine/venezuela { nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay (import ./spotify.nix) bs4Overlay vscodeOverlay luaLanguageServerOverlay omnisharpOverlay ]; } ];
         };
         system = "x86_64-darwin";
         username = "ole.kristian.eidem.pedersen";

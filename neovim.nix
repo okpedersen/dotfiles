@@ -22,6 +22,7 @@ in
     terraform-ls
     rnix-lsp
     sumneko-lua-language-server
+    omnisharp-roslyn
   ];
 
   programs.neovim = {
@@ -88,6 +89,7 @@ in
       cmp-nvim-lsp
       nvim-cmp
       cmp-buffer
+      lsp_signature-nvim
 
       {
         plugin = ale;
