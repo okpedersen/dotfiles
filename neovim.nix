@@ -21,6 +21,7 @@ in
     nodePackages.typescript-language-server
     terraform-ls
     rnix-lsp
+    sumneko-lua-language-server
   ];
 
   programs.neovim = {
