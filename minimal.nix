@@ -47,6 +47,7 @@
       d = "diff";
       ds = "diff --staged";
       puo = "!git push -u origin $(git branch --show-current)";
+      pf = "push --force-with-lease";
       ri = "rebase --interactive --autosquash";
       lp = "log -p";
       lg = "log --oneline --graph";
