@@ -12,6 +12,7 @@
     userSettings = {
       vscode-neovim.neovimExecutablePaths.darwin = "${pkgs.neovim}/bin/nvim";
       vscode-neovim.neovimInitPath = "~/.config/nvim/init.vim";
+      omnisharp.enableDecompilationSupport = true;
     };
   };
 }
