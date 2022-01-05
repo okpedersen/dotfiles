@@ -43,7 +43,7 @@ in
     kubectl
     kubernetes-helm
     azure-cli
-    npmPkgs."azure-functions-core-tools@3"
+    azure-functions-core-tools
     terraform
 
     # Other development
@@ -106,6 +106,5 @@ in
 
     # TODO: Check nix-direnv docs for disabling garbage collection
     nix-direnv.enable = true;
-    nix-direnv.enableFlakes = true;
   };
 }

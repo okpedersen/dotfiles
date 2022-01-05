@@ -28,9 +28,6 @@ fi
 # Source manually to run nix commands in this script
 . "$HOME/.nix-profile/etc/profile.d/nix.sh"
 
-# Use unstable nix to get commands & flakes
-nix-env -iA nixpkgs.nixUnstable
-
 mkdir -p "$HOME/.config/nix"
 ln -sf "$SCRIPT_DIR/nix.conf" "$HOME/.config/nix/"
 
@@ -38,7 +35,6 @@ mkdir -p "$HOME/.config/nixpkgs"
 ln -sf "$SCRIPT_DIR/flake.nix" "$HOME/.config/nixpkgs/flake.nix"
 
 cd "$SCRIPT_DIR"
-
 
 if [[ $NO_SWITCH == true ]]; then
   exit 0
