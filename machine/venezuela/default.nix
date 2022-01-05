@@ -9,6 +9,7 @@ in
 {
   imports = [
     ../../common-dev-tools.nix
+    ../../karabiner
   ];
 
   targets.darwin.defaults = {
