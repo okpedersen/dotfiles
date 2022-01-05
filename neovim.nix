@@ -27,7 +27,6 @@ in
 
   programs.neovim = {
     enable = true;
-    package = pkgs.neovim-nightly;
     withNodeJs = true;
     withPython3 = true;
     extraPython3Packages = (ps: with ps; [ ]);

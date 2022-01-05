@@ -10,7 +10,7 @@
       sha256 = "YUlygCPleF+/Ttyd2PeebAoZkcAhFmatbHi1nd6XwJ0=";
     }];
     userSettings = {
-      vscode-neovim.neovimExecutablePaths.darwin = "${pkgs.neovim-nightly}/bin/nvim";
+      vscode-neovim.neovimExecutablePaths.darwin = "${pkgs.neovim}/bin/nvim";
       vscode-neovim.neovimInitPath = "~/.config/nvim/init.vim";
     };
   };

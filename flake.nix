@@ -6,10 +6,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, ... }:
@@ -48,7 +44,7 @@
       homeConfigurations."ole.pedersen" = home-manager.lib.homeManagerConfiguration {
         configuration = {
           nixpkgs.config.allowUnfree = true;
-          imports = [ ./machine/belgium { nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay (import ./spotify.nix) bs4Overlay vscodeOverlay luaLanguageServerOverlay omnisharpOverlay azureFunctionCoreToolsOverlay ]; } ];
+          imports = [ ./machine/belgium { nixpkgs.overlays = [ (import ./spotify.nix) bs4Overlay vscodeOverlay luaLanguageServerOverlay omnisharpOverlay azureFunctionCoreToolsOverlay ]; } ];
         };
         system = "x86_64-darwin";
         username = "ole.pedersen";
@@ -59,7 +55,7 @@
       homeConfigurations."ole.kristian.eidem.pedersen" = home-manager.lib.homeManagerConfiguration {
         configuration = {
           nixpkgs.config.allowUnfree = true;
-          imports = [ ./machine/venezuela { nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay (import ./spotify.nix) bs4Overlay vscodeOverlay luaLanguageServerOverlay omnisharpOverlay azureFunctionCoreToolsOverlay ]; } ];
+          imports = [ ./machine/venezuela { nixpkgs.overlays = [ (import ./spotify.nix) bs4Overlay vscodeOverlay luaLanguageServerOverlay omnisharpOverlay azureFunctionCoreToolsOverlay ]; } ];
         };
         system = "x86_64-darwin";
         username = "ole.kristian.eidem.pedersen";
@@ -70,7 +66,7 @@
       belgium = self.homeConfigurations."ole.pedersen".activationPackage;
 
       homeConfigurations.docker = home-manager.lib.homeManagerConfiguration {
-        configuration = { imports = [ ./minimal.nix ./neovim.nix { nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay ]; } ]; };
+        configuration = { imports = [ ./minimal.nix ./neovim.nix { nixpkgs.overlays = [ ]; } ]; };
         system = "x86_64-linux";
         username = "docker";
         homeDirectory = "/home/docker";
