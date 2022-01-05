@@ -22,10 +22,6 @@ install_brew() {
     return 0
   fi
 
-  if is_wsl; then
-    sudo hwclock --hctosys # sync clock - can cause troubles if not
-  fi
-
   if is_macos; then
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   else
@@ -64,12 +60,6 @@ install_karabiner() {
   fi
 }
 
-install_wslconf() {
-  if is_wsl; then
-    sudo cp "$(pwd)/wsl/wsl.conf" /etc/wsl.conf
-  fi
-}
-
 main() {
   # Add nix install
   [ -f ~/.nixpkgs/darwin-configuration.nix ] && mv ~/.nixpkgs/darwin-configuration.nix ~/.nixpkgs/darwin-configuration.nix.bk
@@ -82,7 +72,6 @@ main() {
   install_brew
   install_base16
   install_karabiner
-  install_wslconf
 
   upgrade_packages
 
