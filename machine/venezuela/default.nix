@@ -22,6 +22,15 @@ in
   };
 
   home.packages = with pkgs; [
+    go-bindata
     sdk31and50
   ];
+
+  # https://stackoverflow.com/questions/69875520/unable-to-negotiate-with-40-74-28-9-port-22-no-matching-host-key-type-found-th
+  home.file.".ssh/config".text = ''
+    Host ssh.dev.azure.com
+      User git
+      PubkeyAcceptedAlgorithms +ssh-rsa
+      HostkeyAlgorithms +ssh-rsa
+  '';
 }
