@@ -3,12 +3,7 @@
   programs.vscode = {
     enable = true;
     extensions = (with pkgs.vscode-extensions; [
-    ]) ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [{
-      name = "vscode-neovim";
-      publisher = "asvetliakov";
-      version = "0.0.82";
-      sha256 = "YUlygCPleF+/Ttyd2PeebAoZkcAhFmatbHi1nd6XwJ0=";
-    }];
+    ]) ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [ ];
     userSettings = {
       files.eol = "\n";
       editor.insertSpaces = true;
