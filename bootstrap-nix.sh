@@ -26,7 +26,9 @@ else
 fi
 
 # Source manually to run nix commands in this script
-. "$HOME/.nix-profile/etc/profile.d/nix.sh"
+set +euo pipefail
+. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh 
+set -euo pipefail
 
 mkdir -p "$HOME/.config/nix"
 ln -sf "$SCRIPT_DIR/nix.conf" "$HOME/.config/nix/"
