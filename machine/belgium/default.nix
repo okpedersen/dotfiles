@@ -16,6 +16,12 @@
 
   home.packages = with pkgs; [
     spotify
+
+    # docker
+    docker
+    docker-compose
+    colima
+
     # pandoc with pdf output
     pandoc
     texlive.combined.scheme-small
