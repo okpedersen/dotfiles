@@ -6,30 +6,19 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixpkgs-21.11-darwin";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, nixpkgs-stable, ... }:
     let
-      # This fix is required while waiting for https://github.com/NixOS/nixpkgs/pull/137870
-      # to be merged and land in nixpkgs-unstable
-      bs4Overlay = self: super:
-        let
-          lib = super.lib;
-        in
-        rec {
-          python39 = super.python39.override {
-            packageOverrides = self: super: {
-              beautifulsoup4 = super.beautifulsoup4.overrideAttrs (old: {
-                propagatedBuildInputs = lib.remove super.lxml old.propagatedBuildInputs;
-              });
-            };
-          };
-          python39Packages = python39.pkgs;
-        };
-      # Dirty hack reversing https://github.com/NixOS/nixpkgs/pull/137912
-      # Needed until https://github.com/NixOS/nixpkgs/pull/139482 reaches nixpkgs-unstable
-      vscodeOverlay = self: super: {
-        vscode = super.vscode.overrideAttrs (oldAttrs: { postPatch = ""; });
+      stableOverlay = self: super: {
+        stable = nixpkgs-stable.legacyPackages.${super.system};
+      };
+
+      # This fix is required while waiting for https://github.com/NixOS/nixpkgs/pull/159516
+      ipythonOverlay = self: super: {
+        azure-cli = super.stable.azure-cli;
+        docker-compose = super.stable.docker-compose;
       };
 
       luaLanguageServerOverlay = import ./overlays/sumneko-lua-language-server.nix;
@@ -44,7 +33,7 @@
       homeConfigurations."ole.pedersen" = home-manager.lib.homeManagerConfiguration {
         configuration = {
           nixpkgs.config.allowUnfree = true;
-          imports = [ ./machine/belgium { nixpkgs.overlays = [ (import ./spotify.nix) bs4Overlay vscodeOverlay luaLanguageServerOverlay omnisharpOverlay azureFunctionCoreToolsOverlay ]; } ];
+          imports = [ ./machine/belgium { nixpkgs.overlays = [ (import ./spotify.nix) stableOverlay ipythonOverlay luaLanguageServerOverlay omnisharpOverlay azureFunctionCoreToolsOverlay ]; } ];
         };
         system = "x86_64-darwin";
         username = "ole.pedersen";
@@ -55,7 +44,7 @@
       homeConfigurations."ole.kristian.eidem.pedersen" = home-manager.lib.homeManagerConfiguration {
         configuration = {
           nixpkgs.config.allowUnfree = true;
-          imports = [ ./machine/venezuela { nixpkgs.overlays = [ (import ./spotify.nix) bs4Overlay vscodeOverlay luaLanguageServerOverlay omnisharpOverlay azureFunctionCoreToolsOverlay ]; } ];
+          imports = [ ./machine/venezuela { nixpkgs.overlays = [ (import ./spotify.nix) stableOverlay ipythonOverlay luaLanguageServerOverlay omnisharpOverlay azureFunctionCoreToolsOverlay ]; } ];
         };
         system = "x86_64-darwin";
         username = "ole.kristian.eidem.pedersen";
