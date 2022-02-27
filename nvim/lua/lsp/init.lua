@@ -110,8 +110,8 @@ if not vim.g.vscode then
   require'lspconfig'.omnisharp.setup {
     capabilities = capabilities,
     on_attach = on_attach,
-    cmd = { "omnisharp-roslyn", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
-    root_dir = util.root_pattern("omnisharp.json")
+    cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+    root_dir = util.root_pattern("omnisharp.json", "*.sln")
   }
 
   local servers = { "vimls", "bashls", "tsserver", "rnix" }

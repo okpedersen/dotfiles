@@ -1,4 +1,12 @@
 { pkgs, ... }:
+let
+  dotnetSdks = with pkgs.dotnetCorePackages;
+    combinePackages [
+      sdk_5_0
+      sdk_3_1
+      sdk_6_0
+    ];
+in
 {
   imports = [
     ../../common-dev-tools.nix
@@ -15,6 +23,7 @@
   };
 
   home.packages = with pkgs; [
+    dotnetSdks
     spotify
 
     # docker
