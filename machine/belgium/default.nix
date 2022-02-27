@@ -22,6 +22,10 @@
     docker-compose
     colima
 
+    podman # TODO: Handle config in ~/.config/containers/containers.conf
+    qemu
+    gvproxy
+
     # pandoc with pdf output
     pandoc
     texlive.combined.scheme-small
