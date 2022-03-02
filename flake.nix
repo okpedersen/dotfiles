@@ -22,6 +22,7 @@
       ipythonOverlay = self: super: {
         azure-cli = super.stable.azure-cli;
         docker-compose = super.stable.docker-compose;
+        httpie = super.stable.httpie;
       };
 
       # While waiting for nixpkgs PR 160410

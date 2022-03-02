@@ -25,6 +25,7 @@ in
     tree # For fzf
     entr
     procps # watch
+    httpie
 
     # Python
     python2
