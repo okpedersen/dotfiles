@@ -50,6 +50,7 @@ in
       vim-surround
       vim-unimpaired
       vim-fugitive
+      vim-eunuch
 
       {
         plugin = delimitMate;
