@@ -23,6 +23,9 @@ in
   };
 
   home.packages = with pkgs; [
+    dapr-cli
+    k6
+
     dotnetSdks
     spotify
 

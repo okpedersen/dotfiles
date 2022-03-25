@@ -25,6 +25,10 @@
         httpie = super.stable.httpie;
       };
 
+      daprCliOverlay = sef: super: {
+        dapr-cli = super.stable.dapr-cli;
+      };
+
       # While waiting for nixpkgs PR 160410
       podmanOverlay = self: super: {
         podman = super.master.podman;
@@ -39,6 +43,7 @@
         nixpkgsOverlay
         podmanOverlay
         ipythonOverlay
+        daprCliOverlay
         luaLanguageServerOverlay
         omnisharpOverlay
         azureFunctionCoreToolsOverlay
