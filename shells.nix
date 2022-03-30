@@ -11,7 +11,7 @@ in
   programs.bash = {
     enable = true;
     sessionVariables = {
-      EDITOR = "$(command -v nvim)";
+      EDITOR = "${pkgs.neovim}/bin/nvim";
 
       # Colorized man pages
       MANPAGER = "sh -c 'col -bx | ${pkgs.bat}/bin/bat -l man -p'";
@@ -61,7 +61,7 @@ in
     };
 
     sessionVariables = {
-      EDITOR = "$(command -v nvim)";
+      EDITOR = "${pkgs.neovim}/bin/nvim";
       LANG = "en_US.UTF-8";
 
       # Colorized man pages
