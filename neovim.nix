@@ -90,6 +90,8 @@ in
       nvim-cmp
       cmp-buffer
       lsp_signature-nvim
+      luasnip
+      cmp_luasnip
 
       {
         plugin = ale;

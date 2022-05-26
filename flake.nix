@@ -9,43 +9,29 @@
     };
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixpkgs-21.11-darwin";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
+    nixpkgs-podman.url = "github:nixos/nixpkgs/40caba20b3edb204e1ac42d99e4f847ef1196417"; # nixpkgs before podman 4.0.3 -> 4.1.0
   };
 
-  outputs = inputs@{ self, flake-utils, nixpkgs, home-manager, nixpkgs-stable, nixpkgs-master, ... }:
+  outputs = inputs@{ self, flake-utils, nixpkgs, home-manager, nixpkgs-stable, nixpkgs-master, nixpkgs-podman, ... }:
     let
       nixpkgsOverlay = self: super: {
         stable = nixpkgs-stable.legacyPackages.${super.system};
         master = nixpkgs-master.legacyPackages.${super.system};
+        nixpkgs-podman = nixpkgs-podman.legacyPackages.${super.system};
       };
 
-      # This fix is required while waiting for https://github.com/NixOS/nixpkgs/pull/159516
-      ipythonOverlay = self: super: {
-        azure-cli = super.stable.azure-cli;
-        docker-compose = super.stable.docker-compose;
-        httpie = super.stable.httpie;
-      };
-
-      daprCliOverlay = sef: super: {
-        dapr-cli = super.stable.dapr-cli;
-      };
-
-      # While waiting for nixpkgs PR 160410
+      # FIXME: While waiting for SDK 10.13 (https://github.com/NixOS/nixpkgs/issues/101229)
       podmanOverlay = self: super: {
-        podman = super.master.podman;
+        podman = super.nixpkgs-podman.podman;
       };
 
-      luaLanguageServerOverlay = import ./overlays/sumneko-lua-language-server.nix;
-      omnisharpOverlay = import ./overlays/omnisharp-roslyn.nix;
+      # TODO: azure-function-core-tools in nixpkgs does not support darwin
       azureFunctionCoreToolsOverlay = import ./overlays/azure-functions-core-tools.nix;
 
       overlays = [
         (import ./spotify.nix)
         nixpkgsOverlay
         podmanOverlay
-        ipythonOverlay
-        daprCliOverlay
-        luaLanguageServerOverlay
-        omnisharpOverlay
         azureFunctionCoreToolsOverlay
       ];
 
@@ -78,7 +64,8 @@
               name = "${conf.username}";
               value = home-manager.lib.homeManagerConfiguration {
                 configuration = {
-                  nixpkgs.config.allowUnfree = true;
+                  # nixpkgs.config.allowUnfree = true;  # FIXME: https://github.com/nix-community/home-manager/issues/2942
+                  nixpkgs.config.allowUnfreePredicate = (pkg: true);
                   nixpkgs.overlays = overlays;
                   imports = conf.imports;
                 };
