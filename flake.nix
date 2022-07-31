@@ -63,16 +63,22 @@
             (conf: {
               name = "${conf.username}";
               value = home-manager.lib.homeManagerConfiguration {
-                configuration = {
-                  # nixpkgs.config.allowUnfree = true;  # FIXME: https://github.com/nix-community/home-manager/issues/2942
-                  nixpkgs.config.allowUnfreePredicate = (pkg: true);
-                  nixpkgs.overlays = overlays;
-                  imports = conf.imports;
-                };
-                system = system;
-                username = conf.username;
-                homeDirectory = conf.homeDirectory;
-                stateVersion = "21.05";
+                pkgs = nixpkgs.legacyPackages.${system};
+                modules = [
+                  {
+                    # nixpkgs.config.allowUnfree = true;  # FIXME: https://github.com/nix-community/home-manager/issues/2942
+                    nixpkgs.config.allowUnfreePredicate = (pkg: true);
+                    nixpkgs.overlays = overlays;
+                    imports = conf.imports;
+                  }
+                  {
+                    home = {
+                      username = conf.username;
+                      homeDirectory = conf.homeDirectory;
+                      stateVersion = "22.11";
+                    };
+                  }
+                ];
               };
             })
             configurations
