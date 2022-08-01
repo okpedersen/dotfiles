@@ -10,6 +10,7 @@ in
     ./minimal.nix
     ./vscode.nix
     ./kitty.nix
+    ./azure.nix
   ];
   home.packages = with pkgs; [
     # CLI tools
@@ -43,8 +44,6 @@ in
     doctl
     kubectl
     kubernetes-helm
-    azure-cli
-    azure-functions-core-tools
     terraform
 
     # Other development
