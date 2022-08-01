@@ -45,13 +45,6 @@ upgrade_packages() {
   brew upgrade || true
 }
 
-install_base16() {
-  if [[ ! -d "${HOME}"/.config/base16-shell ]]; then
-    git clone https://github.com/chriskempson/base16-shell "${HOME}"/.config/base16-shell
-  fi
-  info "Change shell colors with base16_*"
-}
-
 main() {
   # Add nix install
   [ -f ~/.nixpkgs/darwin-configuration.nix ] && mv ~/.nixpkgs/darwin-configuration.nix ~/.nixpkgs/darwin-configuration.nix.bk
@@ -62,7 +55,6 @@ main() {
 
   install_xcode_command_line_tools
   install_brew
-  install_base16
 
   upgrade_packages
 

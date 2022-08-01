@@ -35,12 +35,6 @@ in
 
       # Use vi mode
       set -o vi
-
-      # Base16 Shell
-      BASE16_SHELL="$HOME/.config/base16-shell/"
-      [ -n "$PS1" ] && \
-          [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-              eval "$("$BASE16_SHELL/profile_helper.sh")"
     '';
 
     shellAliases = {
@@ -78,13 +72,8 @@ in
       FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT = 1;
     };
 
-    initExtra = ''
-      # Base16 Shell
-      BASE16_SHELL="$HOME/.config/base16-shell/"
-      [ -n "$PS1" ] && \
-          [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-              eval "$("$BASE16_SHELL/profile_helper.sh")"
 
+    initExtra = ''
       if [[ -a $HOME/.zsh_local_settings ]]; then
           source $HOME/.zsh_local_settings
       else
