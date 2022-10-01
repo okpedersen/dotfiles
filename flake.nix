@@ -25,14 +25,14 @@
         podman = super.nixpkgs-podman.podman;
       };
 
-      # TODO: azure-function-core-tools in nixpkgs does not support darwin
-      azureFunctionCoreToolsOverlay = import ./overlays/azure-functions-core-tools.nix;
+      poetryOverlay = self: super: {
+        poetry = super.nixpkgs-stable.poetry;
+      };
 
       overlays = [
         (import ./spotify.nix)
         nixpkgsOverlay
         podmanOverlay
-        azureFunctionCoreToolsOverlay
       ];
 
       configurations = [
