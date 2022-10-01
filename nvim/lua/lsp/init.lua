@@ -5,7 +5,7 @@ if not vim.g.vscode then
 
   for i, v in ipairs(cmp.mapping) do print(i, v) end
   cmp.setup({
-    snipped = {
+    snippet = {
       expand = function(args)
         require('luasnip').lsp_expand(args.body)
       end,
