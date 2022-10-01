@@ -36,6 +36,7 @@ in
     # JavaScript
     nodejs
     nodePackages.npm
+    yarn
 
     # Go
     go
@@ -45,6 +46,9 @@ in
     kubectl
     kubernetes-helm
     terraform
+    fluxcd
+    kustomize
+    linkerd
 
     # Other development
     nodePackages.gitmoji-cli
