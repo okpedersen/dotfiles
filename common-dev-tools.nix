@@ -29,7 +29,6 @@ in
     httpie
 
     # Python
-    python2
     python3
     poetry
 

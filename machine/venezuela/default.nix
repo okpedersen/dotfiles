@@ -1,9 +1,9 @@
 { pkgs, ... }:
 let
-  sdk31and50 = with pkgs.dotnetCorePackages;
+  sdks = with pkgs.dotnetCorePackages;
     combinePackages [
-      sdk_5_0
-      sdk_3_1
+      sdk_7_0
+      sdk_6_0
     ];
 in
 {
@@ -23,6 +23,6 @@ in
 
   home.packages = with pkgs; [
     go-bindata
-    sdk31and50
+    sdks
   ];
 }
