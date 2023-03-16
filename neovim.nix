@@ -1,17 +1,7 @@
-{ config, pkgs, ... }:
-let
-  tokyonight = pkgs.vimUtils.buildVimPlugin {
-    name = "tokyonight.nvim";
-    src = pkgs.fetchFromGitHub {
-      owner = "folke";
-      repo = "tokyonight.nvim";
-      rev = "e3ad6032a7e2c54dd7500335b43c7d353a19ede9";
-      sha256 = "1slb67kirb0jfgjsw09dhimmxagsk2aii6w461y1w8nj3fkl6p28";
-    };
-  };
-in
+{ config, pkgs, lib, ... }:
 {
   home.packages = with pkgs; [
+    nerdfonts
     # Language servers for neovim
     nodePackages.vim-language-server
     nodePackages.bash-language-server
@@ -23,6 +13,9 @@ in
     rnix-lsp
     sumneko-lua-language-server
     omnisharp-roslyn
+
+    # Debuggers
+    netcoredbg
   ];
 
   programs.neovim = {
@@ -30,200 +23,221 @@ in
     withNodeJs = true;
     withPython3 = true;
     extraPython3Packages = (ps: with ps; [ ]);
-    plugins = with pkgs.vimPlugins; [
-      # Airline
-      {
-        plugin = vim-airline;
-        config = "let g:airline#extensions#tabline#enabled = 1";
-      }
-      vim-airline-themes # TODO: check config
+    plugins = with pkgs.myVimPlugins; with pkgs.vimPlugins; [
+      # Dependencies used by other plugins
+      plenary-nvim
+      nui-nvim
+
+      # Visual config/colorscheme
       {
         plugin = tokyonight;
         config = ''
           colorscheme tokyonight
         '';
       }
-
-      # tpope plugins
-      vim-abolish
-      vim-repeat
-      vim-surround
-      vim-unimpaired
-      vim-fugitive
-      vim-eunuch
-
+      nvim-web-devicons
       {
-        plugin = delimitMate;
+        plugin = lualine-nvim;
         config = ''
-          let g:delimitMate_expand_cr = 1
-          let g:delimitMate_expand_space = 0
-          let g:delimitMate_smart_matchpairs = 1
-          let g:delimitMate_balance_matchpairs = 1
+          lua require('lualine').setup()
         '';
       }
-
-      fzf-vim
-      fzfWrapper
-
       {
-        plugin = nerdtree;
+        plugin = bufferline-nvim;
         config = ''
-          let NERDTreeShowHidden=1
-          let NERDTreeQuitOnOpen=1
-          map <Leader>n :NERDTreeFind<CR>
+          lua <<EOF
+            vim.opt.termguicolors = true
+            require("bufferline").setup()
+          EOF
         '';
       }
-
+      nvim-notify
       {
-        plugin = tmux-navigator;
+        plugin = noice-nvim;
         config = ''
-          " add corresponding settings when using vim terminal
-          tnoremap <C-h> <C-\><C-n><C-w>h
-          tnoremap <C-j> <C-\><C-n><C-w>j
-          tnoremap <C-k> <C-\><C-n><C-w>k
-          tnoremap <C-l> <C-\><C-n><C-w>l
+          lua <<EOF
+            require('noice').setup({
+              lsp = {
+                override = {
+                  ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                  ["vim.lsp.util.stylize_markdown"] = true,
+                  ["cmp.entry.get_documentation"] = true,
+                },
+
+                -- TODO: Update nixpkgs for this to work
+                --presets = {
+                --  lsp_doc_border = true,
+                --},
+              },
+            })
+          EOF
         '';
       }
+      # TODO: Arg highlighting: https://github.com/m-demare/hlargs.nvim
+      # TODO: Extra plugins
+      # - https://github.com/Chaitanyabsprip/present.nvim
+      # - https://github.com/folke/twilight.nvim
+      # - https://github.com/folke/zen-mode.nvim
+      # - https://github.com/goolord/alpha-nvim
 
+      # Neovim lua configuration
+      neodev-nvim
+
+      # LSP
       nvim-lspconfig
       cmp-nvim-lsp
       nvim-cmp
       cmp-buffer
-      lsp_signature-nvim
       luasnip
       cmp_luasnip
 
+      nvim-treesitter.withAllGrammars # TODO: Might be excessive to install all, but convenient
+      nvim-treesitter-textobjects
+
+      # Telescope
+      telescope-nvim
       {
-        plugin = ale;
+        plugin = telescope-ui-select-nvim;
         config = ''
-          let g:ale_echo_msg_format = '%code: %%linter% [%severity%] %s'
+          lua require('telescope').load_extension('ui-select');
+        '';
+      }
+      {
+        plugin = telescope-fzf-native-nvim;
+        config = ''
+          	        lua require('telescope').load_extension('fzf')
         '';
       }
 
-      vim-nix
+      # Diagnostics
+      trouble-nvim
+
+      # Navigation
+      tmux-navigator
+
+      # Utilities
+      {
+        plugin = nvim-surround;
+        config = ''
+          lua require('nvim-surround').setup {}
+        '';
+      }
+      {
+        plugin = text-case-nvim;
+        # TODO: consider Telescope integration
+        config = ''
+          lua require('textcase').setup {}
+        '';
+      }
+      # TODO: https://github.com/smjonas/inc-rename.nvim
+      # Test compatability with text-case
+      {
+        plugin = nvim-lightbulb;
+        config = ''
+          lua require('nvim-lightbulb').setup({autocmd = {enabled = true}})
+        '';
+      }
+      {
+        plugin = which-key-nvim;
+        config = ''
+          lua require('which-key').setup {}
+        '';
+      }
+      {
+        plugin = gitsigns-nvim;
+        # TODO: Copy paste from gitsigns, move/change?
+        config = ''
+          lua <<EOF
+            require('gitsigns').setup {
+              on_attach = function(bufnr)
+                local gs = package.loaded.gitsigns
+
+                local function map(mode, l, r, opts)
+                  opts = opts or {}
+                  opts.buffer = bufnr
+                  vim.keymap.set(mode, l, r, opts)
+                end
+
+                -- Navigation
+                map('n', ']c', function()
+                  if vim.wo.diff then return ']c' end
+                  vim.schedule(function() gs.next_hunk() end)
+                  return '<Ignore>'
+                end, {expr=true})
+
+                map('n', '[c', function()
+                  if vim.wo.diff then return '[c' end
+                  vim.schedule(function() gs.prev_hunk() end)
+                  return '<Ignore>'
+                end, {expr=true})
+
+                -- Actions
+                map({'n', 'v'}, '<leader>hs', ':Gitsigns stage_hunk<CR>')
+                map({'n', 'v'}, '<leader>hr', ':Gitsigns reset_hunk<CR>')
+                map('n', '<leader>hS', gs.stage_buffer)
+                map('n', '<leader>hu', gs.undo_stage_hunk)
+                map('n', '<leader>hR', gs.reset_buffer)
+                map('n', '<leader>hp', gs.preview_hunk)
+                map('n', '<leader>hb', function() gs.blame_line{full=true} end)
+                map('n', '<leader>tb', gs.toggle_current_line_blame)
+                map('n', '<leader>hd', gs.diffthis)
+                map('n', '<leader>hD', function() gs.diffthis('~') end)
+                map('n', '<leader>td', gs.toggle_deleted)
+
+                -- Text object
+                map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+              end
+            }
+          EOF
+        '';
+      }
+      # TODO: https://github.com/Shatur/neovim-session-manager
+
+      # Debuggers
+      nvim-dap
+      { plugin = nvim-dap-ui; config = ''''; }
+      { plugin = nvim-dap-virtual-text; config = ''''; }
+      # TODO: telescope-dap-nvim ?
+      # TODO: cmp-dap ?
+
+      /*
+        # tpope plugins
+        vim-repeat
+        vim-unimpaired
+        vim-fugitive
+        vim-eunuch
+
+        {
+        plugin = delimitMate;
+        config = ''
+        let g:delimitMate_expand_cr = 1
+        let g:delimitMate_expand_space = 0
+        let g:delimitMate_smart_matchpairs = 1
+        let g:delimitMate_balance_matchpairs = 1
+        '';
+        }
+
+        {
+        plugin = nerdtree;
+        config = ''
+        let NERDTreeShowHidden=1
+        let NERDTreeQuitOnOpen=1
+        map <Leader>n :NERDTreeFind<CR>
+        '';
+        }
+
+        vim-nix
+      */
     ];
     extraConfig = ''
-      if !exists('g:vscode')
-        " General configuration {{{
-
-        let g:uname = system("uname -a")
-        let g:is_macos = g:uname =~ "Darwin"
-        let g:is_wsl = g:uname =~ "Microsoft"
-
-        set hidden " hide buffers when not displayed
-
-        set nowrap " disable automatic wrapping
-
-        set formatoptions-=ro " no automatic comment leader after <Enter> or 'o'/'O'
-
-        " show line number of current line, but use relative numbers on other lines
-        set number
-
-        " search options
-        set hlsearch   " highlight
-        set ignorecase " ignore case
-        set smartcase  " ... except when using uppercase letters
-        set incsearch  " find the next match while typing
-
-        " confirm quit, and prompt to save, when exiting unsaved file
-        set confirm
-
-        " predictable splits
-        set splitright
-        set splitbelow
-
-        " default indent settings
-        set expandtab    " tabs to spaces
-        set tabstop=2    " width of <TAB>
-        set shiftwidth=2 " length of a shift
-
-        " don't print ins-completion-menu messages
-        set shortmess+=c
-
-        " avoid jumping when signs appear and disappear
-        set signcolumn=yes
-
-        " two lines for cmd
-        set cmdheight=2
-
-        " write swap file after 300ms of inactivity
-        set updatetime=300
-
-        " python host progs
-        let g:loaded_python_provider = 0 " disable Python 2
-        let g:python3_host_prog="~/.nix-profile/bin/nvim-python3"
-        "}}}
-
-        " Miscellaneous utilities {{{
-
-        " reload vim config after save
-        augroup reload_myvimrc
-          autocmd!
-          autocmd BufWritePost $MYVIMRC source $MYVIMRC
-        augroup END
-
-        " enable highlight of current line
-        augroup enable_cursorline
-          autocmd!
-          autocmd BufEnter * set cursorline
-          autocmd BufLeave * set nocursorline
-        augroup END
-
-        " terminal settings
-        augroup terminal_settings
-          autocmd!
-          autocmd WinEnter,BufEnter term://* startinsert
-          autocmd BufLeave term://* stopinsert
-        augroup END
-        " }}}
-
-        " Custom keyboard remaps {{{
-
-        " use space as map leader
-        let mapleader=" "
-        let maplocalleader="\\"
-
-        " use jj as escape button in insert mode
-        inoremap jk <ESC>
-
-        " use <ESC> to escape insertion in terminal
-        tnoremap <ESC> <C-\><C-n>
-
-        " <Leader>/ to clear search highlights
-        nnoremap <silent> <Leader>/ :nohls<CR>
-        "}}}
-
-        lua require("lsp")
-
-        " Plugin configuration {{{
-        " LSP
-        set completeopt=menu,menuone,noselect
-        " }}}
-
-
-        " Language specific commands {{{
-        augroup lang_viml
-          autocmd!
-          autocmd Filetype vim setlocal tabstop=2|setlocal shiftwidth=2| set expandtab
-        augroup END
-
-        augroup lang_python
-          autocmd!
-          autocmd Filetype python setlocal tabstop=4|setlocal shiftwidth=4| setlocal expandtab
-          " allow expansion of triple quotes
-          autocmd Filetype python let b:delimitMate_nesting_quotes = ['"']
-        augroup END
-
-        augroup lang_cpp
-          autocmd!
-          autocmd Filetype cpp setlocal tabstop=2|setlocal shiftwidth=2|setlocal expandtab
-        augroup END
-
-        " }}}
-      else
-        nnoremap ]b <Cmd>call VSCodeCall('workbench.action.nextEditorInGroup')<CR>
-        nnoremap [b <Cmd>call VSCodeCall('workbench.action.previousEditorInGroup')<CR>
-      endif
+      lua <<EOF
+      if not vim.g.vscode then
+        require("lsp")
+        require("config")
+        require("treesitter")
+        require("debugger")
+      end
+      EOF
     '';
   };
 

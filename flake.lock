@@ -68,6 +68,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-netcoredbg": {
+      "locked": {
+        "lastModified": 1678968957,
+        "narHash": "sha256-9m64Mvc752hQ7sjuzLaP5zf0Kqri94rZU7oZ7/sglrg=",
+        "owner": "SilverCoder",
+        "repo": "nixpkgs",
+        "rev": "ca3d39623c53420339f6b1c6bde016451b50f927",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SilverCoder",
+        "repo": "nixpkgs",
+        "rev": "ca3d39623c53420339f6b1c6bde016451b50f927",
+        "type": "github"
+      }
+    },
     "nixpkgs-podman": {
       "locked": {
         "lastModified": 1652264717,
@@ -100,14 +116,32 @@
         "type": "github"
       }
     },
+    "nvim-tokyonight": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1674503926,
+        "narHash": "sha256-sXILXqJYZW0KywQhtBqGr76VsHV+sBnBM+RCqXCjZ2A=",
+        "owner": "folke",
+        "repo": "tokyonight.nvim",
+        "rev": "affb21a81e6d7de073378eb86d02864c594104d9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "folke",
+        "repo": "tokyonight.nvim",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixpkgs-master": "nixpkgs-master",
+        "nixpkgs-netcoredbg": "nixpkgs-netcoredbg",
         "nixpkgs-podman": "nixpkgs-podman",
-        "nixpkgs-stable": "nixpkgs-stable"
+        "nixpkgs-stable": "nixpkgs-stable",
+        "nvim-tokyonight": "nvim-tokyonight"
       }
     },
     "utils": {
