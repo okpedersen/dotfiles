@@ -21,8 +21,20 @@ in
     };
   };
 
+  home.sessionVariables = {
+    DOTNET_ROOT = "${sdks}";
+  };
+
   home.packages = with pkgs; [
+    go
+    gopls
+    delve
     go-bindata
     sdks
+    yarn
+    slack-cli
+    k6
+    kubelogin
+    dbeaver
   ];
 }
