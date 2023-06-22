@@ -16,6 +16,11 @@
       url = "github:folke/tokyonight.nvim";
       flake = false;
     };
+    # Used for home-manager darwin applications hack
+    mkAlias = {
+			url = "github:cdmistman/mkAlias";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
   };
 
   outputs = inputs@{ self, flake-utils, nixpkgs, home-manager, nixpkgs-stable, nixpkgs-master, nixpkgs-podman, nixpkgs-netcoredbg, ... }:
@@ -50,12 +55,18 @@
         };
       };
 
+      mkAliasOverlay = self: super: {
+        # https://github.com/nix-community/home-manager/issues/1341#issuecomment-1468889352
+        mkAlias = inputs.mkAlias.outputs.apps.${super.system}.default.program;
+      };
+
       overlays = [
         (import ./spotify.nix)
         nixpkgsOverlay
         podmanOverlay
         neovimOverlay
         netcoredbgOverlay
+        mkAliasOverlay
       ];
 
       configurations = [
