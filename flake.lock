@@ -103,22 +103,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-podman": {
-      "locked": {
-        "lastModified": 1652264717,
-        "narHash": "sha256-wNIok+E0n+5/glp0WjicerJU8h/nHOswS3xdjxmKnbo=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "40caba20b3edb204e1ac42d99e4f847ef1196417",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "40caba20b3edb204e1ac42d99e4f847ef1196417",
-        "type": "github"
-      }
-    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1659446231,
@@ -159,7 +143,6 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-netcoredbg": "nixpkgs-netcoredbg",
-        "nixpkgs-podman": "nixpkgs-podman",
         "nixpkgs-stable": "nixpkgs-stable",
         "nvim-tokyonight": "nvim-tokyonight"
       }
