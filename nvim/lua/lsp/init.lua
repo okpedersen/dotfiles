@@ -63,8 +63,8 @@ nvim_lsp.yamlls.setup {
   on_attach = on_attach,
   settings = {
     yaml = {
-      schemas = {
-        kubernetes = "/**/*.yaml"
+      schemastore = {
+        enable = true
       }
     }
   }
