@@ -1,6 +1,7 @@
 local nvim_lsp = require('lspconfig')
 local util = require('lspconfig/util')
 local cmp = require('cmp')
+local wk = require("which-key")
 
 for i, v in ipairs(cmp.mapping) do print(i, v) end
 cmp.setup({
@@ -28,33 +29,52 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protoc
 local on_attach = function(_, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  local opts = { noremap = true, silent = true }
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-s>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl',
-    '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'v', '<leader>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.diagnostic.open_float(0, {scope="line"})<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>xx', '<cmd>TroubleToggle<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>xw', '<cmd>TroubleToggle workspace_diagnostics<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>xd', '<cmd>TroubleToggle document_diagnostics<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>xq', '<cmd>TroubleToggle quickfix<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>xl', '<cmd>TroubleToggle loclist<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gR', '<cmd>TroubleToggle lsp_references<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '[x', [[<cmd>lua require('trouble').previous({skip_groups = true, jump = true})]], opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', ']x', [[<cmd>lua require('trouble').next({skip_groups = true, jump = true})]], opts)
-  --vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
+  local nOpts = { noremap = true, silent = true, mode = "n", buffer = bufnr}
+  wk.register({
+    g = {
+      name = "+Go to",
+      D = {'<Cmd>lua vim.lsp.buf.declaration()<CR>', "Declaration" },
+      d = {'<Cmd>lua vim.lsp.buf.definition()<CR>', "Definition"},
+      i = {'<cmd>lua vim.lsp.buf.implementation()<CR>', "Implementation"},
+      r = {'<cmd>lua vim.lsp.buf.references()<CR>', "References"},
+      R = {'<cmd>TroubleToggle lsp_references<CR>', "References (Trouble)"},
+    },
+    ['<leader>D'] = {'<cmd>lua vim.lsp.buf.type_definition()<CR>', "Go to type definiditon"},
+    ['K'] = {'<Cmd>lua vim.lsp.buf.hover()<CR>', "Show documentation"},
+    ['<C-s>'] = {'<cmd>lua vim.lsp.buf.signature_help()<CR>', "Signature help"},
+
+    ['<leader>w'] = {
+      name = "+Workspace",
+      ['a'] = {'<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', "Add folder"},
+      ['r'] = {'<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', "Remove folder"},
+      ['l'] = {'<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', "List folder"},
+    },
+
+    ['<leader>rn'] = {'<cmd>lua vim.lsp.buf.rename()<CR>', "Rename"},
+    ['<leader>ca'] = {'<cmd>lua vim.lsp.buf.code_action()<CR>', "Code action"},
+    ['<leader>e'] = {'<cmd>lua vim.diagnostic.open_float(0, {scope="line"})<CR>', "Open line diagnostics float"},
+    ['[d'] = {'<cmd>lua vim.diagnostic.goto_prev()<CR>', "Previous diagnostic"},
+    [']d'] = {'<cmd>lua vim.diagnostic.goto_next()<CR>', "Next diagnostic"},
+  }, nOpts)
+
+  local vOpts = { noremap = true, silent = true, mode = "v", buffer = bufnr}
+  wk.register({
+    ['<leader>ca'] = {'<cmd>lua vim.lsp.buf.range_code_action()<CR>', "Code action"},
+  }, vOpts)
+
+  wk.register({
+    ['<leader>x'] = {
+      name = "+Trouble",
+      x = {'<cmd>TroubleToggle<CR>', "Toggle"},
+      w = {'<cmd>TroubleToggle workspace_diagnostics<CR>', "Workspace diagnostics"},
+      d = {'<cmd>TroubleToggle document_diagnostics<CR>', "Document diagnostics"},
+      q = {'<cmd>TroubleToggle quickfix<CR>', "Quickfix list"},
+      l = {'<cmd>TroubleToggle loclist<CR>', "Location list"},
+    },
+    ['[x'] = {[[<cmd>lua require('trouble').previous({skip_groups = true, jump = true})<CR>]], "Trouble previous"},
+    [']x'] = {[[<cmd>lua require('trouble').next({skip_groups = true, jump = true})<CR>]], "Trouble next"},
+  }, nOpts)
+
   vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
 end
 
