@@ -27,6 +27,7 @@ in
     entr
     procps # watch
     httpie
+    gh # GitHub CLI
 
     # Python
     python3
