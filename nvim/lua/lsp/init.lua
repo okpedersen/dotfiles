@@ -85,6 +85,9 @@ nvim_lsp.yamlls.setup {
     yaml = {
       schemastore = {
         enable = true
+      },
+      schemas = {
+        [vim.fn.stdpath('config').."/openapi-v3.0-draft-07.json"] = "openapi.yaml"
       }
     }
   }

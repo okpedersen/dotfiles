@@ -241,5 +241,6 @@
     '';
   };
 
+  xdg.configFile."nvim/openapi-v3.0-draft-07.json".source = ./nvim/openapi-v3.0-draft-07.json;
   xdg.configFile."nvim/lua".source = ./nvim/lua;
 }
