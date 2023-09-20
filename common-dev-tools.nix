@@ -28,6 +28,7 @@ in
     procps # watch
     httpie
     gh # GitHub CLI
+    actionlint
 
     # Python
     python3
