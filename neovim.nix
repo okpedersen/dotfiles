@@ -91,6 +91,25 @@
       luasnip
       cmp_luasnip
 
+      {
+        plugin = copilot-lua;
+        config = ''
+          lua <<EOF
+            require('copilot').setup({
+              filetypes = {
+                yaml = true,
+              }
+            })
+          EOF
+        '';
+      }
+      {
+        plugin = copilot-cmp;
+        config = ''
+          lua require('copilot_cmp').setup()
+        '';
+      }
+
       nvim-treesitter.withAllGrammars # TODO: Might be excessive to install all, but convenient
       nvim-treesitter-textobjects
 
