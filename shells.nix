@@ -28,8 +28,8 @@ in
 
     shellAliases = {
       cat = "${pkgs.bat}/bin/bat";
-      ls = "${pkgs.exa}/bin/exa";
-      l = "${pkgs.exa}/bin/exa -lahF";
+      ls = "${pkgs.eza}/bin/eza";
+      l = "${pkgs.eza}/bin/eza -lahF";
     };
   };
 }

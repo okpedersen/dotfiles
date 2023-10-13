@@ -15,7 +15,7 @@ in
   home.packages = with pkgs; [
     # CLI tools
     jq # TODO: Install as program w/conf
-    exa
+    eza
     bat # TODO: Install as program w/conf
     fd
     ripgrep
