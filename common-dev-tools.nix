@@ -67,6 +67,7 @@ in
     fluxcd
     kustomize
     linkerd
+    awscli2
 
     # Other development
     nodePackages.gitmoji-cli
