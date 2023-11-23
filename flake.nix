@@ -10,6 +10,7 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixpkgs-21.11-darwin";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
     nixpkgs-netcoredbg.url = "github:SilverCoder/nixpkgs/ca3d39623c53420339f6b1c6bde016451b50f927";
+    nixpkgs-omnisharp.url = "github:NixOS/nixpkgs/bad8fbc216f12c5b79a83f3ca86a40c22ef5cf21";
 
     nvim-tokyonight = {
       url = "github:folke/tokyonight.nvim";
@@ -22,12 +23,13 @@
 		};
   };
 
-  outputs = inputs@{ self, flake-utils, nixpkgs, home-manager, nixpkgs-stable, nixpkgs-master, nixpkgs-netcoredbg, ... }:
+  outputs = inputs@{ self, flake-utils, nixpkgs, home-manager, nixpkgs-stable, nixpkgs-master, nixpkgs-netcoredbg, nixpkgs-omnisharp, ... }:
     let
       nixpkgsOverlay = self: super: {
         stable = nixpkgs-stable.legacyPackages.${super.system};
         master = nixpkgs-master.legacyPackages.${super.system};
         nixpkgs-netcoredbg = nixpkgs-netcoredbg.legacyPackages.${super.system};
+        nixpkgs-omnisharp = nixpkgs-omnisharp.legacyPackages.${super.system};
       };
 
       poetryOverlay = self: super: {
@@ -48,6 +50,11 @@
         };
       };
 
+      # https://github.com/OmniSharp/omnisharp-roslyn/issues/2574
+      omnisharpOverlay = self: super: {
+        omnisharp-roslyn = super.nixpkgs-omnisharp.omnisharp-roslyn;
+      };
+
       mkAliasOverlay = self: super: {
         # https://github.com/nix-community/home-manager/issues/1341#issuecomment-1468889352
         mkAlias = inputs.mkAlias.outputs.apps.${super.system}.default.program;
@@ -59,6 +66,7 @@
         neovimOverlay
         netcoredbgOverlay
         mkAliasOverlay
+        omnisharpOverlay
       ];
 
       configurations = [
