@@ -1,7 +1,23 @@
-{ pkgs, stdenv, ... }:
+{ pkgs, stdenv, lib, ... }:
 let
-  nodejs = pkgs.nodejs;
-  npmPkgs = import ./npmPkgs { inherit pkgs nodejs stdenv; };
+  httpyac = pkgs.buildNpmPackage rec {
+    pname = "httpyac";
+    version = "6.8.1";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "AnWeber";
+      repo  = pname;
+      rev   = version;
+      hash  = "sha256-bXBs26saUshuL/1LvHf5SD/bLmWLBp48viJyRrqScwY=";
+    };
+
+    npmDepsHash = "sha256-LtNssp0+IXcEAKyzXGdbjcdpowobW0YAnCk0lxNgVmA=";
+
+    npmBuildScript = "esbuild";
+    npmPackFlags = [ "--ignore-scripts" ];
+
+    NODE_OPTIONS = "--openssl-legacy-provider";
+  };
 in
 {
   imports = [
@@ -29,6 +45,7 @@ in
     httpie
     gh # GitHub CLI
     actionlint
+    httpyac
 
     # Python
     python3
