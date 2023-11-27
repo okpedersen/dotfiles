@@ -68,6 +68,7 @@ in
     kustomize
     linkerd
     awscli2
+    google-cloud-sdk
 
     # Other development
     nodePackages.gitmoji-cli
