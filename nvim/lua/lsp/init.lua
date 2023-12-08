@@ -130,6 +130,23 @@ require 'lspconfig'.sumneko_lua.setup {
   },
 }
 
+require 'lspconfig'.gopls.setup {
+  cmd = {'gopls'},
+	-- for postfix snippets and analyzers
+	capabilities = capabilities,
+	    settings = {
+	      gopls = {
+		      experimentalPostfixCompletions = true,
+		      analyses = {
+		        unusedparams = true,
+		        shadow = true,
+		     },
+		     staticcheck = true,
+		    },
+	    },
+	on_attach = on_attach,
+}
+
 require 'lspconfig'.omnisharp.setup {
   capabilities = capabilities,
   on_attach = on_attach,
@@ -137,7 +154,7 @@ require 'lspconfig'.omnisharp.setup {
   root_dir = util.root_pattern("omnisharp.json", "*.sln")
 }
 
-local servers = { "vimls", "bashls", "tsserver", "rnix" }
+local servers = { "vimls", "bashls", "tsserver", "rnix", "jsonnet_ls" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     capabilities = capabilities,

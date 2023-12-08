@@ -13,6 +13,8 @@
     rnix-lsp
     sumneko-lua-language-server
     omnisharp-roslyn
+    gopls
+    jsonnet-language-server
 
     # Debuggers
     netcoredbg

@@ -18,6 +18,9 @@ let
 
     NODE_OPTIONS = "--openssl-legacy-provider";
   };
+  gdk = pkgs.google-cloud-sdk.withExtraComponents( with pkgs.google-cloud-sdk.components; [
+    gke-gcloud-auth-plugin
+  ]);
 in
 {
   imports = [
@@ -47,6 +50,9 @@ in
     actionlint
     httpyac
 
+    peco
+    diff-so-fancy
+
     # Python
     python3
     poetry
@@ -68,7 +74,10 @@ in
     kustomize
     linkerd
     awscli2
-    google-cloud-sdk
+    gdk
+    grafana-loki
+    go-jsonnet # This is faster than jsonnet
+    argocd
 
     # Other development
     nodePackages.gitmoji-cli
