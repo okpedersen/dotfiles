@@ -13,21 +13,23 @@ cd dotfiles
 
 ### Install nix
 
-The dotfiles needs a nix 2.4 prerelease (nix unstable) to work with nix flakes. Getting it setup can be done by running
+Using the [Determinate Nix Installer](https://zero-to-nix.com/concepts/nix-installer) simplifies getting everything setup, including flakes and the new CLI. Using the command from the docs:
 
 ```bash
-./bootstrap-nix.sh
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
 ```
 
-**Note**: This setup assumes `flake.nix` is configured correctly for the user running the command. Add the `--no-switch` flag to not build and activate the
-home-manager config. `nix run .#belgium switch` or similar should then be run manually to get the desired config up and running.
+Assuming `flake.nix` is correctly configured for the current system (including host and user), the following command run from the current directory should set up the system correctly for the first time:
+
+```bash
+nix run nix-darwin -- switch --flake .
+```
+
 
 ## Nice-to-know commands
 
-* Build the default home-manager configuration for the current user: `home-manager build`
-* Build and activate the default home-manager configuration for the current user: `home-manager switch`
-* Build a given home-manager config (e.g., `belgium`): `nix run .#belgium build`
-* Build and activate a given home-manager config (e.g., `belgium`): `nix run .#belgium switch`
+* Build the default home-manager configuration for the current user: `darwin-rebuild build --flake .`
+* Build and activate the default home-manager configuration for the current user: `darwin-rebuild switch --flake .`
 * Update flake inputs in lock file: `nix flake update`
 * Update a single flake input in lock file (e.g., `home-manager`): `nix flake lock --update-input home-manager`
 * Format all nix files: `nixpkgs-fmt **/*.nix`

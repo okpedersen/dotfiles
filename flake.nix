@@ -12,28 +12,30 @@
     nixpkgs-netcoredbg.url = "github:SilverCoder/nixpkgs/ca3d39623c53420339f6b1c6bde016451b50f927";
     nixpkgs-omnisharp.url = "github:NixOS/nixpkgs/bad8fbc216f12c5b79a83f3ca86a40c22ef5cf21";
 
+    nix-darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nvim-tokyonight = {
       url = "github:folke/tokyonight.nvim";
       flake = false;
     };
     # Used for home-manager darwin applications hack
     mkAlias = {
-			url = "github:cdmistman/mkAlias";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
+      url = "github:cdmistman/mkAlias";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
-  outputs = inputs@{ self, flake-utils, nixpkgs, home-manager, nixpkgs-stable, nixpkgs-master, nixpkgs-netcoredbg, nixpkgs-omnisharp, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, nix-darwin, nixpkgs-stable, nixpkgs-master, nixpkgs-netcoredbg, nixpkgs-omnisharp, ... }:
     let
       nixpkgsOverlay = self: super: {
         stable = nixpkgs-stable.legacyPackages.${super.system};
         master = nixpkgs-master.legacyPackages.${super.system};
         nixpkgs-netcoredbg = nixpkgs-netcoredbg.legacyPackages.${super.system};
         nixpkgs-omnisharp = nixpkgs-omnisharp.legacyPackages.${super.system};
-      };
-
-      poetryOverlay = self: super: {
-        poetry = super.nixpkgs-stable.poetry;
       };
 
       netcoredbgOverlay = self: super: {
@@ -61,65 +63,24 @@
       };
 
       overlays = [
-        (import ./spotify.nix)
+        #(import ./spotify.nix)
         nixpkgsOverlay
         neovimOverlay
         netcoredbgOverlay
         mkAliasOverlay
         omnisharpOverlay
       ];
-
-      configurations = [
-        {
-          username = "ole.pedersen";
-          imports = [ ./machine/belgium ];
-          homeDirectory = "/Users/olekristianpedersen";
-        }
-        {
-          username = "ole.kristian.eidem.pedersen";
-          imports = [ ./machine/venezuela ];
-          homeDirectory = "/Users/ole.kristian.eidem.pedersen";
-        }
-        {
-          username = "docker";
-          imports = [ ./minimal.nix ./neovim.nix ];
-          homeDirectory = "/home/docker";
-        }
-      ];
-
     in
-    flake-utils.lib.eachSystem [ "x86_64-linux" "x86_64-darwin" ]
-      (system: {
-        defaultPackage = home-manager.defaultPackage.${system};
-
-        packages.homeConfigurations = (builtins.listToAttrs
-          (map
-            (conf: {
-              name = "${conf.username}";
-              value = home-manager.lib.homeManagerConfiguration {
-                pkgs = nixpkgs.legacyPackages.${system};
-                modules = [
-                  {
-                    # nixpkgs.config.allowUnfree = true;  # FIXME: https://github.com/nix-community/home-manager/issues/2942
-                    nixpkgs.config.allowUnfreePredicate = (pkg: true);
-                    nixpkgs.overlays = overlays;
-                    imports = conf.imports;
-                  }
-                  {
-                    home = {
-                      username = conf.username;
-                      homeDirectory = conf.homeDirectory;
-                      stateVersion = "22.11";
-                    };
-                  }
-                ];
-              };
-            })
-            configurations
-          )
-        );
-      }) //
     {
-      belgium = self.homeConfigurations."ole.pedersen".activationPackage;
+      darwinConfigurations."bekk-mac-3199" = nix-darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
+        modules = [
+          home-manager.darwinModules.home-manager
+          {
+            nixpkgs.overlays = overlays;
+          }
+          ./machine/m3/default.nix
+        ];
+      };
     };
 }
