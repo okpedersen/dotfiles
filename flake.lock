@@ -94,6 +94,24 @@
         "type": "github"
       }
     },
+    "nixpkgs-firefox-darwin": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1704415391,
+        "narHash": "sha256-DOK05XW4cSdE+lw+OfrzYTywIHSVazm5TJsODSDrNKY=",
+        "owner": "bandithedoge",
+        "repo": "nixpkgs-firefox-darwin",
+        "rev": "ca04361b1c2e6cbe5cbf7e118a28fe67ddf51f4c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "bandithedoge",
+        "repo": "nixpkgs-firefox-darwin",
+        "type": "github"
+      }
+    },
     "nixpkgs-master": {
       "locked": {
         "lastModified": 1701077158,
@@ -158,6 +176,37 @@
         "type": "github"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1639237670,
+        "narHash": "sha256-RTdL4rEQcgaZGpvtDgkp3oK/V+1LM3I53n0ACPSroAQ=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "edfb969386ebe6c3cf8f878775a7975cd88f926d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nur": {
+      "locked": {
+        "lastModified": 1704963651,
+        "narHash": "sha256-iZ9b0H7QDARoIzAmnQwhWfgkJCR0+WyHVev1n7j6UJY=",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "7b9e67b39a3b336fe2098d2bd0e2db552480371d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "NUR",
+        "type": "github"
+      }
+    },
     "nvim-tokyonight": {
       "flake": false,
       "locked": {
@@ -181,10 +230,12 @@
         "mkAlias": "mkAlias",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-firefox-darwin": "nixpkgs-firefox-darwin",
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-netcoredbg": "nixpkgs-netcoredbg",
         "nixpkgs-omnisharp": "nixpkgs-omnisharp",
         "nixpkgs-stable": "nixpkgs-stable",
+        "nur": "nur",
         "nvim-tokyonight": "nvim-tokyonight"
       }
     },

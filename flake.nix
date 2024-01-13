@@ -17,6 +17,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
+    nur.url = "github:nix-community/NUR";
+
     nvim-tokyonight = {
       url = "github:folke/tokyonight.nvim";
       flake = false;
@@ -29,7 +32,7 @@
 
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nix-darwin, nixpkgs-stable, nixpkgs-master, nixpkgs-netcoredbg, nixpkgs-omnisharp, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, nix-darwin, nur, nixpkgs-stable, nixpkgs-master, nixpkgs-netcoredbg, nixpkgs-omnisharp, ... }:
     let
       nixpkgsOverlay = self: super: {
         stable = nixpkgs-stable.legacyPackages.${super.system};
@@ -63,12 +66,14 @@
       };
 
       overlays = [
+        nur.overlay
         #(import ./spotify.nix)
         nixpkgsOverlay
         neovimOverlay
         netcoredbgOverlay
         mkAliasOverlay
         omnisharpOverlay
+        inputs.nixpkgs-firefox-darwin.overlay
       ];
     in
     {

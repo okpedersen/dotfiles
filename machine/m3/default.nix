@@ -25,6 +25,7 @@
 
     imports = [
       ../../common-dev-tools.nix
+      ../../firefox.nix
     ];
 
     # TODO:
