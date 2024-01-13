@@ -25,6 +25,9 @@
     };
     onActivation.cleanup = "zap";
     casks = [
+      {
+        name = "spotify";
+      }
     ];
   };
 
