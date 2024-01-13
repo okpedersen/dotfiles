@@ -29,6 +29,13 @@
         name = "spotify";
       }
     ];
+    masApps = {
+      # Removal of App Store apps must be done manually
+      # First time installations require manual installation in the App Store
+
+      # TODO: config managed by a plist
+      "Velja" = 1607635845;
+    };
   };
 
   home-manager.useGlobalPkgs = true;
