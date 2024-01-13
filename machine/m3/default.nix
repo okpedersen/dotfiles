@@ -18,6 +18,16 @@
   # https://github.com/LnL7/nix-darwin/issues/682
   users.users.olekristian.home = "/Users/olekristian";
 
+  homebrew = {
+    enable = true;
+    global = {
+      autoUpdate = false;
+    };
+    onActivation.cleanup = "zap";
+    casks = [
+    ];
+  };
+
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.users.olekristian = { pkgs, ... }: {
