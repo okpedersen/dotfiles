@@ -18,6 +18,8 @@
   # https://github.com/LnL7/nix-darwin/issues/682
   users.users.olekristian.home = "/Users/olekristian";
 
+  security.pam.enableSudoTouchIdAuth = true;
+
   homebrew = {
     enable = true;
     global = {
