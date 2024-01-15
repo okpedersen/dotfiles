@@ -63,6 +63,19 @@ local on_attach = function(_, bufnr)
     ['<leader>ca'] = {'<cmd>lua vim.lsp.buf.range_code_action()<CR>', "Code action"},
   }, vOpts)
 
+wk.register({
+  ['<leader>x'] = {
+    name = '+Trouble',
+    x = {'<cmd>TroubleToggle<CR>', 'Toggle'},
+    w = {'<cmd>TroubleToggle workspace_diagnostics<CR>', 'Workspace diagnostics'},
+    d = {'<cmd>TroubleToggle document_diagnostics<CR>', 'Document diagnostics'},
+    q = {'<cmd>TroubleToggle quickfix<CR>', 'Quickfix list'},
+    l = {'<cmd>TroubleToggle loclist<CR>', 'Location list'},
+  },
+  ['[x'] = {function() require('trouble').previous({skip_groups = true, jump = true}) end, 'Trouble previous'},
+  [']x'] = {function() require('trouble').next({skip_groups = true, jump = true}) end, 'Trouble next'},
+}, nOpts)
+
   vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
 end
 
