@@ -22,8 +22,10 @@ in
       LANG = "en_US.UTF-8";
       PATH = path;
       MANPATH = "/usr/local/man:$MANPATH";
+
       # Colorized man pages
       MANPAGER = "sh -c 'col -bx | ${pkgs.bat}/bin/bat -l man -p'";
+      MANROFFOPT="-c"; # Fixes formatting problems according to bat's README
     };
 
     shellAliases = {
