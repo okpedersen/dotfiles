@@ -45,6 +45,7 @@ let
   # Extensions from this list: https://github.com/nix-community/nur-combined/blob/master/repos/rycee/pkgs/firefox-addons/addons.json
   base-extensions = with pkgs.nur.repos.rycee.firefox-addons; [
     ublock-origin
+    multi-account-containers
   ];
   kv-extensions = with pkgs.nur.repos.rycee.firefox-addons; base-extensions ++ [
     dashlane
@@ -72,6 +73,23 @@ in
         isDefault = true;
         extensions = bekk-extensions;
         inherit settings;
+        containers = {
+          personal = {
+            id = 11;
+            icon = "fingerprint";
+            color = "purple";
+          };
+          fb = {
+            id = 12;
+            icon = "fence";
+            color = "blue";
+          };
+          bekk = {
+            id = 21;
+            icon = "circle";
+            color = "red";
+          };
+        };
       };
       ff-default = {
         id = 1;
