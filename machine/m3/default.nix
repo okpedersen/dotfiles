@@ -63,10 +63,10 @@
     home.packages = with pkgs; [
       k6
 
-      # TODO: docker
-      # docker
-      # docker-compose
-      # colima
+      docker
+      docker-buildx
+      docker-compose
+      colima
 
       # podman # TODO: Handle config in ~/.config/containers/containers.conf
       # qemu
