@@ -78,6 +78,8 @@ in
     grafana-loki
     go-jsonnet # This is faster than jsonnet
     argocd
+    kubectx
+    k9s
 
     # Other development
     nodePackages.gitmoji-cli
