@@ -116,7 +116,27 @@
       nvim-treesitter-textobjects
 
       # Telescope
-      telescope-nvim
+      {
+        plugin = telescope-nvim;
+        config = ''
+          lua <<EOF
+            local actions = require('telescope.actions')
+            local trouble = require('trouble.providers.telescope')
+            require('telescope').setup{
+              defaults = {
+                mappings = {
+                  i = {
+                    ["<C-t>"] = trouble.smart_open_with_trouble,
+                  },
+                  n = {
+                    ["<C-t>"] = trouble.smart_open_with_trouble,
+                  },
+                }
+              }
+            }
+          EOF
+        '';
+      }
       {
         plugin = telescope-ui-select-nvim;
         config = ''
