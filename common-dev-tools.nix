@@ -83,6 +83,9 @@ in
 
     # Other development
     nodePackages.gitmoji-cli
+
+    # API client (OSS Postman alternative)
+    bruno
   ];
 
   programs.tmux = {
