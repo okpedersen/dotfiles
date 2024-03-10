@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+set -eou pipefail
+
+usage() {
+cat << EOF
+  ,cert-info <domain-name> [<host-override>:<port>]
+
+  Get certificate chain and notAfter property.
+EOF
+}
+
+main() {
+  if [[ $# -gt 2 || $# == 0 ]]; then 
+    usage
+    exit 1
+  fi
+  SERVERNAME=
+  CONNECT=
+  if [[ $# == 2 ]]; then
+    SERVERNAME="$1"
+    CONNECT="$2"
+  elif [[ $# == 1 ]]; then
+    if [[ "$1" == '-h' || "$1" == '--help' ]]; then
+      usage
+      exit 0
+    else
+      SERVERNAME="$1"
+      CONNECT="$SERVERNAME:443"
+    fi
+  fi
+
+  openssl s_client -showcerts -servername "$SERVERNAME" -connect "$CONNECT" <<< "" | openssl x509 -noout -enddate
+}
+
+main "$@"
