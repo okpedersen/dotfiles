@@ -1,7 +1,10 @@
 { pkgs, ... }:
 let 
-  # Loosely based on https://github.com/gvolpe/nix-config/blob/master/home/programs/browsers/firefox.nix
   settings = {
+    "browser.startup.page" = 3; # Resume previous session: http://kb.mozillazine.org/index.php?title=Browser.startup.page&redirect=no
+
+    # The following settings are loosely based on:
+    # https://github.com/gvolpe/nix-config/blob/master/home/programs/browsers/firefox.nix
     "app.normandy.first_run" = false;
     # Updates/nix specific
     "app.update.channel" = "default"; # Disable updates
@@ -54,6 +57,57 @@ let
     bitwarden
     raindropio
   ];
+
+  search = {
+    force = true;
+    default = "DuckDuckGo";
+    order = [ "DuckDuckGo" "Google" ];
+    engines = {
+      "Google".metaData.alias = "!g";
+      "GitHub code search" = {
+        urls = [{
+          template = "https://github.com/search";
+          params = [
+            { name = "type"; value = "code"; }
+            { name = "q"; value = "{searchTerms}"; }
+          ];
+        }];
+        iconUpdateURL = "https://github.com/favicon.ico";
+        updateInterval = 24 * 60 * 60 * 1000; # every day
+        definedAliases = [ "!gc" ];
+      };
+      "GitHub repository search" = {
+        urls = [{
+          template = "https://github.com/search";
+          params = [
+            { name = "type"; value = "repositories"; }
+            { name = "q"; value = "{searchTerms}"; }
+          ];
+        }];
+        iconUpdateURL = "https://github.com/favicon.ico";
+        updateInterval = 24 * 60 * 60 * 1000; # every day
+        definedAliases = [ "!gr" ];
+      };
+      "Nix Packages" = {
+        urls = [{
+          template = "https://search.nixos.org/packages";
+          params = [
+            { name = "type"; value = "packages"; }
+            { name = "query"; value = "{searchTerms}"; }
+          ];
+        }];
+        icon = "''${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+        definedAliases = [ "!np" ];
+      };
+      "NixOS Wiki" = {
+        urls = [{ template = "https://nixos.wiki/index.php?search={searchTerms}"; }];
+        iconUpdateURL = "https://nixos.wiki/favicon.png";
+        updateInterval = 24 * 60 * 60 * 1000; # every day
+        definedAliases = [ "!nw" ];
+      };
+      "Bing".metaData.hidden = true;
+    };
+  };
 in
 {
   # Install both firefox and developer edition
@@ -72,7 +126,7 @@ in
         name = "bekk";
         isDefault = true;
         extensions = bekk-extensions;
-        inherit settings;
+        inherit settings search;
         containers = {
           personal = {
             id = 11;
@@ -95,7 +149,7 @@ in
         id = 1;
         name = "ff-default";
         extensions = kv-extensions; 
-        inherit settings;
+        inherit settings search;
       };
     };
   };
