@@ -123,6 +123,12 @@
               mutableTaps = true;
             };
           }
+          {
+            nix.registry.unstable = {
+              from = { id = "unstable"; type = "indirect"; };
+              flake = nixpkgs;
+            };
+          }
           ./machine/m3/default.nix
         ];
       };
