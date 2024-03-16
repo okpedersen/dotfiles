@@ -105,6 +105,12 @@ let
         updateInterval = 24 * 60 * 60 * 1000; # every day
         definedAliases = [ "!nw" ];
       };
+      "Home Manager options" = {
+        urls = [{ template = "https://home-manager-options.extranix.com/?query={searchTerms}"; }];
+        iconUpdateURL = "https://home-manager-options.extranix.com/images/favicon.png";
+        updateInterval = 24 * 60 * 60 * 1000; # every day
+        definedAliases = [ "!hm" ];
+      };
       "Bing".metaData.hidden = true;
     };
   };
