@@ -133,6 +133,7 @@ in
         isDefault = true;
         extensions = bekk-extensions;
         inherit settings search;
+        containersForce = true; # https://github.com/nix-community/home-manager/pull/5057
         containers = {
           personal = {
             id = 11;
