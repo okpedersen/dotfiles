@@ -10,7 +10,7 @@
     nodePackages.typescript
     nodePackages.typescript-language-server
     terraform-ls
-    rnix-lsp
+    nixd
     sumneko-lua-language-server
     omnisharp-roslyn
     gopls
