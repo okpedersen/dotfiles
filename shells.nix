@@ -18,7 +18,7 @@ in
     };
 
     sessionVariables = {
-      EDITOR = "${pkgs.neovim}/bin/nvim";
+      #EDITOR = "${pkgs.neovim}/bin/nvim";
       LANG = "en_US.UTF-8";
       PATH = path;
       MANPATH = "/usr/local/man:$MANPATH";

@@ -22,6 +22,7 @@
 
   programs.neovim = {
     enable = true;
+    defaultEditor = true;
     withNodeJs = true;
     withPython3 = true;
     extraPython3Packages = (ps: with ps; [ ]);
