@@ -5,7 +5,7 @@
     # Language servers for neovim
     nodePackages.vim-language-server
     nodePackages.bash-language-server
-    nodePackages.pyright
+    pyright
     nodePackages.yaml-language-server
     nodePackages.typescript
     nodePackages.typescript-language-server
