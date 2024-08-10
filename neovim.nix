@@ -11,7 +11,7 @@
     nodePackages.typescript-language-server
     terraform-ls
     nixd
-    sumneko-lua-language-server
+    lua-language-server
     omnisharp-roslyn
     gopls
     jsonnet-language-server
