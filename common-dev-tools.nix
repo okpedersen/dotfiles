@@ -52,6 +52,7 @@ in
 
     peco
     diff-so-fancy
+    dyff
 
     # Python
     python3
@@ -77,6 +78,7 @@ in
     gdk
     grafana-loki
     go-jsonnet # This is faster than jsonnet
+    jsonnet-bundler
     argocd
     kubectx
     k9s

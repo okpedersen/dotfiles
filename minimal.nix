@@ -25,6 +25,7 @@
     perl
     rsync
     unzip
+    util-linux
   ];
 
   programs.git = {
