@@ -34,33 +34,33 @@ local on_attach = function(_, bufnr)
   wk.register({
     g = {
       name = "+Go to",
-      D = {'<Cmd>lua vim.lsp.buf.declaration()<CR>', "Declaration" },
-      d = {'<Cmd>lua vim.lsp.buf.definition()<CR>', "Definition"},
-      i = {'<cmd>lua vim.lsp.buf.implementation()<CR>', "Implementation"},
-      r = {'<cmd>lua vim.lsp.buf.references()<CR>', "References"},
+      D = {vim.lsp.buf.declaration, "Declaration" },
+      d = {vim.lsp.buf.definition, "Definition"},
+      i = {vim.lsp.buf.implementation, "Implementation"},
+      r = {vim.lsp.buf.references, "References"},
       R = {'<cmd>TroubleToggle lsp_references<CR>', "References (Trouble)"},
     },
-    ['<leader>D'] = {'<cmd>lua vim.lsp.buf.type_definition()<CR>', "Go to type definiditon"},
-    ['K'] = {'<Cmd>lua vim.lsp.buf.hover()<CR>', "Show documentation"},
-    ['<C-s>'] = {'<cmd>lua vim.lsp.buf.signature_help()<CR>', "Signature help"},
+    ['<leader>D'] = {vim.lsp.buf.type_definition, "Go to type definiditon"},
+    ['K'] = {vim.lsp.buf.hover, "Show documentation"},
+    ['<C-s>'] = {vim.lsp.buf.signature_help, "Signature help"},
 
     ['<leader>w'] = {
       name = "+Workspace",
-      ['a'] = {'<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', "Add folder"},
-      ['r'] = {'<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', "Remove folder"},
-      ['l'] = {'<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', "List folder"},
+      ['a'] = {vim.lsp.buf.add_workspace_folder, "Add folder"},
+      ['r'] = {vim.lsp.buf.remove_workspace_folder, "Remove folder"},
+      ['l'] = {function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, "List folder"},
     },
 
-    ['<leader>rn'] = {'<cmd>lua vim.lsp.buf.rename()<CR>', "Rename"},
-    ['<leader>ca'] = {'<cmd>lua vim.lsp.buf.code_action()<CR>', "Code action"},
-    ['<leader>e'] = {'<cmd>lua vim.diagnostic.open_float(0, {scope="line"})<CR>', "Open line diagnostics float"},
-    ['[d'] = {'<cmd>lua vim.diagnostic.goto_prev()<CR>', "Previous diagnostic"},
-    [']d'] = {'<cmd>lua vim.diagnostic.goto_next()<CR>', "Next diagnostic"},
+    ['<leader>rn'] = {vim.lsp.buf.rename, "Rename"},
+    ['<leader>ca'] = {vim.lsp.buf.code_action, "Code action"},
+    ['<leader>e'] = {function() vim.diagnostic.open_float(0, {scope="line"}) end, "Open line diagnostics float"},
+    ['[d'] = {vim.diagnostic.goto_prev, "Previous diagnostic"},
+    [']d'] = {vim.diagnostic.goto_next, "Next diagnostic"},
   }, nOpts)
 
   local vOpts = { noremap = true, silent = true, mode = "v", buffer = bufnr}
   wk.register({
-    ['<leader>ca'] = {'<cmd>lua vim.lsp.buf.range_code_action()<CR>', "Code action"},
+    ['<leader>ca'] = {vim.lsp.buf.range_code_action, "Code action"},
   }, vOpts)
 
 wk.register({
@@ -72,7 +72,7 @@ wk.register({
     q = {'<cmd>TroubleToggle quickfix<CR>', 'Quickfix list'},
     l = {'<cmd>TroubleToggle loclist<CR>', 'Location list'},
   },
-  ['[x'] = {function() require('trouble').previous({skip_groups = true, jump = true}) end, 'Trouble previous'},
+  ['[x'] = {function() require('trouble').prev({skip_groups = true, jump = true}) end, 'Trouble previous'},
   [']x'] = {function() require('trouble').next({skip_groups = true, jump = true}) end, 'Trouble next'},
 }, nOpts)
 

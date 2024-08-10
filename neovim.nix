@@ -152,7 +152,14 @@
       }
 
       # Diagnostics
-      trouble-nvim
+      {
+        plugin = trouble-nvim;
+        config = ''
+          lua <<EOF
+            require('trouble').setup()
+          EOF
+        '';
+      }
 
       # Navigation
       tmux-navigator
