@@ -122,15 +122,15 @@
         config = ''
           lua <<EOF
             local actions = require('telescope.actions')
-            local trouble = require('trouble.providers.telescope')
+            local trouble = require('trouble.sources.telescope')
             require('telescope').setup{
               defaults = {
                 mappings = {
                   i = {
-                    ["<C-t>"] = trouble.smart_open_with_trouble,
+                    ["<C-t>"] = trouble.open
                   },
                   n = {
-                    ["<C-t>"] = trouble.smart_open_with_trouble,
+                    ["<C-t>"] = trouble.open
                   },
                 }
               }
