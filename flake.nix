@@ -4,7 +4,8 @@
     flake-utils.url = "github:numtide/flake-utils";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      # Workaround for https://github.com/nix-community/home-manager/issues/5717
+      url = "github:nix-community/home-manager/587fcca66e9d11c8e2357053c096a8a727c120ab";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixpkgs-21.11-darwin";
@@ -104,6 +105,9 @@
       darwinConfigurations."bekk-mac-3199" = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         modules = [
+          {
+            system.stateVersion = 5;
+          }
           home-manager.darwinModules.home-manager
           {
             nixpkgs.overlays = overlays;

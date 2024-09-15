@@ -39,22 +39,27 @@ vim.api.nvim_create_autocmd("BufLeave", {
   callback = function() vim.opt.cursorline = false end
 })
 
-wk.register({
-  ['<leader>x'] = {
-    name = "+Trouble",
-    x = {'<cmd>TroubleToggle<CR>', "Toggle"},
-    w = {'<cmd>TroubleToggle workspace_diagnostics<CR>', "Workspace diagnostics"},
-    d = {'<cmd>TroubleToggle document_diagnostics<CR>', "Document diagnostics"},
-    q = {'<cmd>TroubleToggle quickfix<CR>', "Quickfix list"},
-    l = {'<cmd>TroubleToggle loclist<CR>', "Location list"},
+local trouble = require('trouble')
+local telescope = require('telescope.builtin')
+wk.add({
+  mode = 'n', remap = false, silent = true,
+  { '<leader>x', group = "Trouble", expand = function ()
+      return {
+        { 'x', function () trouble.toggle({ mode = 'diagnostics' }) end, desc = "Diagnostics"},
+        { 'd', function () trouble.toggle({ mode = 'diagnostics', filter = { buf = 0 } }) end, desc = "Diagnostics (document)"},
+        { 'q', function () trouble.toggle({ mode = 'qflist' }) end, "Quickfix list"},
+        { 'l', function () trouble.toggle({ mode = 'loclist' }) end, "Location list"},
+      }
+    end
   },
-  ['[x'] = {function() require('trouble').previous({skip_groups = true, jump = true}) end, 'Trouble previous'},
-  [']x'] = {function() require('trouble').next({skip_groups = true, jump = true}) end, 'Trouble next'},
-
-  ['<leader>f'] = {
-    name = "+File",
-    f = {'<cmd>Telescope find_files<CR>', "Find file"},
-    g = {'<cmd>Telescope live_grep<CR>', "Live grep"},
-    s = {'<cmd>Telescope lsp_dynamic_workspace_symbols<CR>', "Workspace symbols"},
-  }
-},  { noremap = true, silent = true, mode = "n" })
+  { '[x', function() trouble.prev({skip_groups = true, jump = true}) end, desc = 'Trouble previous'},
+  { ']x', function() trouble.next({skip_groups = true, jump = true}) end, desc = 'Trouble next'},
+  { '<leader>f', group = "File", expand = function ()
+      return {
+        { 'f', function() telescope.find_files() end, desc = "Find file"},
+        { 'g', function() telescope.live_grep() end, desc = "Live grep"},
+        { 's', function() telescope.lsp_dynamic_workspace_symbols() end, desc = "Workspace symbols"},
+      }
+    end
+  },
+})

@@ -30,51 +30,40 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protoc
 local on_attach = function(_, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  local nOpts = { noremap = true, silent = true, mode = "n", buffer = bufnr}
-  wk.register({
-    g = {
-      name = "+Go to",
-      D = {vim.lsp.buf.declaration, "Declaration" },
-      d = {vim.lsp.buf.definition, "Definition"},
-      i = {vim.lsp.buf.implementation, "Implementation"},
-      r = {vim.lsp.buf.references, "References"},
-      R = {'<cmd>TroubleToggle lsp_references<CR>', "References (Trouble)"},
+  wk.add({
+    remap = false, silent = true, mode = "n", buffer = bufnr,
+    { 'g', group = "Go to", expand = function ()
+      return {
+        { 'D', vim.lsp.buf.declaration, desc = "Declaration" },
+        { 'd', vim.lsp.buf.definition, desc = "Definition"},
+        { 'i', vim.lsp.buf.implementation, desc = "Implementation"},
+        { 'r', vim.lsp.buf.references, desc = "References"},
+        { 'R', function() require('trouble').toggle({ mode = 'lsp_references' }) end, desc = "References (Trouble)"},
+      }
+      end
     },
-    ['<leader>D'] = {vim.lsp.buf.type_definition, "Go to type definiditon"},
-    ['K'] = {vim.lsp.buf.hover, "Show documentation"},
-    ['<C-s>'] = {vim.lsp.buf.signature_help, "Signature help"},
-
-    ['<leader>w'] = {
-      name = "+Workspace",
-      ['a'] = {vim.lsp.buf.add_workspace_folder, "Add folder"},
-      ['r'] = {vim.lsp.buf.remove_workspace_folder, "Remove folder"},
-      ['l'] = {function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, "List folder"},
+    { '<leader>D', vim.lsp.buf.type_definition, desc = "Go to type definiton"},
+    { 'K', vim.lsp.buf.hover, desc = "Show documentation"},
+    { '<C-s>', vim.lsp.buf.signature_help, desc = "Signature help"},
+    { '<leader>w', group = "Workspace", expand = function ()
+      return {
+        { 'a', vim.lsp.buf.add_workspace_folder, desc = "Add folder"},
+        { 'r', vim.lsp.buf.remove_workspace_folder, desc = "Remove folder"},
+        { 'l', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, desc = "List folder"},
+      }
+      end
     },
+    { '<leader>rn', vim.lsp.buf.rename, desc = "Rename"},
+    { '<leader>ca', vim.lsp.buf.code_action, desc = "Code action"},
+    {'<leader>e', function() vim.diagnostic.open_float(0, {scope="line"}) end, desc = "Open line diagnostics float"},
+    { '[d', vim.diagnostic.goto_prev, desc = "Previous diagnostic"},
+    { ']d', vim.diagnostic.goto_next, desc = "Next diagnostic"},
+  })
 
-    ['<leader>rn'] = {vim.lsp.buf.rename, "Rename"},
-    ['<leader>ca'] = {vim.lsp.buf.code_action, "Code action"},
-    ['<leader>e'] = {function() vim.diagnostic.open_float(0, {scope="line"}) end, "Open line diagnostics float"},
-    ['[d'] = {vim.diagnostic.goto_prev, "Previous diagnostic"},
-    [']d'] = {vim.diagnostic.goto_next, "Next diagnostic"},
-  }, nOpts)
-
-  local vOpts = { noremap = true, silent = true, mode = "v", buffer = bufnr}
-  wk.register({
-    ['<leader>ca'] = {vim.lsp.buf.range_code_action, "Code action"},
-  }, vOpts)
-
-wk.register({
-  ['<leader>x'] = {
-    name = '+Trouble',
-    x = {'<cmd>TroubleToggle<CR>', 'Toggle'},
-    w = {'<cmd>TroubleToggle workspace_diagnostics<CR>', 'Workspace diagnostics'},
-    d = {'<cmd>TroubleToggle document_diagnostics<CR>', 'Document diagnostics'},
-    q = {'<cmd>TroubleToggle quickfix<CR>', 'Quickfix list'},
-    l = {'<cmd>TroubleToggle loclist<CR>', 'Location list'},
-  },
-  ['[x'] = {function() require('trouble').prev({skip_groups = true, jump = true}) end, 'Trouble previous'},
-  [']x'] = {function() require('trouble').next({skip_groups = true, jump = true}) end, 'Trouble next'},
-}, nOpts)
+  wk.add({
+    remap = false, silent = true, mode = "v", buffer = bufnr,
+    { '<leader>ca', vim.lsp.buf.range_code_action, desc = "Code action"},
+  })
 
   vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
 end
