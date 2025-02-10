@@ -26,6 +26,9 @@
       autoUpdate = false;
     };
     onActivation.cleanup = "zap";
+    brews = [
+       "dashlane/tap/dashlane-cli"
+    ];
     casks = [
       {
         name = "spotify";

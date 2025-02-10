@@ -4,8 +4,7 @@
     flake-utils.url = "github:numtide/flake-utils";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     home-manager = {
-      # Workaround for https://github.com/nix-community/home-manager/issues/5717
-      url = "github:nix-community/home-manager/587fcca66e9d11c8e2357053c096a8a727c120ab";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixpkgs-21.11-darwin";
@@ -39,6 +38,10 @@
     };
     homebrew-services = {
       url = "github:homebrew/homebrew-services";
+      flake = false;
+    };
+    dashlane-tap = {
+      url = "github:dashlane/homebrew-tap";
       flake = false;
     };
 
@@ -90,11 +93,28 @@
         mkAlias = inputs.mkAlias.outputs.apps.${super.system}.default.program;
       };
 
+      nvim-overlay = (final: prev: {
+        # Neovim 0.10.2 bug, patch from here: https://github.com/NixOS/nixpkgs/pull/349230
+        neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs (oldAttrs: {
+          patches = oldAttrs.patches ++ [
+            # Fix byte index encoding bounds.
+            # - https://github.com/neovim/neovim/pull/30747
+            # - https://github.com/nix-community/nixvim/issues/2390
+            (final.fetchpatch {
+              name = "fix-lsp-str_byteindex_enc-bounds-checking-30747.patch";
+              url = "https://patch-diff.githubusercontent.com/raw/neovim/neovim/pull/30747.patch";
+              hash = "sha256-2oNHUQozXKrHvKxt7R07T9YRIIx8W3gt8cVHLm2gYhg=";
+            })
+          ];
+        });
+      });
+
       overlays = [
         nur.overlay
         #(import ./spotify.nix)
         nixpkgsOverlay
         neovimOverlay
+        nvim-overlay
         netcoredbgOverlay
         mkAliasOverlay
         omnisharpOverlay
@@ -123,6 +143,7 @@
                 "homebrew/homebrew-cask" = inputs.homebrew-cask;
                 "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
                 "homebrew/homebrew-services" = inputs.homebrew-services;
+                "dashlane/tap" = inputs.dashlane-tap;
               };
               mutableTaps = true;
             };
