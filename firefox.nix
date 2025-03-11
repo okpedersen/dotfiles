@@ -131,7 +131,9 @@ in
         id = 0;
         name = "bekk";
         isDefault = true;
-        extensions = bekk-extensions;
+        extensions = {
+          packages = bekk-extensions;
+        };
         inherit settings search;
         containersForce = true; # https://github.com/nix-community/home-manager/pull/5057
         containers = {
@@ -155,7 +157,9 @@ in
       ff-default = {
         id = 1;
         name = "ff-default";
-        extensions = kv-extensions; 
+        extensions = {
+          packages = kv-extensions;
+        };
         inherit settings search;
       };
     };

@@ -48,10 +48,6 @@
     nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
     nur.url = "github:nix-community/NUR";
 
-    nvim-tokyonight = {
-      url = "github:folke/tokyonight.nvim";
-      flake = false;
-    };
     # Used for home-manager darwin applications hack
     mkAlias = {
       url = "github:cdmistman/mkAlias";
@@ -73,16 +69,6 @@
         netcoredbg = super.nixpkgs-netcoredbg.netcoredbg;
       };
 
-      neovimOverlay = self: super: {
-        myVimPlugins = {
-          tokyonight = super.pkgs.vimUtils.buildVimPluginFrom2Nix {
-            pname = "tokyonight.nvim";
-            version = "master";
-            src = inputs.nvim-tokyonight;
-          };
-        };
-      };
-
       # https://github.com/OmniSharp/omnisharp-roslyn/issues/2574
       omnisharpOverlay = self: super: {
         omnisharp-roslyn = super.nixpkgs-omnisharp.omnisharp-roslyn;
@@ -93,28 +79,10 @@
         mkAlias = inputs.mkAlias.outputs.apps.${super.system}.default.program;
       };
 
-      nvim-overlay = (final: prev: {
-        # Neovim 0.10.2 bug, patch from here: https://github.com/NixOS/nixpkgs/pull/349230
-        neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs (oldAttrs: {
-          patches = oldAttrs.patches ++ [
-            # Fix byte index encoding bounds.
-            # - https://github.com/neovim/neovim/pull/30747
-            # - https://github.com/nix-community/nixvim/issues/2390
-            (final.fetchpatch {
-              name = "fix-lsp-str_byteindex_enc-bounds-checking-30747.patch";
-              url = "https://patch-diff.githubusercontent.com/raw/neovim/neovim/pull/30747.patch";
-              hash = "sha256-2oNHUQozXKrHvKxt7R07T9YRIIx8W3gt8cVHLm2gYhg=";
-            })
-          ];
-        });
-      });
-
       overlays = [
         nur.overlay
         #(import ./spotify.nix)
         nixpkgsOverlay
-        neovimOverlay
-        nvim-overlay
         netcoredbgOverlay
         mkAliasOverlay
         omnisharpOverlay

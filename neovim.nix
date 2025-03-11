@@ -1,7 +1,9 @@
 { config, pkgs, lib, ... }:
 {
-  home.packages = with pkgs; [
-    nerdfonts
+  home.packages = with pkgs;
+  builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts)
+  ++
+  [
     # Language servers for neovim
     nodePackages.vim-language-server
     nodePackages.bash-language-server
@@ -33,7 +35,7 @@
 
       # Visual config/colorscheme
       {
-        plugin = tokyonight;
+        plugin = tokyonight-nvim;
         config = ''
           colorscheme tokyonight
         '';
