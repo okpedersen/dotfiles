@@ -83,6 +83,8 @@ in
     kubectx
     k9s
 
+    devbox
+
     # Other development
     nodePackages.gitmoji-cli
 
