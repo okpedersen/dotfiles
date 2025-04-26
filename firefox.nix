@@ -49,6 +49,7 @@ let
   base-extensions = with pkgs.nur.repos.rycee.firefox-addons; [
     ublock-origin
     multi-account-containers
+    refined-github
   ];
   kv-extensions = with pkgs.nur.repos.rycee.firefox-addons; base-extensions ++ [
     dashlane
