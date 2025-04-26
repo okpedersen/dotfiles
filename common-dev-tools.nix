@@ -46,7 +46,6 @@ in
     entr
     procps # watch
     httpie
-    gh # GitHub CLI
     actionlint
     httpyac
 
@@ -148,5 +147,19 @@ in
 
     # TODO: Check nix-direnv docs for disabling garbage collection
     nix-direnv.enable = true;
+  };
+
+  programs.gh = {
+    enable = true;
+    settings = {
+      prompt = "enabled";
+      aliases = {
+        co = "pr checkout";
+        pw = "pr view --web";
+      };
+    };
+    extensions = [
+      pkgs.gh-copilot
+    ];
   };
 }
