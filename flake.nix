@@ -45,12 +45,11 @@
       flake = false;
     };
 
-    nixpkgs-firefox-darwin.url = "github:bandithedoge/nixpkgs-firefox-darwin";
     nur.url = "github:nix-community/NUR";
 
     # Used for home-manager darwin applications hack
     mkAlias = {
-      url = "github:cdmistman/mkAlias";
+      url = "github:reckenrode/mkAlias";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -86,7 +85,6 @@
         netcoredbgOverlay
         mkAliasOverlay
         omnisharpOverlay
-        inputs.nixpkgs-firefox-darwin.overlay
       ];
     in
     {
