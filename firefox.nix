@@ -61,10 +61,10 @@ let
 
   search = {
     force = true;
-    default = "DuckDuckGo";
-    order = [ "DuckDuckGo" "Google" ];
+    default = "ddg";
+    order = [ "ddg" "google" ];
     engines = {
-      "Google".metaData.alias = "!g";
+      "google".metaData.alias = "!g";
       "GitHub code search" = {
         urls = [{
           template = "https://github.com/search";
@@ -73,7 +73,7 @@ let
             { name = "q"; value = "{searchTerms}"; }
           ];
         }];
-        iconUpdateURL = "https://github.com/favicon.ico";
+        icon = "https://github.com/favicon.ico";
         updateInterval = 24 * 60 * 60 * 1000; # every day
         definedAliases = [ "!gc" ];
       };
@@ -85,7 +85,7 @@ let
             { name = "q"; value = "{searchTerms}"; }
           ];
         }];
-        iconUpdateURL = "https://github.com/favicon.ico";
+        icon = "https://github.com/favicon.ico";
         updateInterval = 24 * 60 * 60 * 1000; # every day
         definedAliases = [ "!gr" ];
       };
@@ -102,17 +102,17 @@ let
       };
       "NixOS Wiki" = {
         urls = [{ template = "https://nixos.wiki/index.php?search={searchTerms}"; }];
-        iconUpdateURL = "https://nixos.wiki/favicon.png";
+        icon = "https://nixos.wiki/favicon.png";
         updateInterval = 24 * 60 * 60 * 1000; # every day
         definedAliases = [ "!nw" ];
       };
       "Home Manager options" = {
         urls = [{ template = "https://home-manager-options.extranix.com/?query={searchTerms}"; }];
-        iconUpdateURL = "https://home-manager-options.extranix.com/images/favicon.png";
+        icon = "https://home-manager-options.extranix.com/images/favicon.png";
         updateInterval = 24 * 60 * 60 * 1000; # every day
         definedAliases = [ "!hm" ];
       };
-      "Bing".metaData.hidden = true;
+      "bing".metaData.hidden = true;
     };
   };
 in

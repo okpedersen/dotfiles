@@ -17,12 +17,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-homebrew = {
-      url = "github:zhaofengli-wip/nix-homebrew";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nix-darwin.follows = "nix-darwin";
-      inputs.flake-utils.follows = "flake-utils";
-    };
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
     # Declarative tap management
     homebrew-core = {
       url = "github:homebrew/homebrew-core";

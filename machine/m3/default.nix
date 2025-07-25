@@ -1,6 +1,4 @@
 { pkgs, ... }: {
-  # Required for multi-user installs
-  services.nix-daemon.enable = true;
   # From the Determinate Nix installer
   nix.settings = {
     bash-prompt-prefix = "(nix:$name)\040";
@@ -18,7 +16,12 @@
   # https://github.com/LnL7/nix-darwin/issues/682
   users.users.olekristian.home = "/Users/olekristian";
 
-  security.pam.enableSudoTouchIdAuth = true;
+  system.primaryUser = "olekristian";
+
+  # https://github.com/nix-darwin/nix-darwin/blob/19346808c445f23b08652971be198b9df6c33edc/CHANGELOG#L48-L60
+  ids.gids.nixbld = 30000;
+
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   homebrew = {
     enable = true;
