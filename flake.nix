@@ -73,6 +73,11 @@
         mkAlias = inputs.mkAlias.outputs.apps.${super.system}.default.program;
       };
 
+      # https://nixpk.gs/pr-tracker.html?pr=433196
+      rustAnalyzerOverlay = self: super: {
+        rust-analyzer = super.master.rust-analyzer;
+      };
+
       overlays = [
         nur.overlays.default
         #(import ./spotify.nix)
@@ -80,6 +85,7 @@
         netcoredbgOverlay
         mkAliasOverlay
         omnisharpOverlay
+        rustAnalyzerOverlay
       ];
     in
     {

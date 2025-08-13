@@ -17,9 +17,15 @@
     omnisharp-roslyn
     gopls
     jsonnet-language-server
+    rust-analyzer
+
+    tinymist # Typst LSP
 
     # Debuggers
     netcoredbg
+
+    # Other
+    pngpaste # for img-clip-nvim
   ];
 
   programs.neovim = {
@@ -103,6 +109,7 @@
             require('copilot').setup({
               filetypes = {
                 yaml = true,
+                markdown = true,
               }
             })
           EOF
@@ -112,6 +119,15 @@
         plugin = copilot-cmp;
         config = ''
           lua require('copilot_cmp').setup()
+        '';
+      }
+      {
+        plugin = CopilotChat-nvim;
+        config = ''
+          lua <<EOF
+            require('CopilotChat').setup({
+            })
+          EOF
         '';
       }
 
@@ -149,7 +165,7 @@
       {
         plugin = telescope-fzf-native-nvim;
         config = ''
-          	        lua require('telescope').load_extension('fzf')
+	   lua require('telescope').load_extension('fzf')
         '';
       }
 
@@ -243,6 +259,29 @@
         '';
       }
       # TODO: https://github.com/Shatur/neovim-session-manager
+
+      # Other
+      {
+        plugin = clipboard-image-nvim;
+        config = ''
+          lua <<EOF
+          require('clipboard-image').setup {
+            default = {
+              img_name = function ()
+                vim.fn.inputsave()
+                local name = vim.fn.input('Name: ')
+                vim.fn.inputrestore()
+
+                if name == nil or name == ''' then
+                  return os.date('%y-%m-%d-%H-%M-%S')
+                end
+                return name
+              end
+            }
+          }
+          EOF
+        '';
+      }
 
       # Debuggers
       nvim-dap

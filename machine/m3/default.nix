@@ -71,6 +71,8 @@
     #};
 
     home.packages = with pkgs; [
+      typst
+
       k6
 
       docker

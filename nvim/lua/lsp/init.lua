@@ -158,7 +158,7 @@ require 'lspconfig'.omnisharp.setup {
   root_dir = util.root_pattern("omnisharp.json", "*.sln")
 }
 
-local servers = { "vimls", "bashls", "tsserver", "nixd", "jsonnet_ls" }
+local servers = { "vimls", "bashls", "tsserver", "nixd", "jsonnet_ls", "tinymist", "rust_analyzer" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     capabilities = capabilities,
