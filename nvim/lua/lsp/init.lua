@@ -3,7 +3,6 @@ local util = require('lspconfig/util')
 local cmp = require('cmp')
 local wk = require("which-key")
 
-for i, v in ipairs(cmp.mapping) do print(i, v) end
 cmp.setup({
   snippet = {
     expand = function(args)
