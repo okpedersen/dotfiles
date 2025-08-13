@@ -30,12 +30,16 @@
     };
     onActivation.cleanup = "zap";
     brews = [
+       "pdfpc"
        "dashlane/tap/dashlane-cli"
+       "mimirtool"
     ];
     casks = [
-      {
-        name = "spotify";
-      }
+      "spotify"
+      "google-chrome"
+      "wireshark"
+      "rancher"
+      "supernotes"
     ];
     masApps = {
       # Removal of App Store apps must be done manually
@@ -77,6 +81,8 @@
       # podman # TODO: Handle config in ~/.config/containers/containers.conf
       # qemu
       # gvproxy
+
+      jdk17
 
       # pandoc with pdf output
       pandoc
