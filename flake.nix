@@ -74,7 +74,7 @@
       };
 
       overlays = [
-        nur.overlay
+        nur.overlays.default
         #(import ./spotify.nix)
         nixpkgsOverlay
         netcoredbgOverlay

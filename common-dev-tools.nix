@@ -59,7 +59,6 @@ in
 
     # JavaScript
     nodejs
-    nodePackages.npm
     yarn
 
     # Go

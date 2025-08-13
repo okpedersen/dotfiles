@@ -121,7 +121,7 @@ in
   # -bin version are used from an overlay for darwin
   # Firefox is installed separately, but profiles for both are managed below
   home.packages = [
-    pkgs.firefox-bin
+    pkgs.firefox
   ];
 
   programs.firefox = {
