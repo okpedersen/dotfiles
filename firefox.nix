@@ -97,7 +97,7 @@ let
             { name = "query"; value = "{searchTerms}"; }
           ];
         }];
-        icon = "''${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+        icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
         definedAliases = [ "!np" ];
       };
       "NixOS Wiki" = {
@@ -126,7 +126,7 @@ in
 
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-devedition-bin;
+    package = pkgs.firefox-devedition;
     profiles = {
       bekk = {
         id = 0;

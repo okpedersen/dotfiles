@@ -73,9 +73,10 @@
         mkAlias = inputs.mkAlias.outputs.apps.${super.system}.default.program;
       };
 
-      # https://nixpk.gs/pr-tracker.html?pr=433196
-      rustAnalyzerOverlay = self: super: {
-        rust-analyzer = super.master.rust-analyzer;
+      nixpkgsMasterOverlay = self: super: {
+        # https://nixpk.gs/pr-tracker.html?pr=454842
+        firefox = super.master.firefox;
+        firefox-devedition = super.master.firefox-devedition;
       };
 
       overlays = [
@@ -85,7 +86,7 @@
         netcoredbgOverlay
         mkAliasOverlay
         omnisharpOverlay
-        rustAnalyzerOverlay
+        nixpkgsMasterOverlay
       ];
     in
     {

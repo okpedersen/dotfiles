@@ -53,7 +53,10 @@
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.users.olekristian = { pkgs, ... }: {
-    home.stateVersion = "23.05";
+    home.stateVersion = "25.05";
+    # True is the default with stateVersion 25.11
+    targets.darwin.copyApps.enable = true;
+    targets.darwin.linkApps.enable = false;
 
     imports = [
       ../../common-dev-tools.nix
